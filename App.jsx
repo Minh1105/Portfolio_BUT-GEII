@@ -1,19 +1,26 @@
 import './App.css'
-import CallToActionCardImage from './components/ResponsiveImage'
 import Plasma from './components/Plasma'
-import { NavbarDemo } from './components/resizable-navbar'
+
+
+
 
 function App() {
   return (
-    <>
-      {/* Le composant NavbarDemo contient déjà une barre de navigation et du contenu de démonstration.
-          Vous pouvez le personnaliser dans src/components/resizable-navbar.jsx */}
-      <NavbarDemo />
-      {/* J'ai commenté les composants ci-dessous car NavbarDemo rend déjà une page complète.
-          Vous pouvez les décommenter si vous souhaitez les intégrer différemment. */}
-      {/* <CallToActionCardImage /> */}
-      <Plasma />
-    </>
+    // Le conteneur principal de votre application
+    // J'ai ajouté une couleur de fond sombre pour un meilleur contrast
+
+<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <Plasma 
+    color="#f37244ff"
+    speed={0.5}
+    direction="forward"
+    scale={1.1}
+    opacity={0.8}
+    mouseInteractive={true}
+  />
+</div>
+
+
   )
 }
 
