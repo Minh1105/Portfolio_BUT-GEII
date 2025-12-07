@@ -1,11 +1,16 @@
 import './App.css'
-import Plasma from './components/Plasma'
+import LiquidChrome from './components/LiquidChrome';
 import { Sidebar, SidebarBody, SidebarLink } from './components/ui/Sidebar'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { cn } from "./lib/utils";
 import {
+  IconArrowLeft,
   IconBrandTabler,
   IconSettings,
   IconUserBolt,
 } from "@tabler/icons-react";
+
 
 
 function App() {
@@ -31,35 +36,110 @@ function App() {
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
+    {
+      label: "Logout",
+      href: "#",
+      icon: (
+        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
   ];
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="min-h-screen w-full relative">
-      {/* Arrière-plan animé */}
-      <Plasma color="#f37244ff" speed={0.5} opacity={0.8} />
-
-      {/* Barre latérale */}
+    <div className="relative w-full h-screen">
+      {/* 1. Sidebar avec un fond solide */}
       <div className="absolute top-0 left-0 h-full z-20">
-        <Sidebar>
+        <Sidebar open={open} setOpen={setOpen}>
           <SidebarBody className="justify-between gap-10">
-            <div className="flex flex-col flex-1 overflow-y-auto">
-              <div className="mt-8 flex flex-col gap-2">
-                {links.map((link, idx) => (
-                  <SidebarLink key={idx} link={link} />
-                ))}
-              </div>
+          <div className="flex flex-col flex-1 overflow-y-auto">
+            {open ? <Logo /> : <LogoIcon />}
+            <div className="mt-8 flex flex-col gap-2">
+              {links.map((link, idx) => (
+                <SidebarLink key={idx} link={link} />
+              ))}
             </div>
-          </SidebarBody>
+          </div>
+          <div>
+            <SidebarLink
+              link={{
+                label: "Manu Arora",
+                href: "#",
+                icon: (
+                  <img
+                    src="https://assets.aceternity.com/manu.png"
+                    className="h-7 w-7 flex-shrink-0 rounded-full"
+                    width={50}
+                    height={50}
+                    alt="Avatar"
+                  />
+                ),
+              }}
+            />
+          </div>
+        </SidebarBody>
         </Sidebar>
       </div>
 
-      {/* Contenu principal */}
-      <div className="p-8 text-white md:ml-[60px]">
-        <h1 className="text-2xl font-bold">Contenu Principal</h1>
-        <p>Votre contenu ira ici.</p>
-      </div>
+      {/* 2. Dashboard contenant le fond Plasma et le contenu */}
+      <Dashboard />
     </div>
   )
 }
+
+export const Logo = () => {
+  return (
+    <a
+      href="#"
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    >
+      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="font-medium text-black dark:text-white whitespace-pre"
+      >
+        Acet Labs
+      </motion.span>
+    </a>
+  );
+};
+
+export const LogoIcon = () => {
+  return (
+    <a
+      href="#"
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    >
+      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+    </a>
+  );
+};
+
+// Définir la couleur de base ici pour qu'elle soit stable
+const liquidChromeBaseColor = [0, 0, 0.1];
+
+// Composant Dashboard factice
+const Dashboard = () => {
+  return (
+    <div className="w-full h-full relative">
+      {/* Le fond Plasma est maintenant ici */}
+      <LiquidChrome
+        baseColor={liquidChromeBaseColor}
+        speed={0.05}
+        amplitude={0.3}
+        interactive={false}
+      />
+      {/* Le contenu du dashboard est par-dessus */}
+      <div className="w-full h-full z-10 overflow-y-auto md:pl-[60px]">
+        <div className="p-8">
+          <h1 className="text-2xl md:text-4xl font-bold text-white">
+            Dashboard
+          </h1>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default App
