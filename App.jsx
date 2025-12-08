@@ -294,7 +294,7 @@ const Dashboard = ({ scrollRef }) => {
           <section id="accueil" className="min-h-screen flex flex-col justify-center items-center text-center">
             <div>
               <h1 className="text-5xl md:text-7xl font-bold mb-4">Ly Minh-Quan</h1>
-              <p className="text-xl md:text-2xl text-neutral-300">Développeur passionné</p>
+              <p className="text-xl md:text-2xl text-neutral-300"></p>
             </div>
           </section>
 
