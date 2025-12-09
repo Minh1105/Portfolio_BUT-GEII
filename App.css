@@ -1,3 +1,15 @@
+/* Masquer les barres de défilement sur tout le site */
+/* Pour Chrome, Safari et Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Pour IE, Edge et Firefox */
+body {
+  -ms-overflow-style: none;  /* IE et Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -51,22 +63,4 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-}
-
-/* Classe pour masquer la barre de défilement */
-.no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, and Opera */
-}
-
-/* Classe pour masquer la barre de défilement d'un élément spécifique (comme le carrousel) */
-.hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, and Opera */
 }

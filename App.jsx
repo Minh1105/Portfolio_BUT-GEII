@@ -9,6 +9,7 @@ import {
   IconBrandTabler,
   IconSettings,
   IconHome,
+  IconX,
   IconUserBolt,
 } from "@tabler/icons-react";
 import CardSwap, { Card } from './components/CardSwap';
@@ -31,7 +32,7 @@ function App() {
       ),
     },
     {
-      label: "Mon stage",
+      label: "Mes stages",
       href: "#stage",
       icon: (
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
@@ -52,18 +53,65 @@ function App() {
       ),
     },
   ];
+
+  // Données pour les projets (à remplir avec vos vraies données)
+  const projectsData = [
+    {
+      id: 1,
+      title: "Projet 1",
+      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+1",
+      description: "Description détaillée du projet 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit, adipiscing nec, ultricies sed, dolor.",
+      skills: ["React", "Node.js", "UHF"]
+    },
+    {
+      id: 2,
+      title: "Projet 2",
+      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+2",
+      description: "Description détaillée du projet 2. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Cras ultricies ligula sed magna dictum porta.",
+      skills: ["Python", "Flask", "Machine Learning"]
+    },
+    {
+      id: 3,
+      title: "Projet 3",
+      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+3",
+      description: "Description détaillée du projet 3. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.",
+      skills: ["C++", "Arduino", "Electronique"]
+    },
+    {
+      id: 4,
+      title: "Projet 4",
+      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+4",
+      description: "Description détaillée du projet 4. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Proin eget tortor risus.",
+      skills: ["JavaScript", "TailwindCSS", "Vite"]
+    },
+    {
+      id: 5,
+      title: "Projet 5",
+      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+5",
+      description: "Description détaillée du projet 5. Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+      skills: ["Figma", "UI/UX", "Design"]
+    },
+    {
+      id: 6,
+      title: "Projet 6",
+      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+6",
+      description: "Description détaillée du projet 6. Nulla porttitor accumsan tincidunt. Cras ultricies ligula sed magna dictum porta.",
+      skills: ["STM32", "C", "RTOS"]
+    },
+  ];
+
   const [open, setOpen] = useState(false);
   const [showCardSwap, setShowCardSwap] = useState(true);
-  const scrollContainerRef = useRef(null);
+  const appRef = useRef(null); // Référence pour le conteneur principal de l'application
 
   useEffect(() => {
-    const container = scrollContainerRef.current;
+    const scrollContainer = appRef.current?.querySelector('.dashboard-scroll-container');
 
     // Gère la visibilité du CardSwap
     const handleScroll = () => {
-      if (container) {
+      if (scrollContainer) {
         // Si on a scrollé de plus de 50px, on cache le CardSwap
-        setShowCardSwap(container.scrollTop < 50);
+        setShowCardSwap(scrollContainer.scrollTop < 50);
       }
     };
 
@@ -83,21 +131,25 @@ function App() {
       }
     };
 
-    if (container) {
-      container.addEventListener("wheel", handleWheel, { passive: false });
-      container.addEventListener("scroll", handleScroll);
+    const appElement = appRef.current;
+
+    if (appElement && scrollContainer) {
+      appElement.addEventListener("wheel", handleWheel, { passive: false });
+      scrollContainer.addEventListener("scroll", handleScroll);
     }
 
-    // Nettoyage de l'écouteur d'événement
+    // Nettoyage des écouteurs d'événements
     return () => {
-      container?.removeEventListener("wheel", handleWheel);
-      container?.removeEventListener("scroll", handleScroll);
+      appElement?.removeEventListener("wheel", handleWheel); // Utilise appElement pour le nettoyage
+      scrollContainer?.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
+  const [selectedProject, setSelectedProject] = useState(null);
+
   return (
     // Ajout du style pour le défilement fluide
-    <div className="relative w-full h-screen" style={{ scrollBehavior: "smooth" }}>
+    <div ref={appRef} className="relative w-full h-screen" style={{ scrollBehavior: "smooth" }}>
       {/* 1. Sidebar avec un fond solide */}
       <div className="absolute top-0 left-0 h-full z-20">
         <Sidebar open={open} setOpen={setOpen}>
@@ -141,7 +193,7 @@ function App() {
       </div>
 
       {/* 2. Dashboard contenant le fond Plasma et le contenu */}
-      <Dashboard scrollRef={scrollContainerRef} />
+      <Dashboard projects={projectsData} onProjectClick={setSelectedProject} isModalOpen={!!selectedProject} />
 
       {/* 3. CardSwap en bas à droite */}
       <AnimatePresence>
@@ -153,23 +205,30 @@ function App() {
             transition={{ duration: 0.3 }}
             className="absolute bottom-8 right-8 z-30 card-swap-container"
           >
-            <div style={{ height: '600px', position: 'relative' }}>
-              <CardSwap cardDistance={60} verticalDistance={70} delay={7000} pauseOnHover={false}>
+            <div style={{ height: '800px', position: 'relative' }}>
+              <CardSwap cardDistance={70} verticalDistance={100} delay={5000} pauseOnHover={false}>
                 <Card>
-                  <h3>Card 1</h3>
+                  <h3>Projet de la carte basse consomation et communication UHF</h3>
                   <p>Your content here</p>
                 </Card>
                 <Card>
-                  <h3>Card 2</h3>
+                  <h3>Projet ...</h3>
                   <p>Your content here</p>
                 </Card>
                 <Card>
-                  <h3>Card 3</h3>
+                  <h3>Projet ... </h3>
                   <p>Your content here</p>
                 </Card>
               </CardSwap>
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 4. Modale de projet */}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
         )}
       </AnimatePresence>
     </div>
@@ -206,69 +265,94 @@ export const LogoIcon = () => {
 };
 
 // Composant pour le carrousel infini
-const InfiniteCarousel = () => {
+const InfiniteCarousel = ({ projects, onProjectClick, isModalOpen }) => {
   const carouselRef = useRef(null);
 
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
-    let scrollInterval;
+    let animationFrameId;
+    let timeoutId;
 
-    const startScrolling = () => {
-      scrollInterval = setInterval(() => {
-        // Si on a atteint la fin, on revient au début
-        if (carousel.scrollLeft >= carousel.scrollWidth / 2) {
-          carousel.scrollLeft = 0;
-        } else {
-          carousel.scrollLeft += 1; // Vitesse de défilement
-        }
-      }, 25); // Intervalle pour un défilement fluide
+    // Fonction pour le défilement automatique
+    const autoScroll = () => {
+      const scrollWidth = carousel.scrollWidth / 2;
+      // Si on atteint la fin de la première copie, on revient au début pour la boucle.
+      if (carousel.scrollLeft >= scrollWidth) {
+        carousel.scrollLeft -= scrollWidth;
+      }
+      carousel.scrollLeft += 0.1; // Vitesse de défilement encore plus ralentie
+      animationFrameId = requestAnimationFrame(autoScroll);
     };
 
-    const stopScrolling = () => {
-      clearInterval(scrollInterval);
+    // Démarre le défilement automatique
+    const startAutoScroll = () => {
+      cancelAnimationFrame(animationFrameId); // Assure qu'il n'y a pas de doublon
+      animationFrameId = requestAnimationFrame(autoScroll);
     };
 
-    // Démarrer le défilement
-    startScrolling();
+    // Arrête le défilement
+    const stopAutoScroll = () => {
+      cancelAnimationFrame(animationFrameId);
+    };
 
-    // Mettre en pause au survol
-    carousel.addEventListener('mouseenter', stopScrolling);
-    carousel.addEventListener('mouseleave', startScrolling);
+    // Positionne le scroll au tout début.
+    if (!isModalOpen) startAutoScroll();
+
+    const handleScroll = () => {
+      if (!carousel) return; // Garde-fou
+      const scrollWidth = carousel.scrollWidth / 2;
+
+      // Gère le défilement "à l'envers" avec la molette
+      if (carousel.scrollLeft < 0) { // Gère le cas où la molette crée un scroll négatif
+        // On se positionne juste avant la fin de la première copie pour que le dernier élément soit visible.
+        carousel.scrollLeft = scrollWidth - 1;
+      }
+    };
+    const handleMouseLeave = () => {
+      // Ne reprend le défilement que si la modale n'est pas ouverte
+      if (!isModalOpen) {
+        startAutoScroll();
+      }
+    };
+
+    carousel.addEventListener("scroll", handleScroll);
+    carousel.addEventListener("mouseenter", stopAutoScroll); // Pause au survol
+    carousel.addEventListener("mouseleave", handleMouseLeave);
 
     // Nettoyage
     return () => {
-      stopScrolling();
-      carousel.removeEventListener('mouseenter', stopScrolling);
-      carousel.removeEventListener('mouseleave', startScrolling);
+      cancelAnimationFrame(animationFrameId);
+      carousel.removeEventListener("scroll", handleScroll);
+      carousel.removeEventListener("mouseenter", stopAutoScroll);
+      carousel.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, []);
+  }, [isModalOpen]); // On ajoute isModalOpen aux dépendances pour gérer la pause/reprise
 
   return (
-    <div ref={carouselRef} className="flex overflow-x-auto space-x-4 p-4 allow-scroll hide-scrollbar">
+    <div ref={carouselRef} className="flex overflow-x-auto space-x-4 p-4 allow-scroll">
       {/* Le contenu est dupliqué pour l'effet de boucle */}
-      <CarouselItems />
-      <CarouselItems />
+      <CarouselItems projects={projects} onProjectClick={onProjectClick} />
+      <CarouselItems projects={projects} onProjectClick={onProjectClick} />
     </div>
   );
 };
 
 // Items du carrousel pour éviter la répétition
-const CarouselItems = () => (
+const CarouselItems = ({ projects, onProjectClick }) => (
   <>
-    <div className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center">
-      <p>Projet 1 (Image/PDF/Texte)</p>
-    </div>
-    <div className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center">
-      <p>Projet 2</p>
-    </div>
-    <div className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center">
-      <p>Projet 3</p>
-    </div>
-    <div className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center">
-      <p>Projet 4</p>
-    </div>
+    {projects.map((project) => (
+      <motion.div
+        key={project.id}
+        className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center cursor-pointer"
+        onClick={() => onProjectClick(project)}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <p className="text-xl font-bold">{project.title}</p>
+      </motion.div>
+    ))}
   </>
 );
 
@@ -276,18 +360,18 @@ const CarouselItems = () => (
 const liquidChromeBaseColor = [0.02, 0.05, 0.2];
 
 // Composant Dashboard factice
-const Dashboard = ({ scrollRef }) => {
+const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
   return (
     <div className="w-full h-full relative">
       {/* Le fond Plasma est maintenant ici */}
       <LiquidChrome
         baseColor={liquidChromeBaseColor}
-        speed={0.08}
+        speed={0.04}
         amplitude={0.3}
         interactive={false}
       />
       {/* Le contenu du dashboard est par-dessus */}
-      <div ref={scrollRef} className="absolute inset-0 z-10 overflow-y-auto md:pl-[60px] no-scrollbar">
+      <div className="dashboard-scroll-container absolute inset-0 z-10 overflow-y-auto md:ml-[60px] no-scrollbar">
         {/* Conteneur pour toutes les sections */}
         <div className="p-8 text-white">
           {/* Section Accueil */}
@@ -302,7 +386,7 @@ const Dashboard = ({ scrollRef }) => {
           <section id="projets" className="min-h-screen pt-16">
             <h2 className="text-3xl font-bold mb-8">Mes Projets</h2>
             {/* Carrousel style Netflix */}
-            <InfiniteCarousel />
+            <InfiniteCarousel projects={projects} onProjectClick={onProjectClick} isModalOpen={isModalOpen} />
           </section>
 
           {/* Section Stage */}
@@ -325,6 +409,56 @@ const Dashboard = ({ scrollRef }) => {
         </div>
       </div>
     </div>
+  );
+};
+
+// Composant pour la modale de projet
+const ProjectModal = ({ project, onClose }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4"
+      onClick={onClose} // Ferme la modale si on clique sur le fond
+    >
+      <motion.div
+        initial={{ scale: 0.9, y: 20 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.9, y: 20 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="bg-neutral-900/80 border border-neutral-700 rounded-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 relative"
+        onClick={(e) => e.stopPropagation()} // Empêche la fermeture si on clique sur la modale elle-même
+      >
+        {/* Bouton de fermeture */}
+        <button onClick={onClose} className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors">
+          <IconX size={24} />
+        </button>
+
+        {/* Contenu de la modale */}
+        <h2 className="text-3xl font-bold mb-4 pr-8">{project.title}</h2>
+
+        {/* Image(s) */}
+        <div className="mb-6">
+          <img src={project.image} alt={project.title} className="w-full h-auto object-cover rounded-lg" />
+        </div>
+
+        {/* Texte */}
+        <div className="mb-6">
+          <p className="text-neutral-300">{project.description}</p>
+        </div>
+
+        {/* Pins de compétences */}
+        <div>
+          <h3 className="text-lg font-semibold mb-3">Compétences utilisées</h3>
+          <div className="flex flex-wrap gap-2">
+            {project.skills.map((skill, index) => (
+              <span key={index} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full">{skill}</span>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
