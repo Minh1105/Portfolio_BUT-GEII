@@ -136,11 +136,24 @@ export const SidebarLink = ({
   className,
   ...props
 }: { link: { label: string; href: string; icon: ReactNode; }; className?: string; }) => {
-  const { open, animate } = useSidebar();
+  const { open, animate, setOpen } = useSidebar();
+
+  const handleScroll = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    const targetElement = document.querySelector(link.href);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    // Ferme la sidebar sur mobile après avoir cliqué sur un lien
+    if (window.innerWidth < 768) {
+      setOpen(false);
+    }
+  };
+
   return (
-    <a
-      href={link.href}
-      className={cn("flex items-center justify-start gap-2  group/sidebar py-2", className)}
+    <div
+      onClick={handleScroll}
+      className={cn("flex items-center justify-start gap-2  group/sidebar py-2 cursor-pointer", className)}
       {...props}>
       {link.icon}
       <motion.span
@@ -151,6 +164,6 @@ export const SidebarLink = ({
         className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
         {link.label}
       </motion.span>
-    </a>
+    </div>
   );
 };

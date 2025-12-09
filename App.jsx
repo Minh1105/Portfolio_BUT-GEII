@@ -104,140 +104,75 @@ function App() {
   const [showCardSwap, setShowCardSwap] = useState(true);
   const appRef = useRef(null); // Référence pour le conteneur principal de l'application
 
-  useEffect(() => {
-    const scrollContainer = appRef.current?.querySelector('.dashboard-scroll-container');
-
-    // Gère la visibilité du CardSwap
-    const handleScroll = () => {
-      if (scrollContainer) {
-        // Si on a scrollé de plus de 50px, on cache le CardSwap
-        setShowCardSwap(scrollContainer.scrollTop < 50);
-      }
-    };
-
-    // Bloque le défilement à la molette sauf sur les éléments autorisés
-    const handleWheel = (event) => {
-      const scrollableParent = event.target.closest('.allow-scroll');
-      const cardSwapParent = event.target.closest('.card-swap-container');
-
-      if (scrollableParent) {
-        // Si on est sur le carrousel, on empêche la page de bouger
-        // et on applique le défilement de la molette horizontalement.
-        event.preventDefault();
-        scrollableParent.scrollLeft += event.deltaY;
-      } else if (cardSwapParent || !scrollableParent) {
-        // Si on est sur le CardSwap ou n'importe où ailleurs, on bloque le défilement.
-        event.preventDefault();
-      }
-    };
-
-    const appElement = appRef.current;
-
-    if (appElement && scrollContainer) {
-      appElement.addEventListener("wheel", handleWheel, { passive: false });
-      scrollContainer.addEventListener("scroll", handleScroll);
-    }
-
-    // Nettoyage des écouteurs d'événements
-    return () => {
-      appElement?.removeEventListener("wheel", handleWheel); // Utilise appElement pour le nettoyage
-      scrollContainer?.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   const [selectedProject, setSelectedProject] = useState(null);
 
   return (
-    // Ajout du style pour le défilement fluide
-    <div ref={appRef} className="relative w-full h-screen" style={{ scrollBehavior: "smooth" }}>
-      {/* 1. Sidebar avec un fond solide */}
-      <div className="absolute top-0 left-0 h-full z-20">
-        <Sidebar open={open} setOpen={setOpen}>
-          <SidebarBody className="justify-between gap-10">
+    <div ref={appRef} className="flex h-screen bg-white dark:bg-neutral-950">
+      {/* 1. Sidebar */}
+      <Sidebar open={open} setOpen={setOpen}>
+        <SidebarBody className="justify-between gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <div key={idx} onClick={() => setOpen(false)}>
-                  <SidebarLink link={link} />
-                </div>
+                <SidebarLink key={idx} link={link} />
               ))}
             </div>
           </div>
           <div>
-            <div onClick={() => setOpen(false)}>
-              {/* Ce lien est maintenant un <a> standard pour permettre target="_blank" */}
-              <a
-                href="https://www.linkedin.com/in/minh-quan-ly-1111m2005a"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "flex items-center justify-start gap-2  group/sidebar py-2"
-                )}
-              >
-                <img
-                  src="https://assets.aceternity.com/manu.png"
-                  className="h-7 w-7 flex-shrink-0 rounded-full"
-                  width={50}
-                  height={50}
-                  alt="Avatar"
-                />
-                {open && (
-                  <span className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition-transform duration-150 whitespace-pre inline-block">Ly Minh-Quan</span>
-                )}
-              </a>
-            </div>
+            <UserProfile open={open} />
           </div>
         </SidebarBody>
-        </Sidebar>
+      </Sidebar>
+
+      {/* 2. Contenu principal (Dashboard) */}
+      <div className="flex-1 overflow-hidden relative">
+        <Dashboard projects={projectsData} onProjectClick={setSelectedProject} isModalOpen={!!selectedProject} />
+
+        {/* 3. CardSwap en bas à droite */}
+        <AnimatePresence>
+          {showCardSwap && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className="absolute bottom-8 right-8 z-30 card-swap-container"
+            >
+              <div style={{ height: '250px', position: 'relative' }}>
+                <CardSwap cardDistance={70} verticalDistance={100} delay={5000} pauseOnHover={false}>
+                  <Card>
+                    <h3>Projet de la carte basse consomation et communication UHF</h3>
+                    <p>Your content here</p>
+                  </Card>
+                  <Card>
+                    <h3>Projet ...</h3>
+                    <p>Your content here</p>
+                  </Card>
+                  <Card>
+                    <h3>Projet ... </h3>
+                    <p>Your content here</p>
+                  </Card>
+                </CardSwap>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* 4. Modale de projet */}
+        <AnimatePresence>
+          {selectedProject && (
+            <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+          )}
+        </AnimatePresence>
       </div>
-
-      {/* 2. Dashboard contenant le fond Plasma et le contenu */}
-      <Dashboard projects={projectsData} onProjectClick={setSelectedProject} isModalOpen={!!selectedProject} />
-
-      {/* 3. CardSwap en bas à droite */}
-      <AnimatePresence>
-        {showCardSwap && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
-            className="absolute bottom-8 right-8 z-30 card-swap-container"
-          >
-            <div style={{ height: '800px', position: 'relative' }}>
-              <CardSwap cardDistance={70} verticalDistance={100} delay={5000} pauseOnHover={false}>
-                <Card>
-                  <h3>Projet de la carte basse consomation et communication UHF</h3>
-                  <p>Your content here</p>
-                </Card>
-                <Card>
-                  <h3>Projet ...</h3>
-                  <p>Your content here</p>
-                </Card>
-                <Card>
-                  <h3>Projet ... </h3>
-                  <p>Your content here</p>
-                </Card>
-              </CardSwap>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* 4. Modale de projet */}
-      <AnimatePresence>
-        {selectedProject && (
-          <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-        )}
-      </AnimatePresence>
     </div>
   )
 }
 
 // Fonction pour gérer le défilement vers une ancre
 const handleScrollTo = (e, targetId) => {
-  e.preventDefault(); // Empêche le comportement par défaut du lien
+  e.preventDefault(); // Empêche le comportement par défaut
   const targetElement = document.querySelector(targetId);
   if (targetElement) {
     targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -249,7 +184,7 @@ export const Logo = () => {
     <div
       onClick={(e) => handleScrollTo(e, "#accueil")}
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-      style={{ cursor: 'pointer' }} // Change le curseur pour indiquer que c'est cliquable
+      style={{ cursor: 'pointer' }}
     >
       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
       <motion.span
@@ -275,6 +210,31 @@ export const LogoIcon = () => {
   );
 };
 
+const UserProfile = ({ open }) => {
+  return (
+    <div>
+      <a
+        href="https://www.linkedin.com/in/minh-quan-ly-1111m2005a"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn(
+          "flex items-center justify-start gap-2  group/sidebar py-2"
+        )}
+      >
+        <img
+          src="https://assets.aceternity.com/manu.png"
+          className="h-7 w-7 flex-shrink-0 rounded-full"
+          width={50}
+          height={50}
+          alt="Avatar"
+        />
+        <AnimatePresence>
+          {open && <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition-transform duration-150 whitespace-pre inline-block">Ly Minh-Quan</motion.span>}
+        </AnimatePresence>
+      </a>
+    </div>
+  );
+};
 // Composant pour le carrousel infini
 const InfiniteCarousel = ({ projects, onProjectClick, isModalOpen }) => {
   const carouselRef = useRef(null);
@@ -367,62 +327,6 @@ const CarouselItems = ({ projects, onProjectClick }) => (
   </>
 );
 
-// Définir la couleur de base ici pour qu'elle soit stable RGB
-const liquidChromeBaseColor = [0.02, 0.05, 0.2];
-
-// Composant Dashboard factice
-const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
-  return (
-    <div className="w-full h-full relative">
-      {/* Le fond Plasma est maintenant ici */}
-      <LiquidChrome
-        baseColor={liquidChromeBaseColor}
-        speed={0.04}
-        amplitude={0.3}
-        interactive={false}
-      />
-      {/* Le contenu du dashboard est par-dessus */}
-      <div className="dashboard-scroll-container absolute inset-0 z-10 overflow-y-auto md:ml-[60px] no-scrollbar">
-        {/* Conteneur pour toutes les sections */}
-        <div className="p-8 text-white">
-          {/* Section Accueil */}
-          <section id="accueil" className="min-h-screen flex flex-col justify-center items-center text-center">
-            <div>
-              <h1 className="text-5xl md:text-7xl font-bold mb-4">Ly Minh-Quan</h1>
-              <p className="text-xl md:text-2xl text-neutral-300"></p>
-            </div>
-          </section>
-
-          {/* Section Projets */}
-          <section id="projets" className="min-h-screen pt-16">
-            <h2 className="text-3xl font-bold mb-8">Mes Projets</h2>
-            {/* Carrousel style Netflix */}
-            <InfiniteCarousel projects={projects} onProjectClick={onProjectClick} isModalOpen={isModalOpen} />
-          </section>
-
-          {/* Section Stage */}
-          <section id="stage" className="min-h-screen pt-16">
-            <h2 className="text-3xl font-bold">Mon Stage</h2>
-            <p className="mt-4">Contenu sur votre stage...</p>
-          </section>
-
-          {/* Section Compétences */}
-          <section id="competences" className="min-h-screen pt-16">
-            <h2 className="text-3xl font-bold">Compétences</h2>
-            <p className="mt-4">Liste de vos compétences...</p>
-          </section>
-
-          {/* Section Contacts */}
-          <section id="contacts" className="min-h-screen pt-16">
-            <h2 className="text-3xl font-bold">Contacts</h2>
-            <p className="mt-4">Formulaire de contact ou informations...</p>
-          </section>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 // Composant pour la modale de projet
 const ProjectModal = ({ project, onClose }) => {
   return (
@@ -470,6 +374,60 @@ const ProjectModal = ({ project, onClose }) => {
         </div>
       </motion.div>
     </motion.div>
+  );
+};
+
+const liquidChromeBaseColor = [0.02, 0.05, 0.2];
+
+// Composant Dashboard
+const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
+  return (
+    <div className="w-full h-full relative">
+      {/* Le fond Plasma est maintenant ici */}
+      <LiquidChrome
+        baseColor={liquidChromeBaseColor}
+        speed={0.04}
+        amplitude={0.3}
+        interactive={false}
+      />
+      {/* Le contenu du dashboard est par-dessus */}
+      <div className="dashboard-scroll-container absolute inset-0 z-10 overflow-y-auto">
+        {/* Conteneur pour toutes les sections */}
+        <div className="p-8 text-white">
+          {/* Section Accueil */}
+          <section id="accueil" className="min-h-screen flex flex-col justify-center items-center text-center">
+            <div>
+              <h1 className="text-5xl md:text-7xl font-bold mb-4">Ly Minh-Quan</h1>
+              <p className="text-xl md:text-2xl text-neutral-300"></p>
+            </div>
+          </section>
+
+          {/* Section Projets */}
+          <section id="projets" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold mb-8">Mes Projets</h2>
+            <InfiniteCarousel projects={projects} onProjectClick={onProjectClick} isModalOpen={isModalOpen} />
+          </section>
+
+          {/* Section Stage */}
+          <section id="stage" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold">Mon Stage</h2>
+            <p className="mt-4">Contenu sur votre stage...</p>
+          </section>
+
+          {/* Section Compétences */}
+          <section id="competences" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold">Compétences</h2>
+            <p className="mt-4">Liste de vos compétences...</p>
+          </section>
+
+          {/* Section Contacts */}
+          <section id="contacts" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold">Contacts</h2>
+            <p className="mt-4">Formulaire de contact ou informations...</p>
+          </section>
+        </div>
+      </div>
+    </div>
   );
 };
 
