@@ -1,0 +1,38 @@
+# Nom du workflow qui apparaîtra dans l'onglet "Actions" de GitHub
+name: Deploy React App to GitHub Pages
+
+# Déclenche le workflow à chaque push sur la branche 'main'
+on:
+  push:
+    branches:
+      - main # Assurez-vous que c'est bien le nom de votre branche principale
+
+# Autorisations nécessaires pour que l'action puisse déployer sur GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18 # Utilisez la version de Node.js de votre projet
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build # Cette commande utilise votre vite.config.js pour construire le site
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist # Le dossier qui contient le site construit
