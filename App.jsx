@@ -7,9 +7,8 @@ import { cn } from "./lib/utils";
 import {
   IconBrandTabler,
   IconSettings,
-  IconHome,
-  IconX,
   IconUserBolt,
+  IconArrowLeft,
 } from "@tabler/icons-react";
 
 
@@ -52,7 +51,7 @@ function App() {
       {/* 1. Sidebar avec un fond solide */}
       <div className="absolute top-0 left-0 h-full z-20">
         <Sidebar open={open} setOpen={setOpen}>
-          <SidebarBody className="justify-between gap-10">
+          <SidebarBody className="justify-between gap-1">
           <div className="flex flex-col flex-1 overflow-y-auto">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
@@ -132,8 +131,8 @@ const Dashboard = () => {
         interactive={false}
       />
       {/* Le contenu du dashboard est par-dessus */}
-      <div className="w-full h-full z-10 overflow-y-auto md:pl-[60px]">
-        <div className="p-8">
+      <div className="w-full h-full z-10 overflow-y-auto">
+        <div className="p-8 pl-20 md:pl-24">
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             Dashboard
           </h1>
