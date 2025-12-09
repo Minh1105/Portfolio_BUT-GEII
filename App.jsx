@@ -1,135 +1,98 @@
 import './App.css'
 import LiquidChrome from './components/LiquidChrome';
-import { Sidebar, SidebarBody } from './components/ui/Sidebar'
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Sidebar, SidebarBody, SidebarLink } from './components/ui/Sidebar'
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { cn } from "./lib/utils";
 import {
-  IconArrowLeft,
   IconBrandTabler,
   IconSettings,
   IconHome,
   IconX,
   IconUserBolt,
 } from "@tabler/icons-react";
-import CardSwap, { Card } from './components/CardSwap';
 
-// Données des liens de la sidebar (déplacées en dehors du composant pour l'optimisation)
-const links = [
-  {
-    label: "Accueil",
-    href: "#accueil",
-    icon: (
-      <IconHome className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "Projets",
-    href: "#projets",
-    icon: (
-      <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "Mes stages",
-    href: "#stage",
-    icon: (
-      <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "Compétences",
-    href: "#competences",
-    icon: (
-      <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "Contacts",
-    href: "#contacts",
-    icon: (
-      <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-];
+
+
 function App() {
-
-
-  const appRef = useRef(null); // Référence pour le conteneur principal de l'application
-
-  const [selectedProject, setSelectedProject] = useState(null);
+  const links = [
+    {
+      label: "Dashboard",
+      href: "#",
+      icon: (
+        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Profile",
+      href: "#",
+      icon: (
+        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Settings",
+      href: "#",
+      icon: (
+        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Logout",
+      href: "#",
+      icon: (
+        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+  ];
+  const [open, setOpen] = useState(false);
 
   return (
-    <div ref={appRef} className="flex h-screen bg-white dark:bg-neutral-950">
-      {/* 1. Sidebar */}
-      <Sidebar>
-        <SidebarBody className="justify-between gap-10">
+    <div className="relative w-full h-screen">
+      {/* 1. Sidebar avec un fond solide */}
+      <div className="absolute top-0 left-0 h-full z-20">
+        <Sidebar open={open} setOpen={setOpen}>
+          <SidebarBody className="justify-between gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto">
-            <Logo />
-            {/* Les liens ont été retirés car les sections n'existent plus */}
+            {open ? <Logo /> : <LogoIcon />}
+            <div className="mt-8 flex flex-col gap-2">
+              {links.map((link, idx) => (
+                <SidebarLink key={idx} link={link} />
+              ))}
+            </div>
           </div>
           <div>
-            <UserProfile />
+            <SidebarLink
+              link={{
+                label: "Manu Arora",
+                href: "#",
+                icon: (
+                  <img
+                    src="https://assets.aceternity.com/manu.png"
+                    className="h-7 w-7 flex-shrink-0 rounded-full"
+                    width={50}
+                    height={50}
+                    alt="Avatar"
+                  />
+                ),
+              }}
+            />
           </div>
         </SidebarBody>
-      </Sidebar>
-
-      {/* 2. Contenu principal */}
-      <div className="flex-1 overflow-hidden relative">
-        <div className="relative z-10 h-full w-full">
-          {/* Le fond LiquidChrome est maintenant directement ici */}
-          <LiquidChrome
-            baseColor={[0.02, 0.05, 0.2]}
-            speed={0.04}
-            amplitude={0.3}
-            interactive={false}
-          />
-
-          {/* 3. CardSwap en bas à droite (toujours visible) */}
-          <AnimatePresence>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.3 }}
-                className="absolute bottom-8 right-8 z-30 card-swap-container"
-              >
-                <div style={{ height: '600px', position: 'relative' }}>
-                  <CardSwap cardDistance={70} verticalDistance={100} delay={5000} pauseOnHover={false}>
-                    <Card>
-                      <h3>Projet de la carte basse consomation et communication UHF</h3>
-                      <p>Your content here</p>
-                    </Card>
-                    <Card>
-                      <h3>Projet ...</h3>
-                      <p>Your content here</p>
-                    </Card>
-                    <Card>
-                      <h3>Projet ... </h3>
-                      <p>Your content here</p>
-                    </Card>
-                  </CardSwap>
-                </div>
-              </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* 4. Modale de projet */}
-        <AnimatePresence>
-          {selectedProject && (
-            <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-          )}
-        </AnimatePresence>
+        </Sidebar>
       </div>
+
+      {/* 2. Dashboard contenant le fond Plasma et le contenu */}
+      <Dashboard />
     </div>
   )
 }
 
 export const Logo = () => {
   return (
-    <div
+    <a
+      href="#"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-      style={{ cursor: 'pointer' }}
     >
       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
       <motion.span
@@ -137,45 +100,45 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        Portfolio
+        Acet Labs
       </motion.span>
-    </div>
+    </a>
   );
 };
 
 export const LogoIcon = () => {
   return (
-    <div
+    <a
+      href="#"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-      style={{ cursor: 'pointer' }}
     >
       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-    </div>
+    </a>
   );
 };
 
-const UserProfile = () => {
+// Définir la couleur de base ici pour qu'elle soit stable
+const liquidChromeBaseColor = [0, 0, 0.1];
+
+// Composant Dashboard factice
+const Dashboard = () => {
   return (
-    <div>
-      <a
-        href="https://www.linkedin.com/in/minh-quan-ly-1111m2005a"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={cn(
-          "flex items-center justify-start gap-2  group/sidebar py-2"
-        )}
-      >
-        <img
-          src="https://assets.aceternity.com/manu.png"
-          className="h-7 w-7 flex-shrink-0 rounded-full"
-          width={50}
-          height={50}
-          alt="Avatar"
-        />
-        <AnimatePresence>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition-transform duration-150 whitespace-pre inline-block">Ly Minh-Quan</motion.span>
-        </AnimatePresence>
-      </a>
+    <div className="w-full h-full relative">
+      {/* Le fond Plasma est maintenant ici */}
+      <LiquidChrome
+        baseColor={liquidChromeBaseColor}
+        speed={0.05}
+        amplitude={0.3}
+        interactive={false}
+      />
+      {/* Le contenu du dashboard est par-dessus */}
+      <div className="w-full h-full z-10 overflow-y-auto md:pl-[60px]">
+        <div className="p-8">
+          <h1 className="text-2xl md:text-4xl font-bold text-white">
+            Dashboard
+          </h1>
+        </div>
+      </div>
     </div>
   );
 };
