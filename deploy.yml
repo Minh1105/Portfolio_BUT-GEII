@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - main # Assurez-vous que c'est bien le nom de votre branche principale
+  # Permet de lancer ce workflow manuellement depuis l'onglet Actions
+  workflow_dispatch:
 
 # Autorisations nécessaires pour que l'action puisse déployer sur GitHub Pages
 permissions:
@@ -13,26 +15,45 @@ permissions:
   pages: write
   id-token: write
 
+# Permet un seul déploiement concurrentiel
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build-and-deploy:
+  # Job de build
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18 # Utilisez la version de Node.js de votre projet
-
       - name: Install dependencies
         run: npm install
-
       - name: Build project
         run: npm run build # Cette commande utilise votre vite.config.js pour construire le site
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist # Le dossier qui contient le site construit
+          # Uploade le contenu du dossier 'dist'
+          path: './dist'
+
+  # Job de déploiement
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          # Ce token est généré automatiquement par GitHub
+          token: ${{ secrets.GITHUB_TOKEN }}
