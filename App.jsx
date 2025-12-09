@@ -235,11 +235,21 @@ function App() {
   )
 }
 
+// Fonction pour gérer le défilement vers une ancre
+const handleScrollTo = (e, targetId) => {
+  e.preventDefault(); // Empêche le comportement par défaut du lien
+  const targetElement = document.querySelector(targetId);
+  if (targetElement) {
+    targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
+
 export const Logo = () => {
   return (
-    <a
-      href="#accueil"
+    <div
+      onClick={(e) => handleScrollTo(e, "#accueil")}
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+      style={{ cursor: 'pointer' }} // Change le curseur pour indiquer que c'est cliquable
     >
       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
       <motion.span
@@ -249,18 +259,19 @@ export const Logo = () => {
       >
         Portfolio
       </motion.span>
-    </a>
+    </div>
   );
 };
 
 export const LogoIcon = () => {
   return (
-    <a
-      href="#accueil"
+    <div
+      onClick={(e) => handleScrollTo(e, "#accueil")}
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+      style={{ cursor: 'pointer' }}
     >
       <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-    </a>
+    </div>
   );
 };
 
