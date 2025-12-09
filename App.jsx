@@ -357,7 +357,7 @@ const CarouselItems = ({ projects, onProjectClick }) => (
 );
 
 // Définir la couleur de base ici pour qu'elle soit stable RGB
-const liquidChromeBaseColor = [0.02, 0.05, 0.2];
+const liquidChromeBaseColor = [0.01, 0.04 , 0.22];
 
 // Composant Dashboard factice
 const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
@@ -367,7 +367,7 @@ const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
       <LiquidChrome
         baseColor={liquidChromeBaseColor}
         speed={0.04}
-        amplitude={0.3}
+        amplitude={0.45}
         interactive={false}
       />
       {/* Le contenu du dashboard est par-dessus */}
