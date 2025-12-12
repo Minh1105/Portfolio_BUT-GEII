@@ -7,6 +7,10 @@ import { cn } from "./lib/utils";
 import {
   IconBrandTabler,
   IconSettings,
+<<<<<<< HEAD
+=======
+  IconHome,
+>>>>>>> parent of 2b1e2f3 (Version Carousel (Fonctionne))
   IconUserBolt,
   IconArrowLeft,
 } from "@tabler/icons-react";
@@ -23,8 +27,13 @@ function App() {
       ),
     },
     {
+<<<<<<< HEAD
       label: "Profile",
       href: "#",
+=======
+      label: "Mon stage",
+      href: "#stage",
+>>>>>>> parent of 2b1e2f3 (Version Carousel (Fonctionne))
       icon: (
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
@@ -45,6 +54,7 @@ function App() {
     },
   ];
   const [open, setOpen] = useState(false);
+<<<<<<< HEAD
 
   return (
     // Le conteneur principal est maintenant le Dashboard lui-même.
@@ -53,6 +63,57 @@ function App() {
       <Dashboard />
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
+=======
+  const [showCardSwap, setShowCardSwap] = useState(true);
+  const scrollContainerRef = useRef(null);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+
+    // Gère la visibilité du CardSwap
+    const handleScroll = () => {
+      if (container) {
+        // Si on a scrollé de plus de 50px, on cache le CardSwap
+        setShowCardSwap(container.scrollTop < 50);
+      }
+    };
+
+    // Bloque le défilement à la molette sauf sur les éléments autorisés
+    const handleWheel = (event) => {
+      const scrollableParent = event.target.closest('.allow-scroll');
+      const cardSwapParent = event.target.closest('.card-swap-container');
+
+      if (scrollableParent) {
+        // Si on est sur le carrousel, on empêche la page de bouger
+        // et on applique le défilement de la molette horizontalement.
+        event.preventDefault();
+        scrollableParent.scrollLeft += event.deltaY;
+      } else if (cardSwapParent || !scrollableParent) {
+        // Si on est sur le CardSwap ou n'importe où ailleurs, on bloque le défilement.
+        event.preventDefault();
+      }
+    };
+
+    if (container) {
+      container.addEventListener("wheel", handleWheel, { passive: false });
+      container.addEventListener("scroll", handleScroll);
+    }
+
+    // Nettoyage de l'écouteur d'événement
+    return () => {
+      container?.removeEventListener("wheel", handleWheel);
+      container?.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    // Ajout du style pour le défilement fluide
+    <div className="relative w-full h-screen" style={{ scrollBehavior: "smooth" }}>
+      {/* 1. Sidebar avec un fond solide */}
+      <div className="absolute top-0 left-0 h-full z-20">
+        <Sidebar open={open} setOpen={setOpen}>
+          <SidebarBody className="justify-between gap-10">
+>>>>>>> parent of 2b1e2f3 (Version Carousel (Fonctionne))
           <div className="flex flex-col flex-1 overflow-y-auto">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
@@ -79,7 +140,45 @@ function App() {
             />
           </div>
         </SidebarBody>
+<<<<<<< HEAD
       </Sidebar>
+=======
+        </Sidebar>
+      </div>
+
+      {/* 2. Dashboard contenant le fond Plasma et le contenu */}
+      <Dashboard scrollRef={scrollContainerRef} />
+
+      {/* 3. CardSwap en bas à droite */}
+      <AnimatePresence>
+        {showCardSwap && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="absolute bottom-8 right-8 z-30 card-swap-container"
+          >
+            <div style={{ height: '600px', position: 'relative' }}>
+              <CardSwap cardDistance={60} verticalDistance={70} delay={7000} pauseOnHover={false}>
+                <Card>
+                  <h3>Card 1</h3>
+                  <p>Your content here</p>
+                </Card>
+                <Card>
+                  <h3>Card 2</h3>
+                  <p>Your content here</p>
+                </Card>
+                <Card>
+                  <h3>Card 3</h3>
+                  <p>Your content here</p>
+                </Card>
+              </CardSwap>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+>>>>>>> parent of 2b1e2f3 (Version Carousel (Fonctionne))
     </div>
   )
 }
@@ -118,94 +217,69 @@ export const LogoIcon = () => {
 const liquidChromeBaseColor = [0, 0, 0.1];
 =======
 // Composant pour le carrousel infini
-const InfiniteCarousel = ({ projects, onProjectClick, isModalOpen }) => {
+const InfiniteCarousel = () => {
   const carouselRef = useRef(null);
 
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
-    let animationFrameId;
-    let timeoutId;
+    let scrollInterval;
 
-    // Fonction pour le défilement automatique
-    const autoScroll = () => {
-      const scrollWidth = carousel.scrollWidth / 2;
-      // Si on atteint la fin de la première copie, on revient au début pour la boucle.
-      if (carousel.scrollLeft >= scrollWidth) {
-        carousel.scrollLeft -= scrollWidth;
-      }
-      carousel.scrollLeft += 0.1; // Vitesse de défilement encore plus ralentie
-      animationFrameId = requestAnimationFrame(autoScroll);
+    const startScrolling = () => {
+      scrollInterval = setInterval(() => {
+        // Si on a atteint la fin, on revient au début
+        if (carousel.scrollLeft >= carousel.scrollWidth / 2) {
+          carousel.scrollLeft = 0;
+        } else {
+          carousel.scrollLeft += 1; // Vitesse de défilement
+        }
+      }, 25); // Intervalle pour un défilement fluide
     };
 
-    // Démarre le défilement automatique
-    const startAutoScroll = () => {
-      cancelAnimationFrame(animationFrameId); // Assure qu'il n'y a pas de doublon
-      animationFrameId = requestAnimationFrame(autoScroll);
+    const stopScrolling = () => {
+      clearInterval(scrollInterval);
     };
 
-    // Arrête le défilement
-    const stopAutoScroll = () => {
-      cancelAnimationFrame(animationFrameId);
-    };
+    // Démarrer le défilement
+    startScrolling();
 
-    // Positionne le scroll au tout début.
-    if (!isModalOpen) startAutoScroll();
-
-    const handleScroll = () => {
-      if (!carousel) return; // Garde-fou
-      const scrollWidth = carousel.scrollWidth / 2;
-
-      // Gère le défilement "à l'envers" avec la molette
-      if (carousel.scrollLeft < 0) { // Gère le cas où la molette crée un scroll négatif
-        // On se positionne juste avant la fin de la première copie pour que le dernier élément soit visible.
-        carousel.scrollLeft = scrollWidth - 1;
-      }
-    };
-    const handleMouseLeave = () => {
-      // Ne reprend le défilement que si la modale n'est pas ouverte
-      if (!isModalOpen) {
-        startAutoScroll();
-      }
-    };
-
-    carousel.addEventListener("scroll", handleScroll);
-    carousel.addEventListener("mouseenter", stopAutoScroll); // Pause au survol
-    carousel.addEventListener("mouseleave", handleMouseLeave);
+    // Mettre en pause au survol
+    carousel.addEventListener('mouseenter', stopScrolling);
+    carousel.addEventListener('mouseleave', startScrolling);
 
     // Nettoyage
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      carousel.removeEventListener("scroll", handleScroll);
-      carousel.removeEventListener("mouseenter", stopAutoScroll);
-      carousel.removeEventListener("mouseleave", handleMouseLeave);
+      stopScrolling();
+      carousel.removeEventListener('mouseenter', stopScrolling);
+      carousel.removeEventListener('mouseleave', startScrolling);
     };
-  }, [isModalOpen]); // On ajoute isModalOpen aux dépendances pour gérer la pause/reprise
+  }, []);
 
   return (
-    <div ref={carouselRef} className="flex overflow-x-auto space-x-4 p-4 allow-scroll">
+    <div ref={carouselRef} className="flex overflow-x-auto space-x-4 p-4 allow-scroll hide-scrollbar">
       {/* Le contenu est dupliqué pour l'effet de boucle */}
-      <CarouselItems projects={projects} onProjectClick={onProjectClick} />
-      <CarouselItems projects={projects} onProjectClick={onProjectClick} />
+      <CarouselItems />
+      <CarouselItems />
     </div>
   );
 };
 
 // Items du carrousel pour éviter la répétition
-const CarouselItems = ({ projects, onProjectClick }) => (
+const CarouselItems = () => (
   <>
-    {projects.map((project) => (
-      <motion.div
-        key={project.id}
-        className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center cursor-pointer"
-        onClick={() => onProjectClick(project)}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <p className="text-xl font-bold">{project.title}</p>
-      </motion.div>
-    ))}
+    <div className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center">
+      <p>Projet 1 (Image/PDF/Texte)</p>
+    </div>
+    <div className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center">
+      <p>Projet 2</p>
+    </div>
+    <div className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center">
+      <p>Projet 3</p>
+    </div>
+    <div className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center">
+      <p>Projet 4</p>
+    </div>
   </>
 );
 
@@ -214,28 +288,75 @@ const liquidChromeBaseColor = [0.02, 0.05, 0.2];
 >>>>>>> parent of 89a47f0 (Version Carousel / fond (Fonctionne) V2)
 
 // Composant Dashboard factice
+<<<<<<< HEAD
 const Dashboard = () => {
+=======
+const Dashboard = ({ scrollRef }) => {
+>>>>>>> parent of 2b1e2f3 (Version Carousel (Fonctionne))
   return (
     <div className="absolute top-0 left-0 w-full h-full">
       {/* Le fond Plasma est maintenant ici */}
       <LiquidChrome
         baseColor={liquidChromeBaseColor}
 <<<<<<< HEAD
+<<<<<<< HEAD
         speed={0.05}
         amplitude={0.3}
         interactive={true}
 =======
         speed={0.04}
+=======
+        speed={0.08}
+>>>>>>> parent of 2b1e2f3 (Version Carousel (Fonctionne))
         amplitude={0.3}
         interactive={false}
 >>>>>>> parent of 89a47f0 (Version Carousel / fond (Fonctionne) V2)
       />
+<<<<<<< HEAD
       {/* Le contenu du dashboard est par-dessus. Le z-index le place au-dessus du fond. */}
       <div className="w-full h-full z-10 overflow-y-auto">
         <div className="p-8 pl-20 md:pl-24">
           <h1 className="text-2xl md:text-4xl font-bold text-white">
             Dashboard
           </h1>
+=======
+      {/* Le contenu du dashboard est par-dessus */}
+      <div ref={scrollRef} className="absolute inset-0 z-10 overflow-y-auto md:pl-[60px] no-scrollbar">
+        {/* Conteneur pour toutes les sections */}
+        <div className="p-8 text-white">
+          {/* Section Accueil */}
+          <section id="accueil" className="min-h-screen flex flex-col justify-center items-center text-center">
+            <div>
+              <h1 className="text-5xl md:text-7xl font-bold mb-4">Ly Minh-Quan</h1>
+              <p className="text-xl md:text-2xl text-neutral-300"></p>
+            </div>
+          </section>
+
+          {/* Section Projets */}
+          <section id="projets" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold mb-8">Mes Projets</h2>
+            {/* Carrousel style Netflix */}
+            <InfiniteCarousel />
+          </section>
+
+          {/* Section Stage */}
+          <section id="stage" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold">Mon Stage</h2>
+            <p className="mt-4">Contenu sur votre stage...</p>
+          </section>
+
+          {/* Section Compétences */}
+          <section id="competences" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold">Compétences</h2>
+            <p className="mt-4">Liste de vos compétences...</p>
+          </section>
+
+          {/* Section Contacts */}
+          <section id="contacts" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold">Contacts</h2>
+            <p className="mt-4">Formulaire de contact ou informations...</p>
+          </section>
+>>>>>>> parent of 2b1e2f3 (Version Carousel (Fonctionne))
         </div>
       </div>
     </div>
