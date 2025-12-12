@@ -113,8 +113,105 @@ export const LogoIcon = () => {
   );
 };
 
+<<<<<<< HEAD
 // Définir la couleur de base ici pour qu'elle soit stable
 const liquidChromeBaseColor = [0, 0, 0.1];
+=======
+// Composant pour le carrousel infini
+const InfiniteCarousel = ({ projects, onProjectClick, isModalOpen }) => {
+  const carouselRef = useRef(null);
+
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    let animationFrameId;
+    let timeoutId;
+
+    // Fonction pour le défilement automatique
+    const autoScroll = () => {
+      const scrollWidth = carousel.scrollWidth / 2;
+      // Si on atteint la fin de la première copie, on revient au début pour la boucle.
+      if (carousel.scrollLeft >= scrollWidth) {
+        carousel.scrollLeft -= scrollWidth;
+      }
+      carousel.scrollLeft += 0.1; // Vitesse de défilement encore plus ralentie
+      animationFrameId = requestAnimationFrame(autoScroll);
+    };
+
+    // Démarre le défilement automatique
+    const startAutoScroll = () => {
+      cancelAnimationFrame(animationFrameId); // Assure qu'il n'y a pas de doublon
+      animationFrameId = requestAnimationFrame(autoScroll);
+    };
+
+    // Arrête le défilement
+    const stopAutoScroll = () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+
+    // Positionne le scroll au tout début.
+    if (!isModalOpen) startAutoScroll();
+
+    const handleScroll = () => {
+      if (!carousel) return; // Garde-fou
+      const scrollWidth = carousel.scrollWidth / 2;
+
+      // Gère le défilement "à l'envers" avec la molette
+      if (carousel.scrollLeft < 0) { // Gère le cas où la molette crée un scroll négatif
+        // On se positionne juste avant la fin de la première copie pour que le dernier élément soit visible.
+        carousel.scrollLeft = scrollWidth - 1;
+      }
+    };
+    const handleMouseLeave = () => {
+      // Ne reprend le défilement que si la modale n'est pas ouverte
+      if (!isModalOpen) {
+        startAutoScroll();
+      }
+    };
+
+    carousel.addEventListener("scroll", handleScroll);
+    carousel.addEventListener("mouseenter", stopAutoScroll); // Pause au survol
+    carousel.addEventListener("mouseleave", handleMouseLeave);
+
+    // Nettoyage
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      carousel.removeEventListener("scroll", handleScroll);
+      carousel.removeEventListener("mouseenter", stopAutoScroll);
+      carousel.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [isModalOpen]); // On ajoute isModalOpen aux dépendances pour gérer la pause/reprise
+
+  return (
+    <div ref={carouselRef} className="flex overflow-x-auto space-x-4 p-4 allow-scroll">
+      {/* Le contenu est dupliqué pour l'effet de boucle */}
+      <CarouselItems projects={projects} onProjectClick={onProjectClick} />
+      <CarouselItems projects={projects} onProjectClick={onProjectClick} />
+    </div>
+  );
+};
+
+// Items du carrousel pour éviter la répétition
+const CarouselItems = ({ projects, onProjectClick }) => (
+  <>
+    {projects.map((project) => (
+      <motion.div
+        key={project.id}
+        className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center cursor-pointer"
+        onClick={() => onProjectClick(project)}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <p className="text-xl font-bold">{project.title}</p>
+      </motion.div>
+    ))}
+  </>
+);
+
+// Définir la couleur de base ici pour qu'elle soit stable RGB
+const liquidChromeBaseColor = [0.02, 0.05, 0.2];
+>>>>>>> parent of 89a47f0 (Version Carousel / fond (Fonctionne) V2)
 
 // Composant Dashboard factice
 const Dashboard = () => {
@@ -123,9 +220,15 @@ const Dashboard = () => {
       {/* Le fond Plasma est maintenant ici */}
       <LiquidChrome
         baseColor={liquidChromeBaseColor}
+<<<<<<< HEAD
         speed={0.05}
         amplitude={0.3}
         interactive={true}
+=======
+        speed={0.04}
+        amplitude={0.3}
+        interactive={false}
+>>>>>>> parent of 89a47f0 (Version Carousel / fond (Fonctionne) V2)
       />
       {/* Le contenu du dashboard est par-dessus. Le z-index le place au-dessus du fond. */}
       <div className="w-full h-full z-10 overflow-y-auto">
