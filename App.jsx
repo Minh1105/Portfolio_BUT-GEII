@@ -47,12 +47,12 @@ function App() {
   const [open, setOpen] = useState(false);
 
   return (
-    // Le conteneur principal est maintenant le Dashboard lui-même.
-    // La Sidebar sera positionnée par-dessus grâce à son z-index interne.
-    <div className="bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center w-full h-screen relative">
-      <Dashboard />
-      <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
+    // Ajout du style pour le défilement fluide
+    <div className="relative w-full h-screen" style={{ scrollBehavior: "smooth" }}>
+      {/* 1. Sidebar avec un fond solide */}
+      <div className="absolute top-0 left-0 h-full z-20">
+        <Sidebar open={open} setOpen={setOpen}>
+          <SidebarBody className="justify-between gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
@@ -79,7 +79,41 @@ function App() {
             />
           </div>
         </SidebarBody>
-      </Sidebar>
+        </Sidebar>
+      </div>
+
+      {/* 2. Dashboard contenant le fond Plasma et le contenu */}
+      <Dashboard scrollRef={scrollContainerRef} />
+
+      {/* 3. CardSwap en bas à droite */}
+      <AnimatePresence>
+        {showCardSwap && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="absolute bottom-8 right-8 z-30 card-swap-container"
+          >
+            <div style={{ height: '600px', position: 'relative' }}>
+              <CardSwap cardDistance={60} verticalDistance={70} delay={7000} pauseOnHover={false}>
+                <Card>
+                  <h3>Card 1</h3>
+                  <p>Your content here</p>
+                </Card>
+                <Card>
+                  <h3>Card 2</h3>
+                  <p>Your content here</p>
+                </Card>
+                <Card>
+                  <h3>Card 3</h3>
+                  <p>Your content here</p>
+                </Card>
+              </CardSwap>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
@@ -127,12 +161,42 @@ const Dashboard = () => {
         amplitude={0.3}
         interactive={true}
       />
-      {/* Le contenu du dashboard est par-dessus. Le z-index le place au-dessus du fond. */}
-      <div className="w-full h-full z-10 overflow-y-auto">
-        <div className="p-8 pl-20 md:pl-24">
-          <h1 className="text-2xl md:text-4xl font-bold text-white">
-            Dashboard
-          </h1>
+      {/* Le contenu du dashboard est par-dessus */}
+      <div ref={scrollRef} className="absolute inset-0 z-10 overflow-y-auto md:pl-[60px] no-scrollbar">
+        {/* Conteneur pour toutes les sections */}
+        <div className="p-8 text-white">
+          {/* Section Accueil */}
+          <section id="accueil" className="min-h-screen flex flex-col justify-center items-center text-center">
+            <div>
+              <h1 className="text-5xl md:text-7xl font-bold mb-4">Ly Minh-Quan</h1>
+              <p className="text-xl md:text-2xl text-neutral-300">Développeur passionné</p>
+            </div>
+          </section>
+
+          {/* Section Projets */}
+          <section id="projets" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold mb-8">Mes Projets</h2>
+            {/* Carrousel style Netflix */}
+            <InfiniteCarousel />
+          </section>
+
+          {/* Section Stage */}
+          <section id="stage" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold">Mon Stage</h2>
+            <p className="mt-4">Contenu sur votre stage...</p>
+          </section>
+
+          {/* Section Compétences */}
+          <section id="competences" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold">Compétences</h2>
+            <p className="mt-4">Liste de vos compétences...</p>
+          </section>
+
+          {/* Section Contacts */}
+          <section id="contacts" className="min-h-screen pt-16">
+            <h2 className="text-3xl font-bold">Contacts</h2>
+            <p className="mt-4">Formulaire de contact ou informations...</p>
+          </section>
         </div>
       </div>
     </div>
