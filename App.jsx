@@ -362,14 +362,11 @@ const liquidChromeBaseColor = [0.01, 0.04 , 0.22];
 // Composant Dashboard factice
 const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
   return (
-    <div className="w-full h-full relative">
-      {/* Le fond Plasma est maintenant ici */}
-      <LiquidChrome
-        baseColor={liquidChromeBaseColor}
-        speed={0.02}
-        amplitude={0.4}
-        interactive={false}
-      />
+    // On ajoute un fond en dégradé directement ici.
+    <div className="w-full h-full relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800">
+      {/* Le fond LiquidChrome a été retiré pour améliorer les performances.
+          Vous pouvez le décommenter si vous le souhaitez. */}
+      {/* <LiquidChrome baseColor={liquidChromeBaseColor} speed={0.02} amplitude={0.4} interactive={false} /> */}
       {/* Le contenu du dashboard est par-dessus */}
       <div className="dashboard-scroll-container absolute inset-0 z-10 overflow-y-auto md:ml-[60px] no-scrollbar">
         {/* Conteneur pour toutes les sections */}
