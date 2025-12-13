@@ -366,8 +366,8 @@ const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
       {/* Le fond Plasma est maintenant ici */}
       <LiquidChrome
         baseColor={liquidChromeBaseColor}
-        speed={0.04}
-        amplitude={0.45}
+        speed={0.02}
+        amplitude={0.4}
         interactive={false}
       />
       {/* Le contenu du dashboard est par-dessus */}
