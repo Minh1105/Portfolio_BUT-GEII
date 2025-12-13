@@ -6,12 +6,17 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #000000;
+  background-color: transparent;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Force la transparence sur l'élément racine pour éviter les bandes de couleur du navigateur */
+html {
+  background-color: transparent;
 }
 
 a {
@@ -26,6 +31,7 @@ a:hover {
 body {
   margin: 0;
   min-height: 100vh;
+  background-color: transparent; /* Assure que le fond du body est transparent */
 }
 
 h1 {

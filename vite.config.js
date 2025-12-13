@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
-  base: '/Portfolio_BUT-GEII/', // Remplacez par le nom de votre dépôt
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
 })

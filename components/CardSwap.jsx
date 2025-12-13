@@ -5,7 +5,6 @@ import './CardSwap.css';
 export const Card = forwardRef(({ customClass, ...rest }, ref) => (
   <div ref={ref} {...rest} className={`card ${customClass ?? ''} ${rest.className ?? ''}`.trim()} />
 ));
-
 Card.displayName = 'Card';
 
 const makeSlot = (i, distX, distY, total) => ({

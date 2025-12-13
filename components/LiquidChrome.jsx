@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { Renderer, Program, Mesh, Triangle } from 'ogl';
+import { Renderer, Program, Mesh, Triangle, Vec2 } from 'ogl';
 
 import './LiquidChrome.css';
 
@@ -13,6 +13,7 @@ export const LiquidChrome = ({
   ...props
 }) => {
   const containerRef = useRef(null);
+  const mouse = useRef(new Vec2(0.5, 0.5));
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -58,7 +59,7 @@ export const LiquidChrome = ({
           float ripple = sin(10.0 * dist - uTime * 2.0) * 0.03;
           uv += (diff / (dist + 0.0001)) * ripple * falloff;
 
-          vec3 color = uBaseColor / (abs(sin(uTime - uv.y - uv.x)) + 0.01);
+          vec3 color = uBaseColor / abs(sin(uTime - uv.y - uv.x));
           return vec4(color, 1.0);
       }
 
@@ -89,7 +90,7 @@ export const LiquidChrome = ({
         uAmplitude: { value: amplitude },
         uFrequencyX: { value: frequencyX },
         uFrequencyY: { value: frequencyY },
-        uMouse: { value: new Float32Array([0, 0]) }
+        uMouse: { value: mouse.current }
       }
     });
     const mesh = new Mesh(gl, { geometry, program });
@@ -109,20 +110,16 @@ export const LiquidChrome = ({
       const rect = container.getBoundingClientRect();
       const x = (event.clientX - rect.left) / rect.width;
       const y = 1 - (event.clientY - rect.top) / rect.height;
-      const mouseUniform = program.uniforms.uMouse.value;
-      mouseUniform[0] = x;
-      mouseUniform[1] = y;
+      mouse.current.set(x, y);
     }
 
     function handleTouchMove(event) {
       if (event.touches.length > 0) {
         const touch = event.touches[0];
         const rect = container.getBoundingClientRect();
-        const x = (touch.clientX - rect.left) / rect.width;
-        const y = 1 - (touch.clientY - rect.top) / rect.height;
-        const mouseUniform = program.uniforms.uMouse.value;
-        mouseUniform[0] = x;
-        mouseUniform[1] = y;
+        const x = (touch.clientX - rect.left) / rect.width; // Use touch.clientX
+        const y = 1 - (touch.clientY - rect.top) / rect.height; // Use touch.clientY
+        mouse.current.set(x, y);
       }
     }
 
@@ -144,18 +141,19 @@ export const LiquidChrome = ({
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', resize);
-      if (interactive) {
+      if (container) {
         container.removeEventListener('mousemove', handleMouseMove);
         container.removeEventListener('touchmove', handleTouchMove);
       }
-      if (gl.canvas.parentElement) {
-        gl.canvas.parentElement.removeChild(gl.canvas);
+      // Clean up WebGL context and canvas
+      if (container && gl.canvas.parentNode === container) {
+        container.removeChild(gl.canvas);
       }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [baseColor, speed, amplitude, frequencyX, frequencyY, interactive]);
 
-  return <div ref={containerRef} className="liquidChrome-container" style={{ zIndex: -1 }} {...props} />;
+  return <div ref={containerRef} className="liquidChrome-container" {...props} />;
 };
 
 export default LiquidChrome;
