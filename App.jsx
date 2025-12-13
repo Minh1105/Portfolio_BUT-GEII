@@ -1,5 +1,4 @@
 import './App.css'
-import LiquidChrome from './components/LiquidChrome';
 import { Sidebar, SidebarBody, SidebarLink } from './components/ui/Sidebar'
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,7 +11,7 @@ import {
   IconX,
   IconUserBolt,
 } from "@tabler/icons-react";
-import CardSwap, { Card } from './components/CardSwap';
+import { useOutsideClick } from './components/use-outside-click';
 
 
 function App() {
@@ -101,48 +100,10 @@ function App() {
   ];
 
   const [open, setOpen] = useState(false);
-  const [showCardSwap, setShowCardSwap] = useState(true);
   const appRef = useRef(null); // Référence pour le conteneur principal de l'application
 
   useEffect(() => {
-    const scrollContainer = appRef.current?.querySelector('.dashboard-scroll-container');
-
-    // Gère la visibilité du CardSwap
-    const handleScroll = () => {
-      if (scrollContainer) {
-        // Si on a scrollé de plus de 50px, on cache le CardSwap
-        setShowCardSwap(scrollContainer.scrollTop < 50);
-      }
-    };
-
-    // Bloque le défilement à la molette sauf sur les éléments autorisés
-    const handleWheel = (event) => {
-      const scrollableParent = event.target.closest('.allow-scroll');
-      const cardSwapParent = event.target.closest('.card-swap-container');
-
-      if (scrollableParent) {
-        // Si on est sur le carrousel, on empêche la page de bouger
-        // et on applique le défilement de la molette horizontalement.
-        event.preventDefault();
-        scrollableParent.scrollLeft += event.deltaY;
-      } else if (cardSwapParent || !scrollableParent) {
-        // Si on est sur le CardSwap ou n'importe où ailleurs, on bloque le défilement.
-        event.preventDefault();
-      }
-    };
-
-    const appElement = appRef.current;
-
-    if (appElement && scrollContainer) {
-      appElement.addEventListener("wheel", handleWheel, { passive: false });
-      scrollContainer.addEventListener("scroll", handleScroll);
-    }
-
-    // Nettoyage des écouteurs d'événements
-    return () => {
-      appElement?.removeEventListener("wheel", handleWheel); // Utilise appElement pour le nettoyage
-      scrollContainer?.removeEventListener("scroll", handleScroll);
-    };
+    // Le gestionnaire de molette a été retiré pour restaurer le défilement vertical normal.
   }, []);
 
   const [selectedProject, setSelectedProject] = useState(null);
@@ -195,36 +156,6 @@ function App() {
       {/* 2. Dashboard contenant le fond Plasma et le contenu */}
       <Dashboard projects={projectsData} onProjectClick={setSelectedProject} isModalOpen={!!selectedProject} />
 
-      {/* 3. CardSwap en bas à droite */}
-      <AnimatePresence>
-        {showCardSwap && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
-            className="absolute bottom-8 right-8 z-30 card-swap-container"
-          >
-            <div style={{ height: '800px', position: 'relative' }}>
-              <CardSwap cardDistance={70} verticalDistance={100} delay={5000} pauseOnHover={false}>
-                <Card>
-                  <h3>Projet de la carte basse consomation et communication UHF</h3>
-                  <p>Your content here</p>
-                </Card>
-                <Card>
-                  <h3>Projet ...</h3>
-                  <p>Your content here</p>
-                </Card>
-                <Card>
-                  <h3>Projet ... </h3>
-                  <p>Your content here</p>
-                </Card>
-              </CardSwap>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* 4. Modale de projet */}
       <AnimatePresence>
         {selectedProject && (
@@ -264,111 +195,13 @@ export const LogoIcon = () => {
   );
 };
 
-// Composant pour le carrousel infini
-const InfiniteCarousel = ({ projects, onProjectClick, isModalOpen }) => {
-  const carouselRef = useRef(null);
-
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    let animationFrameId;
-    let timeoutId;
-
-    // Fonction pour le défilement automatique
-    const autoScroll = () => {
-      const scrollWidth = carousel.scrollWidth / 2;
-      // Si on atteint la fin de la première copie, on revient au début pour la boucle.
-      if (carousel.scrollLeft >= scrollWidth) {
-        carousel.scrollLeft -= scrollWidth;
-      }
-      carousel.scrollLeft += 0.1; // Vitesse de défilement encore plus ralentie
-      animationFrameId = requestAnimationFrame(autoScroll);
-    };
-
-    // Démarre le défilement automatique
-    const startAutoScroll = () => {
-      cancelAnimationFrame(animationFrameId); // Assure qu'il n'y a pas de doublon
-      animationFrameId = requestAnimationFrame(autoScroll);
-    };
-
-    // Arrête le défilement
-    const stopAutoScroll = () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-
-    // Positionne le scroll au tout début.
-    if (!isModalOpen) startAutoScroll();
-
-    const handleScroll = () => {
-      if (!carousel) return; // Garde-fou
-      const scrollWidth = carousel.scrollWidth / 2;
-
-      // Gère le défilement "à l'envers" avec la molette
-      if (carousel.scrollLeft < 0) { // Gère le cas où la molette crée un scroll négatif
-        // On se positionne juste avant la fin de la première copie pour que le dernier élément soit visible.
-        carousel.scrollLeft = scrollWidth - 1;
-      }
-    };
-    const handleMouseLeave = () => {
-      // Ne reprend le défilement que si la modale n'est pas ouverte
-      if (!isModalOpen) {
-        startAutoScroll();
-      }
-    };
-
-    carousel.addEventListener("scroll", handleScroll);
-    carousel.addEventListener("mouseenter", stopAutoScroll); // Pause au survol
-    carousel.addEventListener("mouseleave", handleMouseLeave);
-
-    // Nettoyage
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      carousel.removeEventListener("scroll", handleScroll);
-      carousel.removeEventListener("mouseenter", stopAutoScroll);
-      carousel.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, [isModalOpen]); // On ajoute isModalOpen aux dépendances pour gérer la pause/reprise
-
-  return (
-    <div ref={carouselRef} className="flex overflow-x-auto space-x-4 p-4 allow-scroll">
-      {/* Le contenu est dupliqué pour l'effet de boucle */}
-      <CarouselItems projects={projects} onProjectClick={onProjectClick} />
-      <CarouselItems projects={projects} onProjectClick={onProjectClick} />
-    </div>
-  );
-};
-
-// Items du carrousel pour éviter la répétition
-const CarouselItems = ({ projects, onProjectClick }) => (
-  <>
-    {projects.map((project) => (
-      <motion.div
-        key={project.id}
-        className="flex-shrink-0 w-80 h-48 bg-neutral-800 rounded-lg flex items-center justify-center cursor-pointer"
-        onClick={() => onProjectClick(project)}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <p className="text-xl font-bold">{project.title}</p>
-      </motion.div>
-    ))}
-  </>
-);
-
-// Définir la couleur de base ici pour qu'elle soit stable RGB
-const liquidChromeBaseColor = [0.01, 0.04 , 0.22];
-
 // Composant Dashboard factice
 const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
   return (
     // On ajoute un fond en dégradé directement ici.
     <div className="w-full h-full relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800">
-      {/* Le fond LiquidChrome a été retiré pour améliorer les performances.
-          Vous pouvez le décommenter si vous le souhaitez. */}
-      {/* <LiquidChrome baseColor={liquidChromeBaseColor} speed={0.02} amplitude={0.4} interactive={false} /> */}
-      {/* Le contenu du dashboard est par-dessus */}
-      <div className="dashboard-scroll-container absolute inset-0 z-10 overflow-y-auto md:ml-[60px] no-scrollbar">
+      {/* Le contenu du dashboard est par-dessus. La classe 'no-scrollbar' a été retirée. */}
+      <div className="dashboard-scroll-container absolute inset-0 z-10 overflow-y-auto md:ml-[60px]">
         {/* Conteneur pour toutes les sections */}
         <div className="p-8 text-white">
           {/* Section Accueil */}
@@ -382,8 +215,21 @@ const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
           {/* Section Projets */}
           <section id="projets" className="min-h-screen pt-16">
             <h2 className="text-3xl font-bold mb-8">Mes Projets</h2>
-            {/* Carrousel style Netflix */}
-            <InfiniteCarousel projects={projects} onProjectClick={onProjectClick} isModalOpen={isModalOpen} />
+            {/* Grille de projets */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project) => (
+                <motion.div
+                  key={project.id}
+                  className="bg-neutral-800 rounded-lg cursor-pointer overflow-hidden"
+                  onClick={() => onProjectClick(project)}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <img src={project.image} alt={project.title} className="w-full h-40 object-cover" />
+                  <h3 className="text-xl font-bold p-4">{project.title}</h3>
+                </motion.div>
+              ))}
+            </div>
           </section>
 
           {/* Section Stage */}
@@ -411,21 +257,23 @@ const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
 
 // Composant pour la modale de projet
 const ProjectModal = ({ project, onClose }) => {
+  const modalRef = useRef(null);
+  useOutsideClick(modalRef, onClose);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4"
-      onClick={onClose} // Ferme la modale si on clique sur le fond
     >
       <motion.div
+        ref={modalRef}
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="bg-neutral-900/80 border border-neutral-700 rounded-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 relative"
-        onClick={(e) => e.stopPropagation()} // Empêche la fermeture si on clique sur la modale elle-même
       >
         {/* Bouton de fermeture */}
         <button onClick={onClose} className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors">

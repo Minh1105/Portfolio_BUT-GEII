@@ -1,11 +1,11 @@
 /* Masquer les barres de défilement sur tout le site */
 /* Pour Chrome, Safari et Opera */
-::-webkit-scrollbar {
+.no-scrollbar::-webkit-scrollbar, ::-webkit-scrollbar {
   display: none;
 }
 
 /* Pour IE, Edge et Firefox */
-body {
+.no-scrollbar, body {
   -ms-overflow-style: none;  /* IE et Edge */
   scrollbar-width: none;  /* Firefox */
 }
