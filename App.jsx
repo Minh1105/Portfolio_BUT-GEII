@@ -1,6 +1,6 @@
 import './App.css'
 import { Sidebar, SidebarBody, SidebarLink } from './components/ui/Sidebar'
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "./lib/utils";
 import {
@@ -8,11 +8,17 @@ import {
   IconBrandTabler,
   IconSettings,
   IconHome,
+  IconChevronLeft, IconChevronRight,
   IconX,
   IconUserBolt,
 } from "@tabler/icons-react";
 import { useOutsideClick } from './components/use-outside-click';
 
+// 1. Importez vos images locales ici
+// Créez un dossier `src/assets/images` et placez-y vos images.
+import robot1 from './assets/images/robot1.png';
+import robot2 from './assets/images/robot2.png';
+import robot3 from './assets/images/robot3.png';
 
 function App() {
   const links = [
@@ -58,44 +64,97 @@ function App() {
     {
       id: 1,
       title: "Projet 1",
-      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+1",
+      images: [robot1, robot2], // 2. Utilisez les variables d'image importées
       description: "Description détaillée du projet 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit, adipiscing nec, ultricies sed, dolor.",
       skills: ["React", "Node.js", "UHF"]
     },
     {
       id: 2,
       title: "Projet 2",
-      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+2",
+      images: [
+        robot3, // Exemple avec une seule image
+      ],
       description: "Description détaillée du projet 2. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Cras ultricies ligula sed magna dictum porta.",
       skills: ["Python", "Flask", "Machine Learning"]
     },
     {
       id: 3,
       title: "Projet 3",
-      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+3",
+      images: [
+        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+3+-+Image+1",
+      ],
       description: "Description détaillée du projet 3. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.",
       skills: ["C++", "Arduino", "Electronique"]
     },
     {
       id: 4,
       title: "Projet 4",
-      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+4",
+      images: [
+        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+4+-+Image+1",
+        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+4+-+Image+2",
+        "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Projet+4+-+Image+3",
+      ],
       description: "Description détaillée du projet 4. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Proin eget tortor risus.",
       skills: ["JavaScript", "TailwindCSS", "Vite"]
     },
     {
       id: 5,
       title: "Projet 5",
-      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+5",
+      images: [
+        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+5+-+Image+1",
+        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+5+-+Image+2",
+      ],
       description: "Description détaillée du projet 5. Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
       skills: ["Figma", "UI/UX", "Design"]
     },
     {
       id: 6,
       title: "Projet 6",
-      image: "https://via.placeholder.com/400x200.png/1a1a1a/ffffff?text=Image+Projet+6",
+      images: [
+        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+6+-+Image+1",
+      ],
       description: "Description détaillée du projet 6. Nulla porttitor accumsan tincidunt. Cras ultricies ligula sed magna dictum porta.",
       skills: ["STM32", "C", "RTOS"]
+    },
+    {
+      id: 7,
+      title: "Projet 7",
+      images: [
+        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+7+-+Image+1",
+        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+7+-+Image+2",
+      ],
+      description: "Description détaillée du projet 7. Pellentesque in ipsum id orci porta dapibus. Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+      skills: ["Java", "Spring Boot", "SQL"]
+    },
+    {
+      id: 8,
+      title: "Projet 8",
+      images: [
+        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+8+-+Image+1",
+        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+8+-+Image+2",
+        "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Projet+8+-+Image+3",
+      ],
+      description: "Description détaillée du projet 8. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Proin eget tortor risus.",
+      skills: ["Docker", "Kubernetes", "CI/CD"]
+    },
+    {
+      id: 9,
+      title: "Projet 9",
+      images: [
+        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+9+-+Image+1",
+        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+9+-+Image+2",
+      ],
+      description: "Description détaillée du projet 9. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.",
+      skills: ["Vue.js", "Firebase", "GraphQL"]
+    },
+    {
+      id: 10,
+      title: "Projet 10",
+      images: [
+        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+10+-+Image+1",
+      ],
+      description: "Description détaillée du projet 10. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Cras ultricies ligula sed magna dictum porta.",
+      skills: ["Angular", "TypeScript", "RxJS"]
     },
   ];
 
@@ -103,14 +162,23 @@ function App() {
   const appRef = useRef(null); // Référence pour le conteneur principal de l'application
 
   useEffect(() => {
-    // Le gestionnaire de molette a été retiré pour restaurer le défilement vertical normal.
-  }, []);
+    const handleWheel = (e) => {
+      // On empêche le défilement par défaut sur toute la page
+      // sauf si le curseur est sur un élément qui a la classe 'dashboard-scroll-container' ou un de ses enfants.
+      if (!e.target.closest('.dashboard-scroll-container')) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, []); // Le tableau de dépendances est vide pour que l'effet ne s'exécute qu'une fois.
 
   const [selectedProject, setSelectedProject] = useState(null);
 
   return (
     // Ajout du style pour le défilement fluide
-    <div ref={appRef} className="relative w-full h-screen" style={{ scrollBehavior: "smooth" }}>
+    <div ref={appRef} className="relative w-full h-screen overflow-hidden" style={{ scrollBehavior: "smooth" }}>
       {/* 1. Sidebar avec un fond solide */}
       <div className="absolute top-0 left-0 h-full z-20">
         <Sidebar open={open} setOpen={setOpen}>
@@ -216,16 +284,21 @@ const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
           <section id="projets" className="min-h-screen pt-16">
             <h2 className="text-3xl font-bold mb-8">Mes Projets</h2>
             {/* Grille de projets */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {projects.map((project) => (
                 <motion.div
                   key={project.id}
                   className="bg-neutral-800 rounded-lg cursor-pointer overflow-hidden"
-                  onClick={() => onProjectClick(project)}
+                  onClick={() => {
+                    // Si la modale est déjà ouverte, le clic sur un projet en arrière-plan la fermera.
+                    // Sinon, on ouvre la modale du projet cliqué.
+                    if (isModalOpen) return;
+                    onProjectClick(project);
+                  }}
                   whileHover={{ scale: 1.05, y: -5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <img src={project.image} alt={project.title} className="w-full h-40 object-cover" />
+                  <img src={project.images[0]} alt={project.title} className="w-full h-40 object-cover" />
                   <h3 className="text-xl font-bold p-4">{project.title}</h3>
                 </motion.div>
               ))}
@@ -255,10 +328,43 @@ const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
   );
 };
 
+// Animation pour le carrousel d'images
+const variants = {
+  enter: (direction) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction) => ({
+    zIndex: 0,
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+};
+
 // Composant pour la modale de projet
 const ProjectModal = ({ project, onClose }) => {
   const modalRef = useRef(null);
   useOutsideClick(modalRef, onClose);
+
+  const [[page, direction], setPage] = useState([0, 0]);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const imageIndex = (page % project.images.length + project.images.length) % project.images.length;
+
+  const paginate = useCallback((newDirection) => {
+    setPage([page + newDirection, newDirection]);
+  }, [page]);
+
+  useEffect(() => {
+    if (project.images.length <= 1 || isHovering) return;
+    const autoplay = setInterval(() => paginate(1), 4000); // Défilement toutes les 3 secondes
+    return () => clearInterval(autoplay);
+  }, [isHovering, paginate, project.images.length]);
 
   return (
     <motion.div
@@ -273,33 +379,72 @@ const ProjectModal = ({ project, onClose }) => {
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="bg-neutral-900/80 border border-neutral-700 rounded-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 relative"
+        className="bg-neutral-900/80 border border-neutral-700 rounded-xl w-full max-w-5xl max-h-[98vh] overflow-y-auto p-6 relative"
       >
         {/* Bouton de fermeture */}
-        <button onClick={onClose} className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors">
+        <button onClick={onClose} className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors z-20 p-1 rounded-full hover:bg-neutral-800">
           <IconX size={24} />
         </button>
 
-        {/* Contenu de la modale */}
-        <h2 className="text-3xl font-bold mb-4 pr-8">{project.title}</h2>
+        {/* Layout en 2 colonnes pour le contenu de la modale */}
+        <div className="flex flex-col md:flex-row-reverse gap-8">
+          {/* Colonne de gauche : Carrousel */}
+          <div className="md:w-1/2 w-full">
+            <div 
+              className="relative w-full aspect-video overflow-hidden rounded-lg bg-neutral-800"
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
+              <AnimatePresence initial={false} custom={direction}>
+                <motion.img
+                  key={page}
+                  src={project.images[imageIndex]}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 },
+                  }}
+                  alt={`${project.title} - Image ${imageIndex + 1}`}
+                  className="absolute w-full h-full object-contain"
+                />
+              </AnimatePresence>
 
-        {/* Image(s) */}
-        <div className="mb-6">
-          <img src={project.image} alt={project.title} className="w-full h-auto object-cover rounded-lg" />
-        </div>
+              {/* Boutons de navigation du carrousel */}
+              {project.images.length > 1 && (
+                <>
+                  <button onClick={() => paginate(-1)} className="absolute top-1/2 left-2 -translate-y-1/2 bg-black/30 text-white p-1 rounded-full hover:bg-black/50 transition-colors z-10">
+                    <IconChevronLeft size={24} />
+                  </button>
+                  <button onClick={() => paginate(1)} className="absolute top-1/2 right-2 -translate-y-1/2 bg-black/30 text-white p-1 rounded-full hover:bg-black/50 transition-colors z-10">
+                    <IconChevronRight size={24} />
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
 
-        {/* Texte */}
-        <div className="mb-6">
-          <p className="text-neutral-300">{project.description}</p>
-        </div>
+          {/* Colonne de droite : Informations */}
+          <div className="md:w-1/2 w-full flex flex-col">
+            <h2 className="text-3xl font-bold mb-4 pr-8">{project.title}</h2>
+            
+            {/* Texte */}
+            <div className="mb-6">
+              <p className="text-neutral-300">{project.description}</p>
+            </div>
 
-        {/* Pins de compétences */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Compétences utilisées</h3>
-          <div className="flex flex-wrap gap-2">
-            {project.skills.map((skill, index) => (
-              <span key={index} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full">{skill}</span>
-            ))}
+            {/* Pins de compétences */}
+            <div>
+              <h3 className="text-lg font-semibold mb-3">Compétences utilisées</h3>
+              <div className="flex flex-wrap gap-2">
+                {project.skills.map((skill, index) => (
+                  <span key={index} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full">{skill}</span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>
