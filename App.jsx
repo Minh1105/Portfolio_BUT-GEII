@@ -180,7 +180,7 @@ function App() {
     // Ajout du style pour le défilement fluide
     <div ref={appRef} className="relative w-full h-screen overflow-hidden" style={{ scrollBehavior: "smooth" }}>
       {/* 1. Sidebar avec un fond solide */}
-      <div className="absolute top-0 left-0 h-full z-20">
+      <div className="absolute top-0 left-0 h-full z-20 md:fixed">
         <Sidebar open={open} setOpen={setOpen}>
           <SidebarBody className="justify-between gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto">
@@ -238,9 +238,9 @@ export const Logo = () => {
   return (
     <a
       href="#accueil"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+      className="font-normal flex space-x-2 items-center text-base text-black py-1 relative z-20"
     >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <div className="h-6 w-7 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -256,9 +256,9 @@ export const LogoIcon = () => {
   return (
     <a
       href="#accueil"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+      className="font-normal flex space-x-2 items-center text-base text-black py-1 relative z-20"
     >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <div className="h-6 w-7 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
     </a>
   );
 };
@@ -284,7 +284,7 @@ const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
           <section id="projets" className="min-h-screen pt-16">
             <h2 className="text-3xl font-bold mb-8">Mes Projets</h2>
             {/* Grille de projets */}
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6">
               {projects.map((project) => (
                 <motion.div
                   key={project.id}
