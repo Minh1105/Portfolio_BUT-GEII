@@ -19,6 +19,7 @@ import { useOutsideClick } from './components/use-outside-click';
 import robot1 from './assets/images/robot1.png';
 import robot2 from './assets/images/robot2.png';
 import robot3 from './assets/images/robot3.png';
+import photo_profil from './assets/images/photo_profil.png'; // 1. Importez votre photo de profil ici (corrigez le nom du fichier si besoin)
 
 function App() {
   const links = [
@@ -163,11 +164,8 @@ function App() {
 
   useEffect(() => {
     const handleWheel = (e) => {
-      // On empêche le défilement par défaut sur toute la page
-      // sauf si le curseur est sur un élément qui a la classe 'dashboard-scroll-container' ou un de ses enfants.
-      if (!e.target.closest('.dashboard-scroll-container')) {
-        e.preventDefault();
-      }
+      // On empêche le défilement par défaut sur toute la page.
+      e.preventDefault();
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
@@ -205,7 +203,7 @@ function App() {
                 )}
               >
                 <img
-                  src="https://assets.aceternity.com/manu.png"
+                  src={photo_profil} // 2. Utilisez l'image importée
                   className="h-7 w-7 flex-shrink-0 rounded-full"
                   width={50}
                   height={50}
@@ -281,10 +279,10 @@ const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
           </section>
 
           {/* Section Projets */}
-          <section id="projets" className="min-h-screen pt-16">
+          <section id="projets" className="min-h-screen pt-5">
             <h2 className="text-3xl font-bold mb-8">Mes Projets</h2>
             {/* Grille de projets */}
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-6">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-3">
               {projects.map((project) => (
                 <motion.div
                   key={project.id}
@@ -306,19 +304,19 @@ const Dashboard = ({ projects, onProjectClick, isModalOpen }) => {
           </section>
 
           {/* Section Stage */}
-          <section id="stage" className="min-h-screen pt-16">
+          <section id="stage" className="min-h-screen pt-5">
             <h2 className="text-3xl font-bold">Mon Stage</h2>
             <p className="mt-4">Contenu sur votre stage...</p>
           </section>
 
           {/* Section Compétences */}
-          <section id="competences" className="min-h-screen pt-16">
+          <section id="competences" className="min-h-screen pt-5">
             <h2 className="text-3xl font-bold">Compétences</h2>
             <p className="mt-4">Liste de vos compétences...</p>
           </section>
 
           {/* Section Contacts */}
-          <section id="contacts" className="min-h-screen pt-16">
+          <section id="contacts" className="min-h-screen pt-5">
             <h2 className="text-3xl font-bold">Contacts</h2>
             <p className="mt-4">Formulaire de contact ou informations...</p>
           </section>
