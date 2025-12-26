@@ -28,35 +28,35 @@ function App() {
       label: "Accueil",
       href: "#accueil",
       icon: (
-        <IconHome className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconHome className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
       ),
     },
     {
       label: "Projets",
       href: "#projets",
       icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
       ),
     },
     {
       label: "Mes stages",
       href: "#stage",
       icon: (
-        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
       ),
     },
     {
       label: "Compétences",
       href: "#competences",
       icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
       ),
     },
     {
       label: "Contacts",
       href: "#contacts",
       icon: (
-        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
       ),
     },
   ];
@@ -248,13 +248,13 @@ function App() {
               >
                 <img
                   src={photo_profil} // 2. Utilisez l'image importée
-                  className="h-7 w-7 flex-shrink-0 rounded-full"
+                  className={cn("flex-shrink-0 rounded-full transition-all", open ? "h-12 w-12" : "h-10 w-10")}
                   width={50}
                   height={50}
                   alt="Avatar"
                 />
                 {open && (
-                  <span className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition-transform duration-150 whitespace-pre inline-block">Ly Minh-Quan</span>
+                  <span className="text-neutral-700 dark:text-neutral-200 text-xl group-hover/sidebar:translate-x-1 transition-transform duration-150 whitespace-pre inline-block">Ly Minh-Quan</span>
                 )}
               </a>
             </div>
@@ -279,9 +279,9 @@ export const Logo = () => {
   return (
     <a
       href="#accueil"
-      className="font-normal flex space-x-2 items-center text-base text-white py-1 relative z-20"
+      className="font-normal flex space-x-2 items-center text-xl text-white py-1 relative z-20"
     >
-      <div className="h-6 w-7 bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <div className="h-10 w-11 bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -297,9 +297,9 @@ export const LogoIcon = () => {
   return (
     <a
       href="#accueil"
-      className="font-normal flex space-x-2 items-center text-base text-white py-1 relative z-20"
+      className="font-normal flex space-x-2 items-center text-lg text-white py-1 relative z-20"
     >
-      <div className="h-6 w-7 bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <div className="h-9 w-10 bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
     </a>
   );
 };
@@ -323,9 +323,14 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen }) => {
 
           {/* Section Projets */}
           <section id="projets" className="min-h-screen pt-5">
-            <h2 className="text-3xl font-bold mb-8">Mes Projets</h2>
+            <h2 className="text-3xl font-bold mb-4">Mes Projets</h2>
+            <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-6 mb-8 max-w-3xl backdrop-blur-sm">
+              <p className="text-neutral-300">
+                Voici une sélection de mes projets académiques et personnels. Ils illustrent mes compétences techniques et ma capacité à mener à bien des réalisations concrètes, du développement logiciel à l'électronique embarquée.
+              </p>
+            </div>
             {/* Grille de projets */}
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {projects.map((project) => (
                 <motion.div
                   key={project.id}
@@ -348,7 +353,12 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen }) => {
 
           {/* Section Stage */}
           <section id="stage" className="min-h-screen pt-5">
-            <h2 className="text-3xl font-bold mb-8">Mon Stage</h2>
+            <h2 className="text-3xl font-bold mb-4">Mon Stage</h2>
+            <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-6 mb-8 max-w-3xl backdrop-blur-sm">
+              <p className="text-neutral-300">
+                Cette section détaille mon expérience professionnelle acquise lors de mon stage de fin d'études. Vous y découvrirez le contexte, mes missions, ainsi que les compétences mises en œuvre en situation réelle.
+              </p>
+            </div>
             <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-3">
               {internship && internship.map((stage) => (
                 <motion.div
@@ -371,13 +381,21 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen }) => {
           {/* Section Compétences */}
           <section id="competences" className="min-h-screen pt-5">
             <h2 className="text-3xl font-bold">Compétences</h2>
-            <p className="mt-4">Liste de vos compétences...</p>
+            <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-6 mt-4 max-w-3xl backdrop-blur-sm">
+              <p className="text-neutral-300">
+                Retrouvez ici l'ensemble des compétences techniques et transversales que j'ai développées au cours de ma formation et de mes expériences. Elles couvrent le développement, l'électronique, et la gestion de projet.
+              </p>
+            </div>
           </section>
 
           {/* Section Contacts */}
           <section id="contacts" className="min-h-screen pt-5">
             <h2 className="text-3xl font-bold">Contacts</h2>
-            <p className="mt-4">Formulaire de contact ou informations...</p>
+            <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-6 mt-4 max-w-3xl backdrop-blur-sm">
+              <p className="text-neutral-300">
+                N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn.
+              </p>
+            </div>
           </section>
         </div>
       </div>
