@@ -13,6 +13,8 @@ import {
   IconUserBolt,
   IconFileTypePdf,
   IconLanguage,
+  IconBrandLinkedin,
+  IconMail,
 } from "@tabler/icons-react";
 import { useOutsideClick } from './components/use-outside-click';
 
@@ -46,9 +48,9 @@ function App() {
         projects: { title: "Mes Projets", desc: "Voici une sélection de mes projets académiques et personnels. Ils illustrent mes compétences techniques et ma capacité à mener à bien des réalisations concrètes, du développement logiciel à l'électronique embarquée." },
         internship: { title: "Mon Stage", desc: "Cette section détaille mon expérience professionnelle acquise lors de mon stage de fin d'études. Vous y découvrirez le contexte, mes missions, ainsi que les compétences mises en œuvre en situation réelle." },
         skills: { title: "Compétences", desc: "Retrouvez ici l'ensemble des compétences techniques et transversales que j'ai développées au cours de ma formation et de mes expériences. Elles couvrent le développement, l'électronique, et la gestion de projet." },
-        contact: { title: "Contacts", desc: "N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn." }
+        contact: { title: "Contacts", desc: "N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn.", linkedinTooltip: "En cliquant ici, vous allez être redirigé vers LinkedIn" }
       },
-      modal: { skills: "Compétences utilisées", tooltip: "Pour plus de précision sur le projet, vous pouvez consulter le rapport ou compte rendu téléchargeable ici." }
+      modal: { skills: "Compétences utilisées", tooltip: "Pour plus de précision sur le projet, vous pouvez consulter le rapport ou compte rendu téléchargeable ici.", yearTime: "Année et Temps", year: "Année de réalisation", duration: "Temps de conception" }
     },
     en: {
       sidebar: { home: "Home", projects: "Projects", internship: "Internships", skills: "Skills", contact: "Contact" },
@@ -56,9 +58,9 @@ function App() {
         projects: { title: "My Projects", desc: "Here is a selection of my academic and personal projects. They illustrate my technical skills and my ability to carry out concrete achievements, from software development to embedded electronics." },
         internship: { title: "My Internship", desc: "This section details my professional experience acquired during my end-of-studies internship. You will discover the context, my missions, as well as the skills implemented in real situations." },
         skills: { title: "Skills", desc: "Here you will find all the technical and transversal skills that I developed during my training and my experiences. They cover development, electronics, and project management." },
-        contact: { title: "Contact", desc: "Do not hesitate to contact me for any professional opportunity or question about my background. I am reachable by email or via LinkedIn." }
+        contact: { title: "Contact", desc: "Do not hesitate to contact me for any professional opportunity or question about my background. I am reachable by email or via LinkedIn.", linkedinTooltip: "By clicking here, you will be redirected to LinkedIn" }
       },
-      modal: { skills: "Skills used", tooltip: "For more details on the project, you can download the report here." }
+      modal: { skills: "Skills used", tooltip: "For more details on the project, you can download the report here.", yearTime: "Year and Time", year: "Year of realization", duration: "Design time" }
     },
     vi: {
       sidebar: { home: "Trang chủ", projects: "Dự án", internship: "Thực tập", skills: "Kỹ năng", contact: "Liên hệ" },
@@ -66,9 +68,9 @@ function App() {
         projects: { title: "Dự án của tôi", desc: "Đây là tuyển tập các dự án học thuật và cá nhân của tôi. Chúng minh họa các kỹ năng kỹ thuật và khả năng thực hiện các thành tựu cụ thể của tôi, từ phát triển phần mềm đến điện tử nhúng." },
         internship: { title: "Kỳ thực tập", desc: "Phần này chi tiết về kinh nghiệm làm việc chuyên nghiệp của tôi trong kỳ thực tập cuối khóa. Bạn sẽ khám phá bối cảnh, nhiệm vụ của tôi, cũng như các kỹ năng được áp dụng trong thực tế." },
         skills: { title: "Kỹ năng", desc: "Tại đây bạn sẽ tìm thấy tất cả các kỹ năng kỹ thuật và kỹ năng mềm mà tôi đã phát triển trong quá trình đào tạo và kinh nghiệm của mình. Chúng bao gồm phát triển, điện tử và quản lý dự án." },
-        contact: { title: "Liên hệ", desc: "Đừng ngần ngại liên hệ với tôi cho bất kỳ cơ hội nghề nghiệp hoặc câu hỏi nào về quá trình của tôi. Tôi có thể được liên hệ qua email hoặc LinkedIn." }
+        contact: { title: "Liên hệ", desc: "Đừng ngần ngại liên hệ với tôi cho bất kỳ cơ hội nghề nghiệp hoặc câu hỏi nào về quá trình của tôi. Tôi có thể được liên hệ qua email hoặc LinkedIn.", linkedinTooltip: "Bằng cách nhấp vào đây, bạn sẽ được chuyển hướng đến LinkedIn" }
       },
-      modal: { skills: "Kỹ năng sử dụng", tooltip: "Để biết thêm chi tiết về dự án, bạn có thể tải xuống báo cáo tại đây." }
+      modal: { skills: "Kỹ năng sử dụng", tooltip: "Để biết thêm chi tiết về dự án, bạn có thể tải xuống báo cáo tại đây.", yearTime: "Năm và Thời gian", year: "Năm thực hiện", duration: "Thời gian thiết kế" }
     }
   };
 
@@ -115,6 +117,8 @@ function App() {
     {
       id: 1,
       title: { fr: "Projet 1", en: "Project 1", vi: "Dự án 1" },
+      year: "2024",
+      duration: { fr: "200 heures", en: "200 hours", vi: "200 giờ" },
       images: [robot1, robot2], // 2. Utilisez les variables d'image importées
       description: { fr: "Description détaillée du projet 1. Lorem ipsum dolor sit amet...", en: "Detailed description of project 1...", vi: "Mô tả chi tiết dự án 1..." },
       skills: ["React", "Node.js", "UHF"],
@@ -123,6 +127,8 @@ function App() {
     {
       id: 2,
       title: { fr: "Projet 2", en: "Project 2", vi: "Dự án 2" },
+      year: "2023",
+      duration: { fr: "150 heures", en: "150 hours", vi: "150 giờ" },
       images: [
         robot3, // Exemple avec une seule image
       ],
@@ -133,6 +139,8 @@ function App() {
     {
       id: 3,
       title: { fr: "Projet 3", en: "Project 3", vi: "Dự án 3" },
+      year: "2023",
+      duration: { fr: "70 heures", en: "70 hours", vi: "70 giờ" },
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+3+-+Image+1",
       ],
@@ -143,6 +151,8 @@ function App() {
     {
       id: 4,
       title: { fr: "Projet 4", en: "Project 4", vi: "Dự án 4" },
+      year: "2024",
+      duration: { fr: "80 heures", en: "80 hours", vi: "80 giờ" },
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+4+-+Image+1",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+4+-+Image+2",
@@ -155,6 +165,8 @@ function App() {
     {
       id: 5,
       title: { fr: "Projet 5", en: "Project 5", vi: "Dự án 5" },
+      year: "2023",
+      duration: { fr: "30 heures", en: "30 hours", vi: "30 giờ" },
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+5+-+Image+1",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+5+-+Image+2",
@@ -166,6 +178,8 @@ function App() {
     {
       id: 6,
       title: { fr: "Projet 6", en: "Project 6", vi: "Dự án 6" },
+      year: "2022",
+      duration: { fr: "400 heures", en: "400 hours", vi: "400 giờ" },
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+6+-+Image+1",
       ],
@@ -176,6 +190,8 @@ function App() {
     {
       id: 7,
       title: { fr: "Projet 7", en: "Project 7", vi: "Dự án 7" },
+      year: "2022",
+      duration: { fr: "200 heures", en: "200 hours", vi: "200 giờ" },
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+7+-+Image+1",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+7+-+Image+2",
@@ -187,6 +203,8 @@ function App() {
     {
       id: 8,
       title: { fr: "Projet 8", en: "Project 8", vi: "Dự án 8" },
+      year: "2024",
+      duration: { fr: "140 heures", en: "140 hours", vi: "140 giờ" },
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+8+-+Image+1",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+8+-+Image+2",
@@ -199,6 +217,8 @@ function App() {
     {
       id: 9,
       title: { fr: "Projet 9", en: "Project 9", vi: "Dự án 9" },
+      year: "2023",
+      duration: { fr: "350 heures", en: "350 hours", vi: "350 giờ" },
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+9+-+Image+1",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+9+-+Image+2",
@@ -210,6 +230,8 @@ function App() {
     {
       id: 10,
       title: { fr: "Projet 10", en: "Project 10", vi: "Dự án 10" },
+      year: "2022",
+      duration: { fr: "60 heures", en: "60 hours", vi: "60 giờ" },
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+10+-+Image+1",
       ],
@@ -217,13 +239,15 @@ function App() {
       skills: ["Angular", "TypeScript", "RxJS"],
       pdf: "/path/to/rapport_projet10.pdf"
     },
-  ];
+  ].sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
   // Données pour le stage (structure identique aux projets pour la compatibilité)
   const internshipData = [
     {
       id: "stage-1",
       title: { fr: "Stage BUT GEII", en: "BUT GEII Internship", vi: "Thực tập BUT GEII" },
+      year: "2024",
+      duration: { fr: "14 semaines", en: "14 weeks", vi: "14 tuần" },
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Introduction+Stage",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Developpement+Qt",
@@ -231,7 +255,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan+et+Resultats",
       ],
       description: { fr: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.", en: "End of studies internship. Click to discover the internship process step by step.", vi: "Thực tập cuối khóa. Nhấp để khám phá quá trình thực tập từng bước." },
-      skills: ["C++", "Qt", "Réseaux"],
+      skills: ["C++", "Qt", "Réseaux", "Travail d'équipe"],
       pdf: "/path/to/rapport_stage.pdf",
       // Données spécifiques pour le mode 'Story' (par image)
       descriptions: {
@@ -355,6 +379,72 @@ export const LogoIcon = () => {
 const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language, setLanguage, translations, activeTab }) => {
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
+  // Liste des compétences avec descriptions (Carte blanche)
+  const skillsList = [
+    { 
+      name: "C++", 
+      level: { fr: "Avancée", en: "Advanced", vi: "Nâng cao" },
+      desc: { fr: "Développement système performant et bas niveau.", en: "High-performance and low-level system development.", vi: "Phát triển hệ thống hiệu năng cao và cấp thấp." } 
+    },
+    { 
+      name: "Python", 
+      level: { fr: "Intermédiaire", en: "Intermediate", vi: "Trung bình" },
+      desc: { fr: "Analyse de données, IA et scripting polyvalent.", en: "Data analysis, AI and versatile scripting.", vi: "Phân tích dữ liệu, AI và kịch bản đa năng." } 
+    },
+    { 
+      name: "React", 
+      level: { fr: "Intermédiaire", en: "Intermediate", vi: "Trung bình" },
+      desc: { fr: "Création d'interfaces web modernes et réactives.", en: "Creating modern and reactive web interfaces.", vi: "Tạo giao diện web hiện đại và phản hồi." } 
+    },
+    { 
+      name: "Electronique", 
+      level: { fr: "Avancée", en: "Advanced", vi: "Nâng cao" },
+      desc: { fr: "Conception de circuits et systèmes embarqués.", en: "Circuit design and embedded systems.", vi: "Thiết kế mạch và hệ thống nhúng." } 
+    },
+    { 
+      name: "Java", 
+      level: { fr: "Intermédiaire", en: "Intermediate", vi: "Trung bình" },
+      desc: { fr: "Programmation orientée objet robuste.", en: "Robust object-oriented programming.", vi: "Lập trình hướng đối tượng mạnh mẽ." } 
+    },
+    { 
+      name: "Docker", 
+      level: { fr: "Notions", en: "Basics", vi: "Cơ bản" },
+      desc: { fr: "Conteneurisation pour le déploiement d'applications.", en: "Containerization for application deployment.", vi: "Container hóa để triển khai ứng dụng." } 
+    },
+    { 
+      name: "Figma", 
+      level: { fr: "Intermédiaire", en: "Intermediate", vi: "Trung bình" },
+      desc: { fr: "Design d'interface et prototypage UI/UX.", en: "Interface design and UI/UX prototyping.", vi: "Thiết kế giao diện và tạo mẫu UI/UX." } 
+    },
+    { 
+      name: "STM32", 
+      level: { fr: "Avancée", en: "Advanced", vi: "Nâng cao" },
+      desc: { fr: "Programmation de microcontrôleurs pour l'embarqué.", en: "Microcontroller programming for embedded systems.", vi: "Lập trình vi điều khiển cho hệ thống nhúng." } 
+    },
+    { 
+      name: "Angular", 
+      level: { fr: "Notions", en: "Basics", vi: "Cơ bản" },
+      desc: { fr: "Framework complet pour applications web d'entreprise.", en: "Complete framework for enterprise web applications.", vi: "Framework hoàn chỉnh cho ứng dụng web doanh nghiệp." } 
+    },
+    { 
+      name: "Travail d'équipe", 
+      level: { fr: "Avancée", en: "Advanced", vi: "Nâng cao" },
+      desc: { fr: "Collaboration efficace et gestion de projet agile.", en: "Effective collaboration and agile project management.", vi: "Hợp tác hiệu quả và quản lý dự án linh hoạt." } 
+    },
+    { 
+      name: "JavaScript", 
+      level: { fr: "Intermédiaire", en: "Intermediate", vi: "Trung bình" },
+      desc: { fr: "Langage de script essentiel pour le web interactif.", en: "Essential scripting language for the interactive web.", vi: "Ngôn ngữ kịch bản thiết yếu cho web tương tác." } 
+    },
+    { 
+      name: "SQL", 
+      level: { fr: "Notions", en: "Basics", vi: "Cơ bản" },
+      desc: { fr: "Gestion et interrogation de bases de données relationnelles.", en: "Management and querying of relational databases.", vi: "Quản lý và truy vấn cơ sở dữ liệu quan hệ." } 
+    },
+  ];
+
+  const allProjectsAndInternships = [...projects, ...(internship || [])];
+
   return (
     // On ajoute un fond en dégradé directement ici.
     <div className="flex-1 h-full relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800 overflow-hidden">
@@ -415,7 +505,13 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <img src={project.images[0]} alt={project.title[language]} className="w-full h-40 object-cover" />
-                  <h3 className="text-xl font-bold p-4">{project.title[language]}</h3>
+                  <div className="p-4">
+                    <h3 className="text-xl font-bold mb-2">{project.title[language]}</h3>
+                    <div className="flex justify-between text-sm text-neutral-400">
+                      <span>{project.year}</span>
+                      <span>{project.duration[language]}</span>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -453,8 +549,57 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
           {activeTab === 'competences' && (
           <section id="competences" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white pt-20 md:pt-5">
             <h2 className="text-2xl md:text-3xl font-bold">{translations.sections.skills.title}</h2>
-            <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 max-w-3xl backdrop-blur-sm">
+            <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 mb-8 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.skills.desc}</p>
+            </div>
+
+            {/* Grille de compétences */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-10">
+              {skillsList.map((skill, idx) => {
+                // Trouver les projets qui utilisent cette compétence
+                const relatedProjects = allProjectsAndInternships.filter(p => p.skills && p.skills.includes(skill.name));
+                
+                return (
+                  <motion.div 
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                    className="bg-neutral-800 border border-neutral-700 rounded-xl p-5 flex flex-col gap-3 hover:bg-neutral-750 transition-colors"
+                  >
+                    <div className="flex justify-between items-start">
+                      <h3 className="text-xl font-bold text-blue-400">{skill.name}</h3>
+                      <span className={`text-xs font-medium px-2 py-1 rounded border ${
+                        skill.level.fr === "Avancée" 
+                          ? "bg-green-500/10 text-green-400 border-green-500/20" 
+                          : skill.level.fr === "Intermédiaire" 
+                            ? "bg-blue-500/10 text-blue-400 border-blue-500/20" 
+                            : "bg-neutral-500/10 text-neutral-400 border-neutral-500/20"
+                      }`}>
+                        {skill.level[language]}
+                      </span>
+                    </div>
+                    <p className="text-sm text-neutral-300 flex-1">{skill.desc[language]}</p>
+                    
+                    {relatedProjects.length > 0 && (
+                      <div className="mt-2 pt-3 border-t border-neutral-700/50">
+                        <span className="text-xs text-neutral-500 uppercase font-semibold tracking-wider mb-2 block">Utilisé dans :</span>
+                        <div className="flex flex-wrap gap-2">
+                          {relatedProjects.map(p => (
+                            <button 
+                              key={p.id} 
+                              onClick={() => onProjectClick(p)}
+                              className="text-xs bg-blue-500/10 text-blue-300 border border-blue-500/20 px-2 py-1 rounded hover:bg-blue-500/30 transition-colors text-left"
+                            >
+                              {p.title[language]}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                );
+              })}
             </div>
           </section>
           )}
@@ -465,6 +610,55 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
             <h2 className="text-2xl md:text-3xl font-bold">{translations.sections.contact.title}</h2>
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.contact.desc}</p>
+            </div>
+
+            {/* Cadre avec liens et QR Codes */}
+            <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 max-w-3xl backdrop-blur-sm flex flex-col gap-8">
+              
+              {/* LinkedIn */}
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="bg-white p-2 rounded-lg flex-shrink-0">
+                  <img 
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent("https://www.linkedin.com/in/minh-quan-ly-1111m2005a")}`} 
+                    alt="LinkedIn QR Code" 
+                    className="w-24 h-24 md:w-32 md:h-32"
+                  />
+                </div>
+                <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                  <a href="https://www.linkedin.com/in/minh-quan-ly-1111m2005a" target="_blank" rel="noopener noreferrer" className="relative group flex items-center gap-2 mb-2 text-blue-400 hover:text-blue-300 transition-colors">
+                    <IconBrandLinkedin size={32} />
+                    <h3 className="text-xl font-bold">LinkedIn</h3>
+                    {/* Tooltip */}
+                    <div className="absolute bottom-full left-full mb-2 ml-2 w-48 p-2 bg-neutral-900 border border-neutral-700 text-neutral-200 text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-center z-10">
+                      {translations.sections.contact.linkedinTooltip}
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              {/* Séparateur */}
+              <div className="w-full h-px bg-neutral-700/50"></div>
+
+              {/* Email */}
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="bg-white p-2 rounded-lg flex-shrink-0">
+                  <img 
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent("mailto:minhquan.ly.pro@outlook.com")}`} 
+                    alt="Email QR Code" 
+                    className="w-24 h-24 md:w-32 md:h-32"
+                  />
+                </div>
+                <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                  <div className="flex items-center gap-2 mb-2 text-emerald-400">
+                    <IconMail size={32} />
+                    <h3 className="text-xl font-bold">Email</h3>
+                  </div>
+                  <a href="mailto:minhquan.ly.pro@outlook.com" className="text-neutral-300 hover:text-white hover:underline transition-colors break-all">
+                    minhquan.ly.pro@outlook.com
+                  </a>
+                </div>
+              </div>
+
             </div>
           </section>
           )}
@@ -584,11 +778,26 @@ const ProjectModal = ({ project, onClose, language, translations }) => {
 
           {/* Informations en bas */}
           <div className="w-full flex flex-col">
-            <h2 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4 pr-8">{project.title[language]}</h2>
-            
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 pr-8">{project.title[language]}</h2>
+
             {/* Texte */}
             <div className="mb-4 md:mb-6">
               <p className="text-sm md:text-base text-neutral-300 whitespace-pre-wrap">{currentDescription}</p>
+            </div>
+
+            {/* Sous-titre Année et Temps */}
+            <div className="mb-6 bg-neutral-800/30 p-4 rounded-lg border border-neutral-700/50">
+                <h3 className="text-lg font-semibold mb-3 text-white">{translations.modal.yearTime}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex flex-col">
+                        <span className="text-neutral-400 text-sm">{translations.modal.year}</span>
+                        <span className="text-neutral-200 font-medium">{project.year}</span>
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-neutral-400 text-sm">{translations.modal.duration}</span>
+                        <span className="text-neutral-200 font-medium">{project.duration && project.duration[language]}</span>
+                    </div>
+                </div>
             </div>
 
             {/* Pins de compétences */}
