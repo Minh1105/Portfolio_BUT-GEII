@@ -42,69 +42,39 @@ function App() {
   }, []);
 
   const translations = {
-    fr: {
-      sidebar: { home: "Accueil", projects: "Projets", internship: "Mes stages", skills: "Compétences", contact: "Contacts" },
-      sections: {
-        projects: { title: "Mes Projets", desc: "Voici une sélection de mes projets académiques et personnels. Ils illustrent mes compétences techniques et ma capacité à mener à bien des réalisations concrètes, du développement logiciel à l'électronique embarquée." },
-        internship: { title: "Mon Stage", desc: "Cette section détaille mon expérience professionnelle acquise lors de mon stage de fin d'études. Vous y découvrirez le contexte, mes missions, ainsi que les compétences mises en œuvre en situation réelle." },
-        skills: { title: "Compétences", desc: "Retrouvez ici l'ensemble des compétences techniques et transversales que j'ai développées au cours de ma formation et de mes expériences. Elles couvrent le développement, l'électronique, et la gestion de projet." },
-        contact: { title: "Contacts", desc: "N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn.", linkedinTooltip: "En cliquant ici, vous allez être redirigé vers LinkedIn" }
-      },
-      modal: { skills: "Compétences utilisées", tooltip: "Pour plus de précision sur le projet, vous pouvez consulter le rapport ou compte rendu téléchargeable ici.", yearTime: "Année et Temps", year: "Année de réalisation", duration: "Temps de conception" }
+    sidebar: { home: "Accueil", experiences: "Mes Expériences", skills: "Compétences", contact: "Contacts" },
+    sections: {
+      experiences: { title: "Mes Expériences", desc: "Voici une sélection de mes projets académiques, personnels et de mes stages. Ils illustrent mes compétences techniques et ma capacité à mener à bien des réalisations concrètes, du développement logiciel à l'électronique embarquée." },
+      skills: { title: "Compétences", desc: "Retrouvez ici l'ensemble des compétences techniques et transversales que j'ai développées au cours de ma formation et de mes expériences. Elles couvrent le développement, l'électronique, et la gestion de projet." },
+      contact: { title: "Contacts", desc: "N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn.", linkedinTooltip: "En cliquant ici, vous allez être redirigé vers LinkedIn" }
     },
-    en: {
-      sidebar: { home: "Home", projects: "Projects", internship: "Internships", skills: "Skills", contact: "Contact" },
-      sections: {
-        projects: { title: "My Projects", desc: "Here is a selection of my academic and personal projects. They illustrate my technical skills and my ability to carry out concrete achievements, from software development to embedded electronics." },
-        internship: { title: "My Internship", desc: "This section details my professional experience acquired during my end-of-studies internship. You will discover the context, my missions, as well as the skills implemented in real situations." },
-        skills: { title: "Skills", desc: "Here you will find all the technical and transversal skills that I developed during my training and my experiences. They cover development, electronics, and project management." },
-        contact: { title: "Contact", desc: "Do not hesitate to contact me for any professional opportunity or question about my background. I am reachable by email or via LinkedIn.", linkedinTooltip: "By clicking here, you will be redirected to LinkedIn" }
-      },
-      modal: { skills: "Skills used", tooltip: "For more details on the project, you can download the report here.", yearTime: "Year and Time", year: "Year of realization", duration: "Design time" }
-    },
-    vi: {
-      sidebar: { home: "Trang chủ", projects: "Dự án", internship: "Thực tập", skills: "Kỹ năng", contact: "Liên hệ" },
-      sections: {
-        projects: { title: "Dự án của tôi", desc: "Đây là tuyển tập các dự án học thuật và cá nhân của tôi. Chúng minh họa các kỹ năng kỹ thuật và khả năng thực hiện các thành tựu cụ thể của tôi, từ phát triển phần mềm đến điện tử nhúng." },
-        internship: { title: "Kỳ thực tập", desc: "Phần này chi tiết về kinh nghiệm làm việc chuyên nghiệp của tôi trong kỳ thực tập cuối khóa. Bạn sẽ khám phá bối cảnh, nhiệm vụ của tôi, cũng như các kỹ năng được áp dụng trong thực tế." },
-        skills: { title: "Kỹ năng", desc: "Tại đây bạn sẽ tìm thấy tất cả các kỹ năng kỹ thuật và kỹ năng mềm mà tôi đã phát triển trong quá trình đào tạo và kinh nghiệm của mình. Chúng bao gồm phát triển, điện tử và quản lý dự án." },
-        contact: { title: "Liên hệ", desc: "Đừng ngần ngại liên hệ với tôi cho bất kỳ cơ hội nghề nghiệp hoặc câu hỏi nào về quá trình của tôi. Tôi có thể được liên hệ qua email hoặc LinkedIn.", linkedinTooltip: "Bằng cách nhấp vào đây, bạn sẽ được chuyển hướng đến LinkedIn" }
-      },
-      modal: { skills: "Kỹ năng sử dụng", tooltip: "Để biết thêm chi tiết về dự án, bạn có thể tải xuống báo cáo tại đây.", yearTime: "Năm và Thời gian", year: "Năm thực hiện", duration: "Thời gian thiết kế" }
-    }
+    modal: { skills: "Compétences utilisées", tooltip: "Pour plus de précision sur le projet, vous pouvez consulter le rapport ou compte rendu téléchargeable ici.", yearTime: "Année et Temps", year: "Année de réalisation", duration: "Temps de conception" }
   };
 
   const links = [
     {
-      label: translations[language].sidebar.home,
+      label: translations.sidebar.home,
       href: "#accueil",
       icon: (
         <IconHome className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
       ),
     },
     {
-      label: translations[language].sidebar.projects,
-      href: "#projets",
+      label: translations.sidebar.experiences,
+      href: "#experiences",
       icon: (
         <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
       ),
     },
     {
-      label: translations[language].sidebar.internship,
-      href: "#stage",
-      icon: (
-        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
-      ),
-    },
-    {
-      label: translations[language].sidebar.skills,
+      label: translations.sidebar.skills,
       href: "#competences",
       icon: (
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
       ),
     },
     {
-      label: translations[language].sidebar.contact,
+      label: translations.sidebar.contact,
       href: "#contacts",
       icon: (
         <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
@@ -116,126 +86,126 @@ function App() {
   const projectsData = [
     {
       id: 1,
-      title: { fr: "Projet 1", en: "Project 1", vi: "Dự án 1" },
-      year: "2024",
-      duration: { fr: "200 heures", en: "200 hours", vi: "200 giờ" },
+      title: "Projet SmartLight",
+      year: "2023",
+      duration: "50 heures",
       images: [robot1, robot2], // 2. Utilisez les variables d'image importées
-      description: { fr: "Description détaillée du projet 1. Lorem ipsum dolor sit amet...", en: "Detailed description of project 1...", vi: "Mô tả chi tiết dự án 1..." },
+      description: "Description détaillée du projet 1. Lorem ipsum dolor sit amet...",
       skills: ["React", "Node.js", "UHF"],
       pdf: "/path/to/rapport_projet1.pdf"
     },
     {
       id: 2,
-      title: { fr: "Projet 2", en: "Project 2", vi: "Dự án 2" },
-      year: "2023",
-      duration: { fr: "150 heures", en: "150 hours", vi: "150 giờ" },
+      title: "Projet de conception d'un assistant domotique",
+      year: "2024",
+      duration: "75 heures",
       images: [
         robot3, // Exemple avec une seule image
       ],
-      description: { fr: "Description détaillée du projet 2...", en: "Detailed description of project 2...", vi: "Mô tả chi tiết dự án 2..." },
+      description: "Description détaillée du projet 2...",
       skills: ["Python", "Flask", "Machine Learning"],
       pdf: "/path/to/rapport_projet2.pdf"
     },
     {
       id: 3,
-      title: { fr: "Projet 3", en: "Project 3", vi: "Dự án 3" },
+      title: "Conception d'un Robot Suiveur de Ligne",
       year: "2023",
-      duration: { fr: "70 heures", en: "70 hours", vi: "70 giờ" },
+      duration: "70 heures",
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+3+-+Image+1",
       ],
-      description: { fr: "Description détaillée du projet 3...", en: "Detailed description of project 3...", vi: "Mô tả chi tiết dự án 3..." },
+      description: "Description détaillée du projet 3...",
       skills: ["C++", "Arduino", "Electronique"],
       pdf: "/path/to/rapport_projet3.pdf"
     },
     {
       id: 4,
-      title: { fr: "Projet 4", en: "Project 4", vi: "Dự án 4" },
+      title: "Projet 4",
       year: "2024",
-      duration: { fr: "80 heures", en: "80 hours", vi: "80 giờ" },
+      duration: "80 heures",
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+4+-+Image+1",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+4+-+Image+2",
         "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Projet+4+-+Image+3",
       ],
-      description: { fr: "Description détaillée du projet 4...", en: "Detailed description of project 4...", vi: "Mô tả chi tiết dự án 4..." },
+      description: "Description détaillée du projet 4...",
       skills: ["JavaScript", "TailwindCSS", "Vite"],
       pdf: "/path/to/rapport_projet4.pdf"
     },
     {
       id: 5,
-      title: { fr: "Projet 5", en: "Project 5", vi: "Dự án 5" },
+      title: "Projet 5",
       year: "2023",
-      duration: { fr: "30 heures", en: "30 hours", vi: "30 giờ" },
+      duration: "30 heures",
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+5+-+Image+1",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+5+-+Image+2",
       ],
-      description: { fr: "Description détaillée du projet 5...", en: "Detailed description of project 5...", vi: "Mô tả chi tiết dự án 5..." },
+      description: "Description détaillée du projet 5...",
       skills: ["Figma", "UI/UX", "Design"],
       pdf: "/path/to/rapport_projet5.pdf"
     },
     {
       id: 6,
-      title: { fr: "Projet 6", en: "Project 6", vi: "Dự án 6" },
+      title: "Projet 6",
       year: "2022",
-      duration: { fr: "400 heures", en: "400 hours", vi: "400 giờ" },
+      duration: "400 heures",
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+6+-+Image+1",
       ],
-      description: { fr: "Description détaillée du projet 6...", en: "Detailed description of project 6...", vi: "Mô tả chi tiết dự án 6..." },
+      description: "Description détaillée du projet 6...",
       skills: ["STM32", "C", "RTOS"],
       pdf: "/path/to/rapport_projet6.pdf"
     },
     {
       id: 7,
-      title: { fr: "Projet 7", en: "Project 7", vi: "Dự án 7" },
+      title: "Projet 7",
       year: "2022",
-      duration: { fr: "200 heures", en: "200 hours", vi: "200 giờ" },
+      duration: "200 heures",
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+7+-+Image+1",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+7+-+Image+2",
       ],
-      description: { fr: "Description détaillée du projet 7...", en: "Detailed description of project 7...", vi: "Mô tả chi tiết dự án 7..." },
+      description: "Description détaillée du projet 7...",
       skills: ["Java", "Spring Boot", "SQL"],
       pdf: "/path/to/rapport_projet7.pdf"
     },
     {
       id: 8,
-      title: { fr: "Projet 8", en: "Project 8", vi: "Dự án 8" },
+      title: "Projet 8",
       year: "2024",
-      duration: { fr: "140 heures", en: "140 hours", vi: "140 giờ" },
+      duration: "140 heures",
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+8+-+Image+1",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+8+-+Image+2",
         "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Projet+8+-+Image+3",
       ],
-      description: { fr: "Description détaillée du projet 8...", en: "Detailed description of project 8...", vi: "Mô tả chi tiết dự án 8..." },
+      description: "Description détaillée du projet 8...",
       skills: ["Docker", "Kubernetes", "CI/CD"],
       pdf: "/path/to/rapport_projet8.pdf"
     },
     {
       id: 9,
-      title: { fr: "Projet 9", en: "Project 9", vi: "Dự án 9" },
+      title: "Projet 9",
       year: "2023",
-      duration: { fr: "350 heures", en: "350 hours", vi: "350 giờ" },
+      duration: "350 heures",
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+9+-+Image+1",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+9+-+Image+2",
       ],
-      description: { fr: "Description détaillée du projet 9...", en: "Detailed description of project 9...", vi: "Mô tả chi tiết dự án 9..." },
+      description: "Description détaillée du projet 9...",
       skills: ["Vue.js", "Firebase", "GraphQL"],
       pdf: "/path/to/rapport_projet9.pdf"
     },
     {
       id: 10,
-      title: { fr: "Projet 10", en: "Project 10", vi: "Dự án 10" },
+      title: "Projet 10",
       year: "2022",
-      duration: { fr: "60 heures", en: "60 hours", vi: "60 giờ" },
+      duration: "60 heures",
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+10+-+Image+1",
       ],
-      description: { fr: "Description détaillée du projet 10...", en: "Detailed description of project 10...", vi: "Mô tả chi tiết dự án 10..." },
+      description: "Description détaillée du projet 10...",
       skills: ["Angular", "TypeScript", "RxJS"],
       pdf: "/path/to/rapport_projet10.pdf"
     },
@@ -245,39 +215,25 @@ function App() {
   const internshipData = [
     {
       id: "stage-1",
-      title: { fr: "Stage BUT GEII", en: "BUT GEII Internship", vi: "Thực tập BUT GEII" },
+      title: "Stage BUT GEII",
       year: "2024",
-      duration: { fr: "14 semaines", en: "14 weeks", vi: "14 tuần" },
+      duration: "8 semaines",
       images: [
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Introduction+Stage",
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Developpement+Qt",
         "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Reseau+et+Serveur",
         "https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan+et+Resultats",
       ],
-      description: { fr: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.", en: "End of studies internship. Click to discover the internship process step by step.", vi: "Thực tập cuối khóa. Nhấp để khám phá quá trình thực tập từng bước." },
+      description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
       skills: ["C++", "Qt", "Réseaux", "Travail d'équipe"],
       pdf: "/path/to/rapport_stage.pdf",
       // Données spécifiques pour le mode 'Story' (par image)
-      descriptions: {
-        fr: [
-          "Introduction et Contexte :\n\nDurant ce stage de 10 semaines, j'ai intégré l'équipe R&D de l'entreprise. L'objectif principal était de moderniser l'interface de contrôle d'un robot industriel.\n\nJ'ai commencé par :\n- Analyser l'existant et les besoins des opérateurs.\n- Mettre en place l'environnement de développement (Linux, Qt).\n- Définir l'architecture logicielle du nouveau module.",
-          "Développement de l'Interface (IHM) :\n\nLa première phase technique a consisté à développer l'interface graphique avec le framework Qt (C++). J'ai créé des widgets personnalisés pour afficher les capteurs du robot en temps réel.\n\nChallenges relevés :\n- Gestion du rafraîchissement fluide des graphiques.\n- Création d'un design ergonomique et sombre pour réduire la fatigue visuelle.",
-          "Communication Réseau & Backend :\n\nPour que l'interface communique avec le robot, j'ai implémenté un client TCP/IP asynchrone. Le robot agit comme un serveur envoyant des trames de données structurées.\n\nJ'ai dû décoder ces trames binaires, gérer les erreurs de connexion et assurer la reconnexion automatique en cas de perte de signal.",
-          "Bilan et Compétences Acquises :\n\nCe stage m'a permis de consolider mes compétences en C++ orienté objet et en programmation événementielle. J'ai aussi appris à travailler avec des outils de versionning (Git) dans un contexte professionnel.\n\nLe projet a été validé par l'équipe et sera déployé sur la prochaine version des robots."
-        ],
-        en: [
-          "Introduction and Context:\n\nDuring this 10-week internship, I joined the company's R&D team. The main objective was to modernize the control interface of an industrial robot.\n\nI started by:\n- Analyzing the existing system and operator needs.\n- Setting up the development environment (Linux, Qt).\n- Defining the software architecture of the new module.",
-          "Interface Development (HMI):\n\nThe first technical phase consisted of developing the graphical interface with the Qt framework (C++). I created custom widgets to display robot sensors in real time.\n\nChallenges met:\n- Managing fluid graphics refresh.\n- Creating an ergonomic and dark design to reduce visual fatigue.",
-          "Network Communication & Backend:\n\nFor the interface to communicate with the robot, I implemented an asynchronous TCP/IP client. The robot acts as a server sending structured data frames.\n\nI had to decode these binary frames, handle connection errors, and ensure automatic reconnection in case of signal loss.",
-          "Assessment and Skills Acquired:\n\nThis internship allowed me to consolidate my skills in object-oriented C++ and event-driven programming. I also learned to work with versioning tools (Git) in a professional context.\n\nThe project was validated by the team and will be deployed on the next version of the robots."
-        ],
-        vi: [
-          "Giới thiệu và Bối cảnh:\n\nTrong kỳ thực tập 10 tuần này, tôi đã tham gia nhóm R&D của công ty. Mục tiêu chính là hiện đại hóa giao diện điều khiển của một robot công nghiệp.\n\nTôi bắt đầu bằng cách:\n- Phân tích hệ thống hiện có và nhu cầu của người vận hành.\n- Thiết lập môi trường phát triển (Linux, Qt).\n- Xác định kiến trúc phần mềm của mô-đun mới.",
-          "Phát triển Giao diện (HMI):\n\nGiai đoạn kỹ thuật đầu tiên bao gồm phát triển giao diện đồ họa với framework Qt (C++). Tôi đã tạo các widget tùy chỉnh để hiển thị cảm biến robot trong thời gian thực.\n\nThách thức:\n- Quản lý làm mới đồ họa mượt mà.\n- Tạo thiết kế công thái học và tối để giảm mỏi mắt.",
-          "Giao tiếp Mạng & Backend:\n\nĐể giao diện giao tiếp với robot, tôi đã triển khai một client TCP/IP bất đồng bộ. Robot hoạt động như một máy chủ gửi các khung dữ liệu có cấu trúc.\n\nTôi phải giải mã các khung nhị phân này, xử lý lỗi kết nối và đảm bảo kết nối lại tự động trong trường hợp mất tín hiệu.",
-          "Đánh giá và Kỹ năng đạt được:\n\nKỳ thực tập này cho phép tôi củng cố các kỹ năng về C++ hướng đối tượng và lập trình hướng sự kiện. Tôi cũng học cách làm việc với các công cụ quản lý phiên bản (Git) trong bối cảnh chuyên nghiệp.\n\nDự án đã được nhóm phê duyệt và sẽ được triển khai trên phiên bản robot tiếp theo."
-        ]
-      },
+      descriptions: [
+        "Introduction et Contexte :\n\nDurant ce stage de 10 semaines, j'ai intégré l'équipe R&D de l'entreprise. L'objectif principal était de moderniser l'interface de contrôle d'un robot industriel.\n\nJ'ai commencé par :\n- Analyser l'existant et les besoins des opérateurs.\n- Mettre en place l'environnement de développement (Linux, Qt).\n- Définir l'architecture logicielle du nouveau module.",
+        "Développement de l'Interface (IHM) :\n\nLa première phase technique a consisté à développer l'interface graphique avec le framework Qt (C++). J'ai créé des widgets personnalisés pour afficher les capteurs du robot en temps réel.\n\nChallenges relevés :\n- Gestion du rafraîchissement fluide des graphiques.\n- Création d'un design ergonomique et sombre pour réduire la fatigue visuelle.",
+        "Communication Réseau & Backend :\n\nPour que l'interface communique avec le robot, j'ai implémenté un client TCP/IP asynchrone. Le robot agit comme un serveur envoyant des trames de données structurées.\n\nJ'ai dû décoder ces trames binaires, gérer les erreurs de connexion et assurer la reconnexion automatique en cas de perte de signal.",
+        "Bilan et Compétences Acquises :\n\nCe stage m'a permis de consolider mes compétences en C++ orienté objet et en programmation événementielle. J'ai aussi appris à travailler avec des outils de versionning (Git) dans un contexte professionnel.\n\nLe projet a été validé par l'équipe et sera déployé sur la prochaine version des robots."
+      ],
       skillsList: [
         ["Analyse", "UML", "Linux"],
         ["C++", "Qt Widgets", "UI Design"],
@@ -334,12 +290,12 @@ function App() {
       </Sidebar>
 
       {/* 2. Dashboard contenant le fond Plasma et le contenu */}
-      <Dashboard projects={projectsData} internship={internshipData} onProjectClick={setSelectedProject} isModalOpen={!!selectedProject} language={language} setLanguage={setLanguage} translations={translations[language]} activeTab={activeTab} />
+      <Dashboard projects={projectsData} internship={internshipData} onProjectClick={setSelectedProject} isModalOpen={!!selectedProject} language={language} setLanguage={setLanguage} translations={translations} activeTab={activeTab} />
 
       {/* 4. Modale de projet */}
       <AnimatePresence>
         {selectedProject && (
-          <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} language={language} translations={translations[language]} />
+          <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} language={language} translations={translations} />
         )}
       </AnimatePresence>
     </div>
@@ -383,67 +339,68 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
   const skillsList = [
     { 
       name: "C++", 
-      level: { fr: "Avancée", en: "Advanced", vi: "Nâng cao" },
-      desc: { fr: "Développement système performant et bas niveau.", en: "High-performance and low-level system development.", vi: "Phát triển hệ thống hiệu năng cao và cấp thấp." } 
+      level: "Avancée",
+      desc: "Développement système performant et bas niveau." 
     },
     { 
       name: "Python", 
-      level: { fr: "Intermédiaire", en: "Intermediate", vi: "Trung bình" },
-      desc: { fr: "Analyse de données, IA et scripting polyvalent.", en: "Data analysis, AI and versatile scripting.", vi: "Phân tích dữ liệu, AI và kịch bản đa năng." } 
+      level: "Intermédiaire",
+      desc: "Analyse de données, IA et scripting polyvalent." 
     },
     { 
       name: "React", 
-      level: { fr: "Intermédiaire", en: "Intermediate", vi: "Trung bình" },
-      desc: { fr: "Création d'interfaces web modernes et réactives.", en: "Creating modern and reactive web interfaces.", vi: "Tạo giao diện web hiện đại và phản hồi." } 
+      level: "Intermédiaire",
+      desc: "Création d'interfaces web modernes et réactives." 
     },
     { 
       name: "Electronique", 
-      level: { fr: "Avancée", en: "Advanced", vi: "Nâng cao" },
-      desc: { fr: "Conception de circuits et systèmes embarqués.", en: "Circuit design and embedded systems.", vi: "Thiết kế mạch và hệ thống nhúng." } 
+      level: "Avancée",
+      desc: "Conception de circuits et systèmes embarqués." 
     },
     { 
       name: "Java", 
-      level: { fr: "Intermédiaire", en: "Intermediate", vi: "Trung bình" },
-      desc: { fr: "Programmation orientée objet robuste.", en: "Robust object-oriented programming.", vi: "Lập trình hướng đối tượng mạnh mẽ." } 
+      level: "Intermédiaire",
+      desc: "Programmation orientée objet robuste." 
     },
     { 
       name: "Docker", 
-      level: { fr: "Notions", en: "Basics", vi: "Cơ bản" },
-      desc: { fr: "Conteneurisation pour le déploiement d'applications.", en: "Containerization for application deployment.", vi: "Container hóa để triển khai ứng dụng." } 
+      level: "Notions",
+      desc: "Conteneurisation pour le déploiement d'applications." 
     },
     { 
       name: "Figma", 
-      level: { fr: "Intermédiaire", en: "Intermediate", vi: "Trung bình" },
-      desc: { fr: "Design d'interface et prototypage UI/UX.", en: "Interface design and UI/UX prototyping.", vi: "Thiết kế giao diện và tạo mẫu UI/UX." } 
+      level: "Intermédiaire",
+      desc: "Design d'interface et prototypage UI/UX." 
     },
     { 
       name: "STM32", 
-      level: { fr: "Avancée", en: "Advanced", vi: "Nâng cao" },
-      desc: { fr: "Programmation de microcontrôleurs pour l'embarqué.", en: "Microcontroller programming for embedded systems.", vi: "Lập trình vi điều khiển cho hệ thống nhúng." } 
+      level: "Avancée",
+      desc: "Programmation de microcontrôleurs pour l'embarqué." 
     },
     { 
       name: "Angular", 
-      level: { fr: "Notions", en: "Basics", vi: "Cơ bản" },
-      desc: { fr: "Framework complet pour applications web d'entreprise.", en: "Complete framework for enterprise web applications.", vi: "Framework hoàn chỉnh cho ứng dụng web doanh nghiệp." } 
+      level: "Notions",
+      desc: "Framework complet pour applications web d'entreprise." 
     },
     { 
       name: "Travail d'équipe", 
-      level: { fr: "Avancée", en: "Advanced", vi: "Nâng cao" },
-      desc: { fr: "Collaboration efficace et gestion de projet agile.", en: "Effective collaboration and agile project management.", vi: "Hợp tác hiệu quả và quản lý dự án linh hoạt." } 
+      level: "Avancée",
+      desc: "Collaboration efficace et gestion de projet agile." 
     },
     { 
       name: "JavaScript", 
-      level: { fr: "Intermédiaire", en: "Intermediate", vi: "Trung bình" },
-      desc: { fr: "Langage de script essentiel pour le web interactif.", en: "Essential scripting language for the interactive web.", vi: "Ngôn ngữ kịch bản thiết yếu cho web tương tác." } 
+      level: "Intermédiaire",
+      desc: "Langage de script essentiel pour le web interactif." 
     },
     { 
       name: "SQL", 
-      level: { fr: "Notions", en: "Basics", vi: "Cơ bản" },
-      desc: { fr: "Gestion et interrogation de bases de données relationnelles.", en: "Management and querying of relational databases.", vi: "Quản lý và truy vấn cơ sở dữ liệu quan hệ." } 
+      level: "Notions",
+      desc: "Gestion et interrogation de bases de données relationnelles." 
     },
   ];
 
   const allProjectsAndInternships = [...projects, ...(internship || [])];
+  const allExperiences = [...allProjectsAndInternships].sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
   return (
     // On ajoute un fond en dégradé directement ici.
@@ -482,63 +439,36 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
           </section>
           )}
 
-          {/* Section Projets */}
-          {activeTab === 'projets' && (
-          <section id="projets" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white pt-20 md:pt-5">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">{translations.sections.projects.title}</h2>
+          {/* Section Expériences */}
+          {activeTab === 'experiences' && (
+          <section id="experiences" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white pt-20 md:pt-5">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">{translations.sections.experiences.title}</h2>
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mb-6 md:mb-8 max-w-3xl backdrop-blur-sm">
-              <p className="text-sm md:text-base text-neutral-300">{translations.sections.projects.desc}</p>
+              <p className="text-sm md:text-base text-neutral-300">{translations.sections.experiences.desc}</p>
             </div>
-            {/* Grille de projets */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 pb-10">
-              {projects.map((project) => (
+            {/* Grille d'expériences */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-10">
+              {allExperiences.map((item) => (
                 <motion.div
-                  key={project.id}
+                  key={item.id}
                   className="bg-neutral-800 rounded-lg cursor-pointer overflow-hidden"
                   onClick={() => {
                     // Si la modale est déjà ouverte, le clic sur un projet en arrière-plan la fermera.
                     // Sinon, on ouvre la modale du projet cliqué.
                     if (isModalOpen) return;
-                    onProjectClick(project);
+                    onProjectClick(item);
                   }}
                   whileHover={{ scale: 1.05, y: -5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <img src={project.images[0]} alt={project.title[language]} className="w-full h-40 object-cover" />
+                  <img src={item.images[0]} alt={item.title} className="w-full h-40 object-cover" />
                   <div className="p-4">
-                    <h3 className="text-xl font-bold mb-2">{project.title[language]}</h3>
+                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
                     <div className="flex justify-between text-sm text-neutral-400">
-                      <span>{project.year}</span>
-                      <span>{project.duration[language]}</span>
+                      <span>{item.year}</span>
+                      <span>{item.duration}</span>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-          )}
-
-          {/* Section Stage */}
-          {activeTab === 'stage' && (
-          <section id="stage" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white pt-20 md:pt-5">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">{translations.sections.internship.title}</h2>
-            <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mb-6 md:mb-8 max-w-3xl backdrop-blur-sm">
-              <p className="text-sm md:text-base text-neutral-300">{translations.sections.internship.desc}</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pb-10">
-              {internship && internship.map((stage) => (
-                <motion.div
-                  key={stage.id}
-                  className="bg-neutral-800 rounded-lg cursor-pointer overflow-hidden"
-                  onClick={() => {
-                    if (isModalOpen) return;
-                    onProjectClick(stage);
-                  }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <img src={stage.images[0]} alt={stage.title[language]} className="w-full h-40 object-cover" />
-                  <h3 className="text-xl font-bold p-4">{stage.title[language]}</h3>
                 </motion.div>
               ))}
             </div>
@@ -570,16 +500,16 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
                     <div className="flex justify-between items-start">
                       <h3 className="text-xl font-bold text-blue-400">{skill.name}</h3>
                       <span className={`text-xs font-medium px-2 py-1 rounded border ${
-                        skill.level.fr === "Avancée" 
+                        skill.level === "Avancée" 
                           ? "bg-green-500/10 text-green-400 border-green-500/20" 
-                          : skill.level.fr === "Intermédiaire" 
+                          : skill.level === "Intermédiaire" 
                             ? "bg-blue-500/10 text-blue-400 border-blue-500/20" 
                             : "bg-neutral-500/10 text-neutral-400 border-neutral-500/20"
                       }`}>
-                        {skill.level[language]}
+                        {skill.level}
                       </span>
                     </div>
-                    <p className="text-sm text-neutral-300 flex-1">{skill.desc[language]}</p>
+                    <p className="text-sm text-neutral-300 flex-1">{skill.desc}</p>
                     
                     {relatedProjects.length > 0 && (
                       <div className="mt-2 pt-3 border-t border-neutral-700/50">
@@ -591,7 +521,7 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
                               onClick={() => onProjectClick(p)}
                               className="text-xs bg-blue-500/10 text-blue-300 border border-blue-500/20 px-2 py-1 rounded hover:bg-blue-500/30 transition-colors text-left"
                             >
-                              {p.title[language]}
+                              {p.title}
                             </button>
                           ))}
                         </div>
@@ -694,7 +624,7 @@ const ProjectModal = ({ project, onClose, language, translations }) => {
   const [isHovering, setIsHovering] = useState(false);
 
   // Détection du mode "Story" (pour le stage) si des descriptions multiples existent
-  const isStoryMode = project.descriptions && typeof project.descriptions === 'object' && !Array.isArray(project.descriptions) && Array.isArray(project.descriptions[language]);
+  const isStoryMode = project.descriptions && Array.isArray(project.descriptions);
 
   const imageIndex = (page % project.images.length + project.images.length) % project.images.length;
 
@@ -710,7 +640,7 @@ const ProjectModal = ({ project, onClose, language, translations }) => {
   }, [isHovering, paginate, project.images.length, isStoryMode]);
 
   // Sélection du contenu en fonction du mode
-  const currentDescription = isStoryMode ? project.descriptions[language][imageIndex] : project.description[language];
+  const currentDescription = isStoryMode ? project.descriptions[imageIndex] : project.description;
   const currentSkills = isStoryMode ? (project.skillsList[imageIndex] || []) : project.skills;
 
   return (
@@ -757,7 +687,7 @@ const ProjectModal = ({ project, onClose, language, translations }) => {
                     x: { type: "spring", stiffness: 300, damping: 30 },
                     opacity: { duration: 0.2 },
                   }}
-                  alt={`${project.title[language]} - Image ${imageIndex + 1}`}
+                  alt={`${project.title} - Image ${imageIndex + 1}`}
                   className="absolute w-full h-full object-contain"
                 />
               </AnimatePresence>
@@ -778,7 +708,7 @@ const ProjectModal = ({ project, onClose, language, translations }) => {
 
           {/* Informations en bas */}
           <div className="w-full flex flex-col">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 pr-8">{project.title[language]}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 pr-8">{project.title}</h2>
 
             {/* Texte */}
             <div className="mb-4 md:mb-6">
@@ -795,7 +725,7 @@ const ProjectModal = ({ project, onClose, language, translations }) => {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-neutral-400 text-sm">{translations.modal.duration}</span>
-                        <span className="text-neutral-200 font-medium">{project.duration && project.duration[language]}</span>
+                        <span className="text-neutral-200 font-medium">{project.duration}</span>
                     </div>
                 </div>
             </div>
