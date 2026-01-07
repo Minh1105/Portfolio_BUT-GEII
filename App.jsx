@@ -91,7 +91,8 @@ function App() {
       duration: "50 heures",
       images: [robot1, robot2], // 2. Utilisez les variables d'image importées
       description: "Description détaillée du projet 1. Lorem ipsum dolor sit amet...",
-      skills: ["React", "Node.js", "UHF"],
+      skills: ["Arduino IDE", "C++", "Lecture de datasheets", "Electronique", "Travail d'équipe",
+         "Rédaction de rapports", "Microsoft Office", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet1.pdf"
     },
     {
@@ -103,7 +104,7 @@ function App() {
         robot3, // Exemple avec une seule image
       ],
       description: "Description détaillée du projet 2...",
-      skills: ["Python", "Flask", "Machine Learning"],
+      skills: ["Python", "Flask", "Machine Learning", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet2.pdf"
     },
     {
@@ -115,7 +116,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+3+-+Image+1",
       ],
       description: "Description détaillée du projet 3...",
-      skills: ["C++", "Arduino", "Electronique"],
+      skills: ["C++", "Arduino", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet3.pdf"
     },
     {
@@ -129,7 +130,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Projet+4+-+Image+3",
       ],
       description: "Description détaillée du projet 4...",
-      skills: ["JavaScript", "TailwindCSS", "Vite"],
+      skills: ["JavaScript", "TailwindCSS", "Vite", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet4.pdf"
     },
     {
@@ -142,7 +143,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+5+-+Image+2",
       ],
       description: "Description détaillée du projet 5...",
-      skills: ["Figma", "UI/UX", "Design"],
+      skills: ["Figma", "UI/UX", "Design", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet5.pdf"
     },
     {
@@ -154,7 +155,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+6+-+Image+1",
       ],
       description: "Description détaillée du projet 6...",
-      skills: ["STM32", "C", "RTOS"],
+      skills: ["STM32", "C", "RTOS", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet6.pdf"
     },
     {
@@ -167,7 +168,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+7+-+Image+2",
       ],
       description: "Description détaillée du projet 7...",
-      skills: ["Java", "Spring Boot", "SQL"],
+      skills: ["Java", "Spring Boot", "SQL", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet7.pdf"
     },
     {
@@ -181,7 +182,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Projet+8+-+Image+3",
       ],
       description: "Description détaillée du projet 8...",
-      skills: ["Docker", "Kubernetes", "CI/CD"],
+      skills: ["Docker", "Kubernetes", "CI/CD", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet8.pdf"
     },
     {
@@ -194,7 +195,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+9+-+Image+2",
       ],
       description: "Description détaillée du projet 9...",
-      skills: ["Vue.js", "Firebase", "GraphQL"],
+      skills: ["Vue.js", "Firebase", "GraphQL", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet9.pdf"
     },
     {
@@ -206,7 +207,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+10+-+Image+1",
       ],
       description: "Description détaillée du projet 10...",
-      skills: ["Angular", "TypeScript", "RxJS"],
+      skills: ["Angular", "TypeScript", "RxJS", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet10.pdf"
     },
   ].sort((a, b) => parseInt(b.year) - parseInt(a.year));
@@ -225,7 +226,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan+et+Resultats",
       ],
       description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
-      skills: ["C++", "Qt", "Réseaux", "Travail d'équipe"],
+      skills: ["C++", "Qt", "Réseaux", "Travail d'équipe", "Datasheets"],
       pdf: "/path/to/rapport_stage.pdf",
       // Données spécifiques pour le mode 'Story' (par image)
       descriptions: [
@@ -243,10 +244,85 @@ function App() {
     }
   ];
 
+  // Liste des compétences avec descriptions (Carte blanche)
+  const skillsList = [
+    { 
+      name: "Électronique", 
+      level: "Avancée",
+      desc: "Conception de circuits et systèmes embarqués." 
+    },
+    { 
+      name: "Prog. Embarquée", 
+      level: "Avancée",
+      desc: "Développement de logiciels pour systèmes à contraintes." 
+    },
+    { 
+      name: "C/C++", 
+      level: "Avancée",
+      desc: "Développement système performant et bas niveau." 
+    },
+    { 
+      name: "Tests & Vérif.", 
+      level: "Intermédiaire",
+      desc: "Validation de systèmes et protocoles de test." 
+    },
+    { 
+      name: "Arduino IDE", 
+      level: "Avancée",
+      desc: "Prototypage rapide sur microcontrôleurs." 
+    },
+    { 
+      name: "Microsoft Office", 
+      level: "Avancée",
+      desc: "Word, PowerPoint, Excel pour documentation et présentation." 
+    },
+    { 
+      name: "Datasheets", 
+      level: "Avancée",
+      desc: "Lecture et analyse de spécifications techniques." 
+    },
+    { 
+      name: "Rapports & CR", 
+      level: "Avancée",
+      desc: "Rédaction technique, comptes rendus et documentation." 
+    },
+    { 
+      name: "LaTeX / Overleaf", 
+      level: "Intermédiaire",
+      desc: "Rédaction de documents scientifiques et techniques structurés." 
+    },
+    { 
+      name: "STM32", 
+      level: "Avancée",
+      desc: "Programmation de microcontrôleurs pour l'embarqué." 
+    },
+    { 
+      name: "Python", 
+      level: "Intermédiaire",
+      desc: "Analyse de données, IA et scripting polyvalent." 
+    },
+    { 
+      name: "Travail d'équipe", 
+      level: "Avancée",
+      desc: "Collaboration efficace et gestion de projet agile." 
+    },
+    { 
+      name: "JavaScript", 
+      level: "Intermédiaire",
+      desc: "Langage de script essentiel pour le web interactif." 
+    },
+    { 
+      name: "SQL", 
+      level: "Notions",
+      desc: "Gestion et interrogation de bases de données relationnelles." 
+    },
+  ];
+
   const [open, setOpen] = useState(false);
   const appRef = useRef(null); // Référence pour le conteneur principal de l'application
 
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedSkill, setSelectedSkill] = useState(null);
 
   return (
     // Ajout du style pour le défilement fluide
@@ -290,12 +366,44 @@ function App() {
       </Sidebar>
 
       {/* 2. Dashboard contenant le fond Plasma et le contenu */}
-      <Dashboard projects={projectsData} internship={internshipData} onProjectClick={setSelectedProject} isModalOpen={!!selectedProject} language={language} setLanguage={setLanguage} translations={translations} activeTab={activeTab} />
+      <Dashboard 
+        projects={projectsData} 
+        internship={internshipData} 
+        onProjectClick={setSelectedProject} 
+        onSkillClick={setSelectedSkill}
+        isModalOpen={!!selectedProject || !!selectedSkill} 
+        language={language} 
+        setLanguage={setLanguage} 
+        translations={translations} 
+        activeTab={activeTab} 
+        skillsList={skillsList}
+      />
 
       {/* 4. Modale de projet */}
       <AnimatePresence>
         {selectedProject && (
-          <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} language={language} translations={translations} />
+          <ProjectModal 
+            project={selectedProject} 
+            onClose={() => setSelectedProject(null)} 
+            language={language} 
+            translations={translations} 
+            skillsList={skillsList}
+            onSkillClick={(skill) => {
+              setSelectedProject(null);
+              setSelectedSkill(skill);
+            }}
+          />
+        )}
+        {selectedSkill && (
+          <SkillModal 
+            skill={selectedSkill} 
+            projects={[...projectsData, ...internshipData]} 
+            onClose={() => setSelectedSkill(null)} 
+            onProjectClick={(project) => {
+              setSelectedSkill(null);
+              setSelectedProject(project);
+            }}
+          />
         )}
       </AnimatePresence>
     </div>
@@ -332,75 +440,57 @@ export const LogoIcon = () => {
 };
 
 // Composant Dashboard factice
-const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language, setLanguage, translations, activeTab }) => {
+const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModalOpen, language, setLanguage, translations, activeTab, skillsList }) => {
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
-
-  // Liste des compétences avec descriptions (Carte blanche)
-  const skillsList = [
-    { 
-      name: "C++", 
-      level: "Avancée",
-      desc: "Développement système performant et bas niveau." 
-    },
-    { 
-      name: "Python", 
-      level: "Intermédiaire",
-      desc: "Analyse de données, IA et scripting polyvalent." 
-    },
-    { 
-      name: "React", 
-      level: "Intermédiaire",
-      desc: "Création d'interfaces web modernes et réactives." 
-    },
-    { 
-      name: "Electronique", 
-      level: "Avancée",
-      desc: "Conception de circuits et systèmes embarqués." 
-    },
-    { 
-      name: "Java", 
-      level: "Intermédiaire",
-      desc: "Programmation orientée objet robuste." 
-    },
-    { 
-      name: "Docker", 
-      level: "Notions",
-      desc: "Conteneurisation pour le déploiement d'applications." 
-    },
-    { 
-      name: "Figma", 
-      level: "Intermédiaire",
-      desc: "Design d'interface et prototypage UI/UX." 
-    },
-    { 
-      name: "STM32", 
-      level: "Avancée",
-      desc: "Programmation de microcontrôleurs pour l'embarqué." 
-    },
-    { 
-      name: "Angular", 
-      level: "Notions",
-      desc: "Framework complet pour applications web d'entreprise." 
-    },
-    { 
-      name: "Travail d'équipe", 
-      level: "Avancée",
-      desc: "Collaboration efficace et gestion de projet agile." 
-    },
-    { 
-      name: "JavaScript", 
-      level: "Intermédiaire",
-      desc: "Langage de script essentiel pour le web interactif." 
-    },
-    { 
-      name: "SQL", 
-      level: "Notions",
-      desc: "Gestion et interrogation de bases de données relationnelles." 
-    },
-  ];
 
   const allProjectsAndInternships = [...projects, ...(internship || [])];
   const allExperiences = [...allProjectsAndInternships].sort((a, b) => parseInt(b.year) - parseInt(a.year));
+
+  // Données pour les compétences spéciales GEII
+  // TODO: Ajustez les pourcentages de maîtrise (propriété 'percentage') selon votre évaluation
+  const geiiSkills = [
+    { 
+      name: "Concevoir", 
+      color: "blue", 
+      levels: [
+        { id: 1, desc: "Mener une conception partielle intégrant une démarche projet.", percentage: 100, explanation: "Validation des acquis par la réalisation de projets tuteurés en première année.", projectIds: [1, 3] },
+        { id: 2, desc: "Concevoir un système en fiabilisant les solutions.", percentage: 90, explanation: "Application de méthodes de conception rigoureuses lors des projets de deuxième année.", projectIds: [2, 5] },
+        { id: 3, desc: "Concevoir un système en adoptant une approche sélective dans ses choix technologiques.", percentage: 85, explanation: "Démonstration de cette compétence lors du stage de fin d'études et des projets complexes.", projectIds: ["stage-1", 6] }
+      ]
+    },
+    { 
+      name: "Vérifier", 
+      color: "green", 
+      levels: [
+        { id: 1, desc: "Effectuer les tests et mesures nécessaires à une vérification d’un système.", percentage: 100, explanation: "Maîtrise des appareils de mesure standards (oscilloscope, multimètre) validée en TP.", projectIds: [1, 4] },
+        { id: 2, desc: "Mettre en place un protocole de tests pour valider le fonctionnement d’un système.", percentage: 95, explanation: "Élaboration de plans de tests pour valider les prototypes fonctionnels.", projectIds: [2, 7] },
+        { id: 3, desc: "Élaborer une procédure intégrant une démarche qualité pour valider le fonctionnement d’un système.", percentage: 90, explanation: "Mise en place de procédures de validation qualité en entreprise.", projectIds: ["stage-1"] }
+      ]
+    },
+    { 
+      name: "Maintenir", 
+      color: "yellow", 
+      levels: [
+        { id: 1, desc: "Intervenir sur un système pour effectuer une opération de maintenance.", percentage: 90, explanation: "Capacité à identifier et remplacer des composants défectueux sur des cartes électroniques.", projectIds: [3, 10] },
+        { id: 2, desc: "Mettre en place une stratégie de maintenance pour garantir un fonctionnement optimal.", percentage: 75, explanation: "Analyse approfondie de dysfonctionnements sur des systèmes embarqués temps réel.", projectIds: [6, 8] }
+      ]
+    },
+    { 
+      name: "Implanter", 
+      color: "red", 
+      levels: [
+        { id: 1, desc: "Réaliser un système en mettant en place une démarche qualité en conformité avec le dossier de fabrication.", percentage: 100, explanation: "Réalisation de câblages d'armoires et de cartes électroniques en respectant les normes.", projectIds: [1, 5] },
+        { id: 2, desc: "Interagir avec les différents acteurs, lors de l’installation et de la mise en service d’un système, dans une démarche qualité.", percentage: 95, explanation: "Déploiement et configuration de réseaux de capteurs et d'architectures IoT.", projectIds: [8, 9] }
+      ]
+    },
+  ];
+
+  const colorClasses = {
+    blue: { text: "text-blue-400", bg: "bg-blue-400" },
+    green: { text: "text-green-400", bg: "bg-green-400" },
+    yellow: { text: "text-yellow-400", bg: "bg-yellow-400" },
+    red: { text: "text-red-400", bg: "bg-red-400" },
+  };
 
   return (
     // On ajoute un fond en dégradé directement ici.
@@ -483,6 +573,29 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.skills.desc}</p>
             </div>
 
+            {/* Section spéciale Compétences GEII */}
+            <div className="mb-10">
+              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">Compétences du Référentiel GEII</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {geiiSkills.map((skill, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="bg-neutral-800 border border-neutral-700 rounded-xl p-5 flex flex-col justify-center items-center gap-2 cursor-pointer hover:bg-neutral-750 transition-colors hover:border-neutral-500/50 min-h-[120px]"
+                    onClick={() => {
+                      if (isModalOpen) return;
+                      onSkillClick(skill);
+                    }}
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <h4 className={`text-2xl font-bold ${colorClasses[skill.color].text}`}>{skill.name}</h4>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
             {/* Grille de compétences */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-10">
               {skillsList.map((skill, idx) => {
@@ -495,10 +608,15 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="bg-neutral-800 border border-neutral-700 rounded-xl p-5 flex flex-col gap-3 hover:bg-neutral-750 transition-colors"
+                    className="bg-neutral-800 border border-neutral-700 rounded-xl p-5 flex flex-col gap-3 hover:bg-neutral-750 transition-colors cursor-pointer hover:border-blue-500/30 group"
+                    onClick={() => {
+                      if (isModalOpen) return;
+                      onSkillClick(skill);
+                    }}
+                    whileHover={{ scale: 1.02 }}
                   >
                     <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-bold text-blue-400">{skill.name}</h3>
+                      <h3 className="text-xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">{skill.name}</h3>
                       <span className={`text-xs font-medium px-2 py-1 rounded border ${
                         skill.level === "Avancée" 
                           ? "bg-green-500/10 text-green-400 border-green-500/20" 
@@ -509,22 +627,13 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
                         {skill.level}
                       </span>
                     </div>
-                    <p className="text-sm text-neutral-300 flex-1">{skill.desc}</p>
+                    <p className="text-sm text-neutral-300 flex-1 group-hover:text-neutral-200 transition-colors">{skill.desc}</p>
                     
+                    {/* Indicateur de projets */}
                     {relatedProjects.length > 0 && (
-                      <div className="mt-2 pt-3 border-t border-neutral-700/50">
-                        <span className="text-xs text-neutral-500 uppercase font-semibold tracking-wider mb-2 block">Utilisé dans :</span>
-                        <div className="flex flex-wrap gap-2">
-                          {relatedProjects.map(p => (
-                            <button 
-                              key={p.id} 
-                              onClick={() => onProjectClick(p)}
-                              className="text-xs bg-blue-500/10 text-blue-300 border border-blue-500/20 px-2 py-1 rounded hover:bg-blue-500/30 transition-colors text-left"
-                            >
-                              {p.title}
-                            </button>
-                          ))}
-                        </div>
+                      <div className="mt-auto pt-3 border-t border-neutral-700/50 flex items-center gap-2 text-xs text-neutral-500">
+                        <IconBrandTabler size={14} />
+                        <span>{relatedProjects.length} projet{relatedProjects.length > 1 ? 's' : ''} associé{relatedProjects.length > 1 ? 's' : ''}</span>
                       </div>
                     )}
                   </motion.div>
@@ -589,6 +698,34 @@ const Dashboard = ({ projects, internship, onProjectClick, isModalOpen, language
                 </div>
               </div>
 
+              {/* Séparateur */}
+              <div className="w-full h-px bg-neutral-700/50"></div>
+
+              {/* CV */}
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="bg-white p-2 rounded-lg flex-shrink-0 flex items-center justify-center w-24 h-24 md:w-32 md:h-32">
+                  <IconFileTypePdf className="text-neutral-900 w-16 h-16" stroke={1.5} />
+                </div>
+                <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                  <div className="flex items-center gap-2 mb-2 text-red-400">
+                    <IconUserBolt size={32} />
+                    <h3 className="text-xl font-bold">CV - Ly Minh Quan</h3>
+                    <a 
+                      href="assets/pdf/CV Ly Minh-Quan.pdf" 
+                      download 
+                      className="ml-2 p-1.5 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg transition-colors border border-neutral-600 flex items-center gap-1"
+                      title="Télécharger le CV"
+                    >
+                      <IconFileTypePdf size={18} />
+                      <span className="text-xs font-medium">PDF</span>
+                    </a>
+                  </div>
+                  <p className="text-neutral-300">
+                    Téléchargez mon CV pour consulter mon parcours détaillé.
+                  </p>
+                </div>
+              </div>
+
             </div>
           </section>
           )}
@@ -616,7 +753,7 @@ const variants = {
 };
 
 // Composant pour la modale de projet
-const ProjectModal = ({ project, onClose, language, translations }) => {
+const ProjectModal = ({ project, onClose, language, translations, skillsList, onSkillClick }) => {
   const modalRef = useRef(null);
   useOutsideClick(modalRef, onClose);
 
@@ -734,9 +871,16 @@ const ProjectModal = ({ project, onClose, language, translations }) => {
             <div>
               <h3 className="text-lg font-semibold mb-3">{translations.modal.skills}</h3>
               <div className="flex flex-wrap gap-2">
-                {currentSkills.map((skill, index) => (
-                  <span key={index} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full">{skill}</span>
-                ))}
+                {currentSkills
+                  .filter(skillName => skillsList.some(s => s.name === skillName))
+                  .map((skillName, index) => {
+                    const skillObj = skillsList.find(s => s.name === skillName);
+                    return (
+                      <button key={index} onClick={() => onSkillClick(skillObj)} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-blue-500/40 transition-colors cursor-pointer">
+                        {skillName}
+                      </button>
+                    );
+                  })}
               </div>
             </div>
           </div>
@@ -762,6 +906,215 @@ const ProjectModal = ({ project, onClose, language, translations }) => {
             </a>
           </div>
         )}
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// Composant pour la modale de compétence
+const SkillModal = ({ skill, projects, onClose, onProjectClick }) => {
+  const modalRef = useRef(null);
+  useOutsideClick(modalRef, onClose);
+  const [selectedLevel, setSelectedLevel] = useState(null);
+
+  // Filtrer les projets qui utilisent cette compétence (pour les compétences standards uniquement)
+  const isGeiiSkill = !!skill.levels;
+  const relatedProjects = isGeiiSkill ? [] : projects.filter(p => p.skills && p.skills.includes(skill.name));
+  const levelProjects = selectedLevel && selectedLevel.projectIds ? projects.filter(p => selectedLevel.projectIds.includes(p.id)) : [];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4"
+    >
+      <motion.div
+        ref={modalRef}
+        initial={{ scale: 0.9, y: 20 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.9, y: 20 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="bg-neutral-900/90 border border-neutral-700 rounded-xl w-full max-w-5xl max-h-[85vh] relative flex flex-col overflow-hidden shadow-2xl"
+      >
+        <button onClick={onClose} className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors z-20 p-1 rounded-full hover:bg-neutral-800">
+          <IconX size={24} />
+        </button>
+
+        <div className="p-6 overflow-y-auto h-full">
+          <AnimatePresence mode="wait">
+          {selectedLevel ? (
+            <motion.div 
+              key="level-detail"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}
+              className="flex flex-col gap-6 pt-2"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <button 
+                  onClick={() => setSelectedLevel(null)}
+                  className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 text-neutral-300 transition-colors"
+                >
+                  <IconArrowLeft size={20} />
+                </button>
+                <h2 className="text-2xl font-bold text-white">Niveau {selectedLevel.id} - Détails</h2>
+              </div>
+
+              <div className="bg-neutral-800/50 p-6 rounded-xl border border-neutral-700">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-xl font-bold text-blue-400">Maîtrise : {selectedLevel.percentage}%</h3>
+                </div>
+                <p className="text-neutral-300 mb-6 text-lg">{selectedLevel.desc}</p>
+                
+                {selectedLevel.explanation && (
+                  <div className="p-4 bg-neutral-900/50 rounded-lg border-l-4 border-blue-500 mb-2">
+                      <h4 className="text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">Pourquoi ce niveau ?</h4>
+                      <p className="text-neutral-200 italic">"{selectedLevel.explanation}"</p>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                  <IconBrandTabler size={24} className="text-neutral-400" />
+                  Projets associés au niveau {selectedLevel.id}
+                </h3>
+                {levelProjects.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {levelProjects.map(project => (
+                      <div 
+                        key={project.id}
+                        onClick={() => onProjectClick(project)}
+                        className="group flex items-center gap-3 p-3 rounded-lg bg-neutral-800/50 border border-neutral-700 hover:bg-neutral-800 hover:border-blue-500/50 cursor-pointer transition-all"
+                      >
+                        <img 
+                          src={project.images[0]} 
+                          alt={project.title} 
+                          className="w-12 h-12 rounded object-cover bg-neutral-900"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-sm font-medium text-neutral-200 group-hover:text-blue-400 truncate transition-colors">
+                            {project.title}
+                          </h4>
+                          <p className="text-xs text-neutral-500">{project.year}</p>
+                        </div>
+                        <IconChevronRight size={16} className="text-neutral-600 group-hover:text-blue-400 transition-colors" />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-neutral-500 italic">Aucun projet spécifique associé à ce niveau.</p>
+                )}
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div 
+              key="skill-overview"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.2 }}
+              className="flex flex-col gap-6"
+            >
+            {/* En-tête */}
+            <div>
+              <div className="flex items-center gap-4 mb-4 pr-12">
+                <h2 className="text-3xl font-bold text-blue-400">{skill.name}</h2>
+                {/* Affichage du badge de niveau uniquement pour les compétences standards */}
+                {skill.level && typeof skill.level === 'string' && (
+                  <span className={`text-sm font-medium px-3 py-1 rounded-full border ${
+                    skill.level === "Avancée" 
+                      ? "bg-green-500/10 text-green-400 border-green-500/20" 
+                      : skill.level === "Intermédiaire" 
+                        ? "bg-blue-500/10 text-blue-400 border-blue-500/20" 
+                        : "bg-neutral-500/10 text-neutral-400 border-neutral-500/20"
+                  }`}>
+                    {skill.level}
+                  </span>
+                )}
+              </div>
+              
+              {/* Affichage conditionnel : Niveaux détaillés (GEII) ou Description simple (Standard) */}
+              {skill.levels ? (
+                <div className="flex flex-col gap-6">
+                  {skill.levels.map((lvl) => {
+                    return (
+                    <div 
+                      key={lvl.id} 
+                      onClick={() => setSelectedLevel(lvl)}
+                      className="bg-neutral-800/50 p-4 rounded-lg border border-neutral-700 hover:bg-neutral-800 hover:border-blue-500/50 cursor-pointer transition-all group"
+                    >
+                      <div className="flex justify-between items-center mb-2">
+                        <h4 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">Niveau {lvl.id}</h4>
+                        <span className="text-sm font-mono text-neutral-400">{lvl.percentage}%</span>
+                      </div>
+                      <p className="text-neutral-300 text-sm mb-3">{lvl.desc}</p>
+
+                      <div className="w-full bg-neutral-700 rounded-full h-2.5 mb-4">
+                        <div 
+                          className={`h-2.5 rounded-full ${
+                            skill.color === 'blue' ? 'bg-blue-400' : 
+                            skill.color === 'green' ? 'bg-green-400' : 
+                            skill.color === 'yellow' ? 'bg-yellow-400' : 
+                            skill.color === 'red' ? 'bg-red-400' : 'bg-blue-500'
+                          }`}
+                          style={{ width: `${lvl.percentage}%` }}
+                        ></div>
+                      </div>
+                      
+                      <div className="text-xs text-blue-400 font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        Voir les détails et projets associés <IconChevronRight size={14} />
+                      </div>
+                    </div>
+                  )})}
+                </div>
+              ) : (
+                <p className="text-neutral-300 text-lg">{skill.desc}</p>
+              )}
+            </div>
+
+            {/* Liste des projets */}
+            {!isGeiiSkill && (
+            <div>
+              <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <IconBrandTabler size={24} className="text-neutral-400" />
+                Projets associés
+              </h3>
+              
+              {relatedProjects.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {relatedProjects.map(project => (
+                    <div 
+                      key={project.id}
+                      onClick={() => onProjectClick(project)}
+                      className="group flex items-center gap-3 p-3 rounded-lg bg-neutral-800/50 border border-neutral-700 hover:bg-neutral-800 hover:border-blue-500/50 cursor-pointer transition-all"
+                    >
+                      <img 
+                        src={project.images[0]} 
+                        alt={project.title} 
+                        className="w-12 h-12 rounded object-cover bg-neutral-900"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-medium text-neutral-200 group-hover:text-blue-400 truncate transition-colors">
+                          {project.title}
+                        </h4>
+                        <p className="text-xs text-neutral-500">{project.year}</p>
+                      </div>
+                      <IconChevronRight size={16} className="text-neutral-600 group-hover:text-blue-400 transition-colors" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-neutral-500 italic">Aucun projet listé pour cette compétence.</p>
+              )}
+            </div>
+            )}
+            </motion.div>
+          )}
+          </AnimatePresence>
+        </div>
       </motion.div>
     </motion.div>
   );
