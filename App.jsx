@@ -262,11 +262,6 @@ function App() {
       desc: "Développement système performant et bas niveau." 
     },
     { 
-      name: "Tests & Vérif.", 
-      level: "Intermédiaire",
-      desc: "Validation de systèmes et protocoles de test." 
-    },
-    { 
       name: "Arduino IDE", 
       level: "Avancée",
       desc: "Prototypage rapide sur microcontrôleurs." 
@@ -287,24 +282,29 @@ function App() {
       desc: "Rédaction technique, comptes rendus et documentation." 
     },
     { 
-      name: "LaTeX / Overleaf", 
-      level: "Intermédiaire",
-      desc: "Rédaction de documents scientifiques et techniques structurés." 
-    },
-    { 
       name: "STM32", 
       level: "Avancée",
       desc: "Programmation de microcontrôleurs pour l'embarqué." 
     },
     { 
-      name: "Python", 
-      level: "Intermédiaire",
-      desc: "Analyse de données, IA et scripting polyvalent." 
-    },
-    { 
       name: "Travail d'équipe", 
       level: "Avancée",
       desc: "Collaboration efficace et gestion de projet agile." 
+    },
+    { 
+      name: "Tests & Vérif.", 
+      level: "Intermédiaire",
+      desc: "Validation de systèmes et protocoles de test." 
+    },
+    { 
+      name: "LaTeX / Overleaf", 
+      level: "Intermédiaire",
+      desc: "Rédaction de documents scientifiques et techniques structurés." 
+    },
+    { 
+      name: "Python", 
+      level: "Intermédiaire",
+      desc: "Analyse de données, IA et scripting polyvalent." 
     },
     { 
       name: "JavaScript", 
