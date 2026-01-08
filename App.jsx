@@ -20,7 +20,7 @@ import { useOutsideClick } from './components/use-outside-click';
 
 // 1. Importez vos images locales ici
 // Créez un dossier `src/assets/images` et placez-y vos images.
-import robot1 from './assets/images/robot1.png';
+import SmartLight from './assets/images/SmartLight.jpg';
 import robot2 from './assets/images/robot2.png';
 import robot3 from './assets/images/robot3.png';
 import photo_profil from './assets/images/photo_profil.png'; // 1. Importez votre photo de profil ici (corrigez le nom du fichier si besoin)
@@ -89,7 +89,7 @@ function App() {
       title: "Projet SmartLight",
       year: "2023",
       duration: "50 heures",
-      images: [robot1, robot2], // 2. Utilisez les variables d'image importées
+      images: [SmartLight], // 2. Utilisez les variables d'image importées
       description: "Description détaillée du projet 1. Lorem ipsum dolor sit amet...",
       skills: ["Arduino IDE", "C++", "Lecture de datasheets", "Electronique", "Travail d'équipe",
          "Rédaction de rapports", "Microsoft Office", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
