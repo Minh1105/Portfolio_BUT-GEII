@@ -21,8 +21,28 @@ import { useOutsideClick } from './components/use-outside-click';
 // 1. Importez vos images locales ici
 // Créez un dossier `src/assets/images` et placez-y vos images.
 import SmartLight from './assets/images/SmartLight.jpg';
-import robot2 from './assets/images/robot2.png';
+
+import CarteDomotique from './assets/images/CarteDomotique.png';
+
+import RobotGies1 from './assets/images/RobotGies1.png';
+import RobotGies2 from './assets/images/RobotGies2.png';
+
+
+import CarteBasseConso3D from './assets/images/CarteBasseConso3D.png';
+import SchématiqueBasseConso from './assets/images/SchématiqueBasseConso.png';
+import PCBBasseConso from './assets/images/PCBBasseConso.png';
+
+
+
+/*import robot3 from './assets/images/robot3.png';
 import robot3 from './assets/images/robot3.png';
+import robot3 from './assets/images/robot3.png';
+import robot3 from './assets/images/robot3.png';
+import robot3 from './assets/images/robot3.png';
+*/
+
+
+
 import photo_profil from './assets/images/photo_profil.png'; // 1. Importez votre photo de profil ici (corrigez le nom du fichier si besoin)
 
 function App() {
@@ -90,7 +110,7 @@ function App() {
       year: "2023",
       duration: "50 heures",
       images: [SmartLight], // 2. Utilisez les variables d'image importées
-      description: "Description détaillée du projet 1. Lorem ipsum dolor sit amet...",
+      description: "Description détaillée du projet 1...",
       skills: ["Arduino IDE", "C++", "Lecture de datasheets", "Electronique", "Travail d'équipe",
          "Rédaction de rapports", "Microsoft Office", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet1.pdf"
@@ -99,35 +119,36 @@ function App() {
       id: 2,
       title: "Projet de conception d'un assistant domotique",
       year: "2024",
-      duration: "75 heures",
+      duration: "35 heures",
       images: [
-        robot3, // Exemple avec une seule image
+        CarteDomotique, 
       ],
       description: "Description détaillée du projet 2...",
-      skills: ["Python", "Flask", "Machine Learning", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["Arduino IDE", "C/C++", "Electronique",  "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet2.pdf"
     },
     {
       id: 3,
-      title: "Conception d'un Robot Suiveur de Ligne",
-      year: "2023",
-      duration: "70 heures",
+      title: "Conception d'un robot mobile autonome",
+      year: "2026-2024",
+      duration: "+120 heures",
       images: [
-        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+3+-+Image+1",
+        RobotGies1,
+        RobotGies2,
       ],
       description: "Description détaillée du projet 3...",
-      skills: ["C++", "Arduino", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Python"],
       pdf: "/path/to/rapport_projet3.pdf"
     },
     {
       id: 4,
-      title: "Projet 4",
-      year: "2024",
-      duration: "80 heures",
+      title: "Conception d'un carte à transmission radio à basse consommation",
+      year: "2025",
+      duration: "+90 heures",
       images: [
-        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+4+-+Image+1",
-        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+4+-+Image+2",
-        "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Projet+4+-+Image+3",
+        CarteBasseConso3D,
+        SchématiqueBasseConso,
+        PCBBasseConso,
       ],
       description: "Description détaillée du projet 4...",
       skills: ["JavaScript", "TailwindCSS", "Vite", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
@@ -247,7 +268,7 @@ function App() {
   // Liste des compétences avec descriptions (Carte blanche)
   const skillsList = [
     { 
-      name: "Électronique", 
+      name: "Electronique", 
       level: "Avancée",
       desc: "Conception de circuits et systèmes embarqués." 
     },
@@ -772,7 +793,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
   useEffect(() => {
     // Désactiver le défilement automatique si on est en mode Story ou s'il n'y a qu'une image
     if (project.images.length <= 1 || isHovering || isStoryMode) return;
-    const autoplay = setInterval(() => paginate(1), 4000); // Défilement toutes les 3 secondes
+    const autoplay = setInterval(() => paginate(1), 5000); // Défilement toutes les 3 secondes
     return () => clearInterval(autoplay);
   }, [isHovering, paginate, project.images.length, isStoryMode]);
 
