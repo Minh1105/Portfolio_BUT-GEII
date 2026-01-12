@@ -33,8 +33,10 @@ import SchématiqueBasseConso from './assets/images/SchématiqueBasseConso.png';
 import PCBBasseConso from './assets/images/PCBBasseConso.png';
 
 
+import VérifierMaintenance1 from './assets/images/VérifierMaintenance1.jpg';
+import VérifierMaintenance2 from './assets/images/VérifierMaintenance2.jpg';
 
-/*import robot3 from './assets/images/robot3.png';
+/*
 import robot3 from './assets/images/robot3.png';
 import robot3 from './assets/images/robot3.png';
 import robot3 from './assets/images/robot3.png';
@@ -156,15 +158,15 @@ function App() {
     },
     {
       id: 5,
-      title: "Projet 5",
+      title: "Projet Vérifier",
       year: "2023",
-      duration: "30 heures",
+      duration: "20 heures",
       images: [
-        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+5+-+Image+1",
-        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+5+-+Image+2",
+        VérifierMaintenance1,
+        VérifierMaintenance2,
       ],
       description: "Description détaillée du projet 5...",
-      skills: ["Figma", "UI/UX", "Design", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["Microsoft Office", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet5.pdf"
     },
     {
