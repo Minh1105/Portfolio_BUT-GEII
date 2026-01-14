@@ -136,9 +136,20 @@ function App() {
         RobotGies1,
         RobotGies2,
       ],
-      description: "Description détaillée du projet 3...",
+      description: [
+        {
+          period: "2024-2025",
+          title: "Conception Matérielle et Autonomie",
+          text: "Ce projet porte sur la création d'un robot mobile articulé autour d'un microcontrôleur dsPIC33EP512MU814 et programmé via l'environnement MPLAB. Le robot utilise cinq télémètres infrarouges connectés à des entrées ADC pour convertir les distances en données numériques exploitables. La propulsion est assurée par des moteurs pilotés en PWM, incluant des rampes d'accélération pour éviter les changements brusques de vitesse. L'évitement d'obstacles repose sur une méthode numérique traitant 32 combinaisons de capteurs (2^5) afin de déterminer une action précise, comme tourner ou reculer, en fonction de la proximité des obstacles."
+        },
+        {
+          period: "2025-2026",
+          title: "Interface et Pilotage Manuel",
+          text: "Une interface graphique développée en C# (WPF) permet de visualiser les données du robot, telles que la vitesse et la distance des capteurs, tout en lui transmettant des ordres. La communication entre le PC et le robot s'effectue par liaison série UART à 115 200 bauds, sécurisée par un protocole incluant un 'checksum' pour vérifier l'intégrité des messages. Pour un contrôle plus intuitif, un module ESP32 a été ajouté afin de connecter une manette de PS4 via Bluetooth. Ce système permet de diriger le robot manuellement en utilisant les gâchettes pour l'accélération proportionnelle et le joystick pour la direction."
+        }
+      ],
       skills: ["C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Python"],
-      pdf: "/path/to/rapport_projet3.pdf"
+      pdf: "/assets/pdf/ProjetRobotGiesRapport.pdf"
     },
     {
       id: 4,
@@ -304,7 +315,7 @@ function App() {
     },
     { 
       name: "STM32", 
-      level: "Avancée",
+      level: "Intermédiaire",
       desc: "Programmation de microcontrôleurs pour l'embarqué." 
     },
     { 
@@ -542,12 +553,50 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
       <div className="w-full h-full overflow-hidden">
           {/* Section Accueil */}
           {activeTab === 'accueil' && (
-          <section id="accueil" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white flex flex-col justify-center items-center text-center">
-            <div>
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-4">Ly Minh-Quan</h1>
-              <p className="text-lg md:text-xl lg:text-2xl text-neutral-300"></p>
-            </div>
-          </section>
+            <section id="accueil" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white flex flex-col justify-center items-center text-center">
+              <div className="flex flex-col items-center gap-6 max-w-4xl mx-auto">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8 }} 
+                  animate={{ opacity: 1, scale: 1 }} 
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                  <img 
+                    src={photo_profil} 
+                    alt="Ly Minh-Quan" 
+                    className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-neutral-700 shadow-lg" 
+                  />
+                </motion.div>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+                >
+                  <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-2">Ly Minh-Quan</h1>
+                  <p className="text-lg md:text-xl lg:text-2xl text-blue-400 font-medium">Étudiant en Génie Électrique et Informatique Industrielle</p>
+                </motion.div>
+
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+                  className="max-w-3xl mt-4 bg-neutral-800/50 border border-neutral-700 rounded-xl p-6 backdrop-blur-sm"
+                >
+                  <p className="text-neutral-300 text-left md:text-center text-base md:text-lg">
+                    Passionné par la robotique depuis mon très jeune âge, je suis actuellement étudiant en BUT GEII spécialisé en Electroniques et Systèmes Embarqués (ESE), où je développe mes compétences en électronique, informatique et automatique. Curieux et rigoureux, je suis constamment à la recherche de nouveaux défis pour transformer des idées innovantes en solutions concrètes.
+                  </p>
+                </motion.div>
+
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
+                  className="flex flex-wrap justify-center gap-4 mt-6"
+                >
+                  <a href="#experiences" className="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg flex items-center gap-2"><IconBrandTabler size={20} /> Découvrir mes projets</a>
+                  <a href="assets/pdf/CV Ly Minh-Quan.pdf" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-neutral-700 text-white font-semibold rounded-lg hover:bg-neutral-600 transition-colors shadow-md flex items-center gap-2" title="Ouvrir le CV dans un nouvel onglet"><IconFileTypePdf size={20} /> Voir mon CV</a>
+                </motion.div>
+              </div>
+            </section>
           )}
 
           {/* Section Expériences */}
@@ -689,7 +738,10 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                     <IconBrandLinkedin size={32} />
                     <h3 className="text-xl font-bold">LinkedIn</h3>
                     {/* Tooltip */}
-                    <div className="absolute bottom-full left-full mb-2 ml-2 w-48 p-2 bg-neutral-900 border border-neutral-700 text-neutral-200 text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-center z-10">
+                    <div className="absolute bottom-full left-full mb-2 ml-2 w-48 p-2 
+                    bg-neutral-900 border border-neutral-700 text-neutral-200 
+                    text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 
+                    transition-opacity pointer-events-none text-center z-10">
                       {translations.sections.contact.linkedinTooltip}
                     </div>
                   </a>
@@ -733,9 +785,10 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                     <h3 className="text-xl font-bold">CV - Ly Minh Quan</h3>
                     <a 
                       href="assets/pdf/CV Ly Minh-Quan.pdf" 
-                      download 
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="ml-2 p-1.5 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg transition-colors border border-neutral-600 flex items-center gap-1"
-                      title="Télécharger le CV"
+                      title="Ouvrir le CV dans un nouvel onglet"
                     >
                       <IconFileTypePdf size={18} />
                       <span className="text-xs font-medium">PDF</span>
@@ -776,7 +829,10 @@ const variants = {
 // Composant pour la modale de projet
 const ProjectModal = ({ project, onClose, language, translations, skillsList, onSkillClick }) => {
   const modalRef = useRef(null);
-  useOutsideClick(modalRef, onClose);
+  const [showPdfPreview, setShowPdfPreview] = useState(false);
+  useOutsideClick(modalRef, () => {
+    if (!showPdfPreview) onClose();
+  });
 
   const [[page, direction], setPage] = useState([0, 0]);
   const [isHovering, setIsHovering] = useState(false);
@@ -870,7 +926,29 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 
             {/* Texte */}
             <div className="mb-4 md:mb-6">
-              <p className="text-sm md:text-base text-neutral-300 whitespace-pre-wrap">{currentDescription}</p>
+              {Array.isArray(currentDescription) && typeof currentDescription[0] === 'object' ? (
+                <div className="flex flex-col gap-4">
+                  {currentDescription.map((section, idx) => (
+                    <div key={idx} className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-5 shadow-sm">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2 border-b border-neutral-700/50 pb-2">
+                        <h4 className="text-xl font-bold text-blue-400">{section.title}</h4>
+                        {section.period && (
+                          <span className="text-xs font-mono bg-neutral-700 px-2 py-1 rounded text-neutral-300 whitespace-nowrap">
+                            {section.period}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm md:text-base text-neutral-300 whitespace-pre-wrap leading-relaxed">
+                        {section.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm md:text-base text-neutral-300 whitespace-pre-wrap">
+                  {Array.isArray(currentDescription) ? currentDescription.join("") : currentDescription}
+                </p>
+              )}
             </div>
 
             {/* Sous-titre Année et Temps */}
@@ -912,22 +990,71 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
         {project.pdf && (
           <div className="absolute bottom-6 right-6 z-50 group">
             {/* Tooltip (Note explicative) */}
-            <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-neutral-900 border border-neutral-700 text-neutral-200 text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-neutral-900 border 
+            border-neutral-700 text-neutral-200 text-xs rounded-lg shadow-xl opacity-0 
+            group-hover:opacity-100 transition-opacity pointer-events-none">
               {translations.modal.tooltip}
             </div>
-            {/* Bouton de téléchargement */}
-            <a 
-              href={project.pdf} 
-              download 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center justify-center w-12 h-12 bg-neutral-700 hover:bg-neutral-600 text-white rounded-full shadow-lg transition-all hover:scale-110"
+            {/* Bouton de prévisualisation */}
+            <button 
+              onClick={() => setShowPdfPreview(true)}
+              className="flex items-center justify-center w-15 h-15 bg-neutral-700 
+              hover:bg-neutral-600 text-white rounded-full shadow-lg transition-all hover:scale-110"
             >
-              <IconFileTypePdf size={24} />
-            </a>
+              <IconFileTypePdf size={30} />
+            </button>
           </div>
         )}
       </motion.div>
+
+      {/* Modale de prévisualisation PDF */}
+      <AnimatePresence>
+        {showPdfPreview && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex justify-center items-center p-4 md:p-8"
+            onClick={() => setShowPdfPreview(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-neutral-900 w-full h-full max-w-6xl rounded-xl border border-neutral-700 flex flex-col overflow-hidden shadow-2xl"
+            >
+              <div className="flex justify-between items-center p-4 bg-neutral-800 border-b border-neutral-700">
+                <h3 className="text-white font-bold text-lg truncate pr-4">{project.title} - Document</h3>
+                <div className="flex items-center gap-3">
+                  <a 
+                    href={project.pdf} 
+                    download
+                    className="px-4 py-2 bg-neutral-200 hover:bg-white text-neutral-900 rounded-lg text-sm font-bold transition-colors flex items-center gap-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <IconFileTypePdf size={20} />
+                    <span className="hidden sm:inline">Télécharger</span>
+                  </a>
+                  <button 
+                    onClick={() => setShowPdfPreview(false)}
+                    className="p-2 hover:bg-neutral-700 rounded-full text-neutral-400 hover:text-white transition-colors"
+                  >
+                    <IconX size={24} />
+                  </button>
+                </div>
+              </div>
+              <div className="flex-1 bg-neutral-800 relative">
+                <iframe 
+                  src={project.pdf} 
+                  className="w-full h-full absolute inset-0" 
+                  title="PDF Preview"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
