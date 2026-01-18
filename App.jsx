@@ -15,6 +15,11 @@ import {
   IconLanguage,
   IconBrandLinkedin,
   IconMail,
+  IconHeart,
+  IconChefHat,
+  IconChess,
+  IconBarbell,
+  IconActivity,
 } from "@tabler/icons-react";
 import { useOutsideClick } from './components/use-outside-click';
 
@@ -36,9 +41,11 @@ import PCBBasseConso from './assets/images/PCBBasseConso.png';
 import VérifierMaintenance1 from './assets/images/VérifierMaintenance1.jpg';
 import VérifierMaintenance2 from './assets/images/VérifierMaintenance2.jpg';
 
+
+import LR_logical from './assets/images/LR_logical.png';
+import Stage_PCB_Kicad from './assets/images/Stage_PCB_Kicad.png';
 /*
-import robot3 from './assets/images/robot3.png';
-import robot3 from './assets/images/robot3.png';
+
 import robot3 from './assets/images/robot3.png';
 import robot3 from './assets/images/robot3.png';
 */
@@ -64,10 +71,11 @@ function App() {
   }, []);
 
   const translations = {
-    sidebar: { home: "Accueil", experiences: "Mes Expériences", skills: "Compétences", contact: "Contacts" },
+    sidebar: { home: "Accueil", experiences: "Mes Expériences", skills: "Compétences", interests: "Centres d'intérêts", contact: "Contacts" },
     sections: {
       experiences: { title: "Mes Expériences", desc: "Voici une sélection de mes projets académiques, personnels et de mes stages. Ils illustrent mes compétences techniques et ma capacité à mener à bien des réalisations concrètes, du développement logiciel à l'électronique embarquée." },
       skills: { title: "Compétences", desc: "Retrouvez ici l'ensemble des compétences techniques et transversales que j'ai développées au cours de ma formation et de mes expériences. Elles couvrent le développement, l'électronique, et la gestion de projet." },
+      interests: { title: "Centres d'intérêts", desc: "Au-delà de la technique, je cultive des passions qui nourrissent ma curiosité et mon équilibre personnel." },
       contact: { title: "Contacts", desc: "N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn.", linkedinTooltip: "En cliquant ici, vous allez être redirigé vers LinkedIn" }
     },
     modal: { skills: "Compétences utilisées", tooltip: "Pour plus de précision sur le projet, vous pouvez consulter le rapport ou compte rendu téléchargeable ici.", yearTime: "Année et Temps", year: "Année de réalisation", duration: "Temps de conception" }
@@ -93,6 +101,13 @@ function App() {
       href: "#competences",
       icon: (
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
+      ),
+    },
+    {
+      label: translations.sidebar.interests,
+      href: "#interets",
+      icon: (
+        <IconHeart className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
       ),
     },
     {
@@ -251,17 +266,17 @@ function App() {
     {
       id: "stage-1",
       title: "Stage BUT GEII",
-      year: "2024",
+      year: "2025",
       duration: "8 semaines",
       images: [
-        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Introduction+Stage",
-        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Developpement+Qt",
+        LR_logical,
+        Stage_PCB_Kicad,
         "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Reseau+et+Serveur",
         "https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan+et+Resultats",
       ],
       description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
-      skills: ["C++", "Qt", "Réseaux", "Travail d'équipe", "Datasheets"],
-      pdf: "/path/to/rapport_stage.pdf",
+      skills: ["C++", "Qt", "", "Travail d'équipe", "Datasheets","Linux"],
+      pdf: "/assets/pdf/Extrait_Rapport_de_Stage_2e_annee_GEII_Ly_Minh-Quan.pdf",
       // Données spécifiques pour le mode 'Story' (par image)
       descriptions: [
         "Introduction et Contexte :\n\nDurant ce stage de 10 semaines, j'ai intégré l'équipe R&D de l'entreprise. L'objectif principal était de moderniser l'interface de contrôle d'un robot industriel.\n\nJ'ai commencé par :\n- Analyser l'existant et les besoins des opérateurs.\n- Mettre en place l'environnement de développement (Linux, Qt).\n- Définir l'architecture logicielle du nouveau module.",
@@ -270,8 +285,8 @@ function App() {
         "Bilan et Compétences Acquises :\n\nCe stage m'a permis de consolider mes compétences en C++ orienté objet et en programmation événementielle. J'ai aussi appris à travailler avec des outils de versionning (Git) dans un contexte professionnel.\n\nLe projet a été validé par l'équipe et sera déployé sur la prochaine version des robots."
       ],
       skillsList: [
-        ["Analyse", "UML", "Linux"],
-        ["C++", "Qt Widgets", "UI Design"],
+        ["Analyse", "UML", ],
+        [, "Qt Widgets", "UI Design"],
         ["TCP/IP", "Sockets", "Wireshark"],
         ["Git", "Communication", "Autonomie"]
       ]
@@ -283,74 +298,123 @@ function App() {
     { 
       name: "Electronique", 
       level: "Avancée",
-      desc: "Conception de circuits et systèmes embarqués." 
+      desc: "Conception de circuits et systèmes embarqués.",
+      category: "hard"
     },
     { 
       name: "Prog. Embarquée", 
       level: "Avancée",
-      desc: "Développement de logiciels pour systèmes à contraintes." 
+      desc: "Développement de logiciels pour systèmes à contraintes.",
+      category: "hard"
     },
     { 
       name: "C/C++", 
       level: "Avancée",
-      desc: "Développement système performant et bas niveau." 
+      desc: "Développement système performant et bas niveau.",
+      category: "hard"
     },
     { 
       name: "Arduino IDE", 
       level: "Avancée",
-      desc: "Prototypage rapide sur microcontrôleurs." 
+      desc: "Prototypage rapide sur microcontrôleurs.",
+      category: "hard"
     },
     { 
       name: "Microsoft Office", 
       level: "Avancée",
-      desc: "Word, PowerPoint, Excel pour documentation et présentation." 
+      desc: "Word, PowerPoint, Excel pour documentation et présentation.",
+      category: "hard"
     },
     { 
       name: "Datasheets", 
       level: "Avancée",
-      desc: "Lecture et analyse de spécifications techniques." 
+      desc: "Lecture et analyse de spécifications techniques.",
+      category: "hard"
     },
     { 
       name: "Rapports & CR", 
-      level: "Avancée",
-      desc: "Rédaction technique, comptes rendus et documentation." 
+      desc: "Rédaction technique, comptes rendus et documentation.",
+      category: "soft"
     },
     { 
       name: "STM32", 
       level: "Intermédiaire",
-      desc: "Programmation de microcontrôleurs pour l'embarqué." 
+      desc: "Programmation de microcontrôleurs pour l'embarqué.",
+      category: "hard"
     },
     { 
       name: "Travail d'équipe", 
-      level: "Avancée",
-      desc: "Collaboration efficace et gestion de projet agile." 
+      desc: "Collaboration efficace et gestion de projet agile.",
+      category: "soft"
     },
     { 
       name: "Tests & Vérif.", 
       level: "Intermédiaire",
-      desc: "Validation de systèmes et protocoles de test." 
+      desc: "Validation de systèmes et protocoles de test.",
+      category: "hard"
+    },
+    { 
+      name: "Linux", 
+      level: "Intermédiaire",
+      desc: "Maîtrise de la ligne de commande (Bash) et administration système.",
+      category: "hard"
     },
     { 
       name: "LaTeX / Overleaf", 
       level: "Intermédiaire",
-      desc: "Rédaction de documents scientifiques et techniques structurés." 
+      desc: "Rédaction de documents scientifiques et techniques structurés.",
+      category: "hard"
+    },
+    { 
+      name: "Gitub", 
+      level: "Intermédiaire",
+      desc: "Gestion de version et travail collaboratif.",
+      category: "hard"
+    },
+    { 
+      name: "Wireshark", 
+      level: "Notions",
+      desc: "Analyse de protocoles réseau et diagnostic de trafic.",
+      category: "hard"
+    },
+    { 
+      name: "Analyse", 
+      desc: "Capacité d'audit, de synthèse et résolution de problèmes.",
+      category: "soft"
+    },
+    { 
+      name: "Autonomie", 
+      desc: "Capacité à prioriser les tâches et à s'auto-former.",
+      category: "soft"
+    },
+    { 
+      name: "Communication", 
+      desc: "Transmission claire d'informations techniques.",
+      category: "soft"
     },
     { 
       name: "Python", 
       level: "Intermédiaire",
-      desc: "Analyse de données, IA et scripting polyvalent." 
+      desc: "Analyse de données, IA et scripting polyvalent.",
+      category: "hard"
     },
     { 
       name: "JavaScript", 
       level: "Intermédiaire",
-      desc: "Langage de script essentiel pour le web interactif." 
+      desc: "Langage de script essentiel pour le web interactif.",
+      category: "hard"
     },
     { 
       name: "SQL", 
       level: "Notions",
-      desc: "Gestion et interrogation de bases de données relationnelles." 
+      desc: "Gestion et interrogation de bases de données relationnelles.",
+      category: "hard"
     },
-  ];
+  ].sort((a, b) => {
+    const order = { "Avancée": 1, "Intermédiaire": 2, "Notions": 3 };
+    const levelDiff = (order[a.level] || 4) - (order[b.level] || 4);
+    return levelDiff !== 0 ? levelDiff : a.name.localeCompare(b.name);
+  });
 
   const [open, setOpen] = useState(false);
   const appRef = useRef(null); // Référence pour le conteneur principal de l'application
@@ -526,6 +590,42 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
     red: { text: "text-red-400", bg: "bg-red-400" },
   };
 
+  const skillSections = [
+    { title: "Compétences Techniques", skills: skillsList.filter(s => s.category === 'hard') },
+    { title: "Compétences Transversales", skills: skillsList.filter(s => s.category === 'soft') }
+  ];
+
+  const interestsData = [
+    {
+      title: "Cuisine",
+      date: "Passion de toujours",
+      description: "Je suis passionné per la cuisine depuis toujours, découvrir et faire de nouveaux plats, c'est sa que j'aime.",
+      icon: <IconChefHat size={32} className="text-orange-400" />,
+      level: null
+    },
+    {
+      title: "Échecs",
+      date: "Depuis 2018",
+      description: "Jeu de stratégie pratiqué occasionnellemet pour développer la réflexion tactique.",
+      icon: <IconChess size={32} className="text-white" />,
+      level: "Intermédiaire"
+    },
+    {
+      title: "Musculation",
+      date: "En 2023",
+      description: "Je faisais de la musculation en 2023, mais par manque de temps j'ai arrêté.",
+      icon: <IconBarbell size={32} className="text-red-400" />,
+      level: null
+    },
+    {
+      title: "Badminton",
+      date: "Loisir occasionnel",
+      description: "Un très bon sport qui regroupe le travail d'équipe et la réactivité.",
+      icon: <IconActivity size={32} className="text-green-400" />,
+      level: null
+    }
+  ];
+
   return (
     // On ajoute un fond en dégradé directement ici.
     <div className="flex-1 h-full relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800 overflow-hidden">
@@ -574,7 +674,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                   transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
                 >
                   <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-2">Ly Minh-Quan</h1>
-                  <p className="text-lg md:text-xl lg:text-2xl text-blue-400 font-medium">Étudiant en Génie Électrique et Informatique Industrielle</p>
+                  <p className="text-lg md:text-xl lg:text-2xl text-blue-400 font-medium">Étudiant en Génie Électrique et Informatique Industrielle (GEII)</p>
                 </motion.div>
 
                 <motion.div 
@@ -668,49 +768,104 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
               </div>
             </div>
 
-            {/* Grille de compétences */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-10">
-              {skillsList.map((skill, idx) => {
-                // Trouver les projets qui utilisent cette compétence
-                const relatedProjects = allProjectsAndInternships.filter(p => p.skills && p.skills.includes(skill.name));
-                
-                return (
-                  <motion.div 
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.05 }}
-                    className="bg-neutral-800 border border-neutral-700 rounded-xl p-5 flex flex-col gap-3 hover:bg-neutral-750 transition-colors cursor-pointer hover:border-blue-500/30 group"
-                    onClick={() => {
-                      if (isModalOpen) return;
-                      onSkillClick(skill);
-                    }}
-                    whileHover={{ scale: 1.02 }}
-                  >
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">{skill.name}</h3>
-                      <span className={`text-xs font-medium px-2 py-1 rounded border ${
-                        skill.level === "Avancée" 
-                          ? "bg-green-500/10 text-green-400 border-green-500/20" 
-                          : skill.level === "Intermédiaire" 
-                            ? "bg-blue-500/10 text-blue-400 border-blue-500/20" 
-                            : "bg-neutral-500/10 text-neutral-400 border-neutral-500/20"
-                      }`}>
-                        {skill.level}
-                      </span>
+            {/* Grilles de compétences séparées */}
+            <div className="flex flex-col gap-10 pb-10">
+              {skillSections.map((section, sectionIdx) => (
+                <div key={sectionIdx}>
+                  <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">{section.title}</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {section.skills.map((skill, idx) => {
+                      // Trouver les projets qui utilisent cette compétence
+                      const relatedProjects = allProjectsAndInternships.filter(p => p.skills && p.skills.includes(skill.name));
+                      
+                      return (
+                        <motion.div 
+                          key={idx}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: idx * 0.05 }}
+                          className="bg-neutral-800 border border-neutral-700 rounded-xl p-5 flex flex-col gap-3 hover:bg-neutral-750 transition-colors cursor-pointer hover:border-blue-500/30 group"
+                          onClick={() => {
+                            if (isModalOpen) return;
+                            onSkillClick(skill);
+                          }}
+                          whileHover={{ scale: 1.02 }}
+                        >
+                          <div className="flex justify-between items-start">
+                            <h3 className="text-xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">{skill.name}</h3>
+                            {skill.level && (
+                            <span className={`text-xs font-medium px-2 py-1 rounded border ${
+                              skill.level === "Avancée" 
+                                ? "bg-green-500/10 text-green-400 border-green-500/20" 
+                                : skill.level === "Intermédiaire" 
+                                  ? "bg-blue-500/10 text-blue-400 border-blue-500/20" 
+                                  : "bg-neutral-500/10 text-neutral-400 border-neutral-500/20"
+                            }`}>
+                              {skill.level}
+                            </span>
+                            )}
+                          </div>
+                          <p className="text-sm text-neutral-300 flex-1 group-hover:text-neutral-200 transition-colors">{skill.desc}</p>
+                          
+                          {/* Indicateur de projets */}
+                          {relatedProjects.length > 0 && (
+                            <div className="mt-auto pt-3 border-t border-neutral-700/50 flex items-center gap-2 text-xs text-neutral-500">
+                              <IconBrandTabler size={14} />
+                              <span>{relatedProjects.length} projet{relatedProjects.length > 1 ? 's' : ''} associé{relatedProjects.length > 1 ? 's' : ''}</span>
+                            </div>
+                          )}
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+          )}
+
+          {/* Section Centres d'intérêts */}
+          {activeTab === 'interets' && (
+          <section id="interets" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white pt-20 md:pt-5">
+            <h2 className="text-2xl md:text-3xl font-bold">{translations.sections.interests.title}</h2>
+            <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 mb-8 max-w-3xl backdrop-blur-sm">
+              <p className="text-sm md:text-base text-neutral-300">{translations.sections.interests.desc}</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-10">
+              {interestsData.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="bg-neutral-800 border border-neutral-700 rounded-xl p-6 flex flex-col gap-4 hover:bg-neutral-750 transition-colors hover:border-blue-500/30 group"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="flex justify-between items-start">
+                    <div className="p-3 bg-neutral-900 rounded-lg border border-neutral-700 group-hover:border-blue-500/50 transition-colors">
+                      {item.icon}
                     </div>
-                    <p className="text-sm text-neutral-300 flex-1 group-hover:text-neutral-200 transition-colors">{skill.desc}</p>
-                    
-                    {/* Indicateur de projets */}
-                    {relatedProjects.length > 0 && (
-                      <div className="mt-auto pt-3 border-t border-neutral-700/50 flex items-center gap-2 text-xs text-neutral-500">
-                        <IconBrandTabler size={14} />
-                        <span>{relatedProjects.length} projet{relatedProjects.length > 1 ? 's' : ''} associé{relatedProjects.length > 1 ? 's' : ''}</span>
-                      </div>
-                    )}
-                  </motion.div>
-                );
-              })}
+                    <span className="text-xs font-mono text-neutral-400 bg-neutral-900/50 px-2 py-1 rounded border border-neutral-700/50">
+                      {item.date}
+                    </span>
+                  </div>
+                  
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="text-xl font-bold text-neutral-200 group-hover:text-blue-400 transition-colors">{item.title}</h3>
+                      {item.level && (
+                        <span className="text-xs font-medium px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                          {item.level}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-neutral-400 text-sm leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </section>
           )}
@@ -773,35 +928,6 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                 </div>
               </div>
 
-              {/* Séparateur */}
-              <div className="w-full h-px bg-neutral-700/50"></div>
-
-              {/* CV */}
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="bg-white p-2 rounded-lg flex-shrink-0 flex items-center justify-center w-24 h-24 md:w-32 md:h-32">
-                  <IconFileTypePdf className="text-neutral-900 w-16 h-16" stroke={1.5} />
-                </div>
-                <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                  <div className="flex items-center gap-2 mb-2 text-red-400">
-                    <IconUserBolt size={32} />
-                    <h3 className="text-xl font-bold">CV - Ly Minh Quan</h3>
-                    <a 
-                      href="assets/pdf/CV Ly Minh-Quan.pdf" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ml-2 p-1.5 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg transition-colors border border-neutral-600 flex items-center gap-1"
-                      title="Ouvrir le CV dans un nouvel onglet"
-                    >
-                      <IconFileTypePdf size={18} />
-                      <span className="text-xs font-medium">PDF</span>
-                    </a>
-                  </div>
-                  <p className="text-neutral-300">
-                    Téléchargez mon CV pour consulter mon parcours détaillé.
-                  </p>
-                </div>
-              </div>
-
             </div>
           </section>
           )}
@@ -857,7 +983,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 
   // Sélection du contenu en fonction du mode
   const currentDescription = isStoryMode ? project.descriptions[imageIndex] : project.description;
-  const currentSkills = isStoryMode ? (project.skillsList[imageIndex] || []) : project.skills;
+  const currentSkills = project.skills;
 
   return (
     <motion.div
