@@ -20,6 +20,7 @@ import {
   IconChess,
   IconBarbell,
   IconActivity,
+  IconAddressBook,
 } from "@tabler/icons-react";
 import { useOutsideClick } from './components/use-outside-click';
 
@@ -114,7 +115,7 @@ function App() {
       label: translations.sidebar.contact,
       href: "#contacts",
       icon: (
-        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
+        <IconAddressBook className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
       ),
     },
   ];
@@ -141,7 +142,7 @@ function App() {
         CarteDomotique, 
       ],
       description: "Description détaillée du projet 2...",
-      skills: ["Arduino IDE", "C/C++", "Electronique",  "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["Arduino IDE", "C/C++", "Electronique",  "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie"],
       pdf: "/path/to/rapport_projet2.pdf"
     },
     {
@@ -165,7 +166,7 @@ function App() {
           text: "Une interface graphique développée en C# (WPF) permet de visualiser les données du robot, telles que la vitesse et la distance des capteurs, tout en lui transmettant des ordres. La communication entre le PC et le robot s'effectue par liaison série UART à 115 200 bauds, sécurisée par un protocole incluant un 'checksum' pour vérifier l'intégrité des messages. Pour un contrôle plus intuitif, un module ESP32 a été ajouté afin de connecter une manette de PS4 via Bluetooth. Ce système permet de diriger le robot manuellement en utilisant les gâchettes pour l'accélération proportionnelle et le joystick pour la direction."
         }
       ],
-      skills: ["C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Python"],
+      skills: ["C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Python", "Autonomie"],
       pdf: "/assets/pdf/ProjetRobotGiesRapport.pdf"
     },
     {
@@ -179,7 +180,7 @@ function App() {
         PCBBasseConso,
       ],
       description: "Description détaillée du projet 4...",
-      skills: ["JavaScript", "TailwindCSS", "Vite", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["JavaScript", "TailwindCSS", "Vite", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie"],
       pdf: "/path/to/rapport_projet4.pdf"
     },
     {
@@ -275,7 +276,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan+et+Resultats",
       ],
       description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
-      skills: ["C++", "Qt", "", "Travail d'équipe", "Datasheets","Linux"],
+      skills: ["C/C++", "Qt", "Autonomie", "Travail d'équipe", "Datasheets","Linux","Wireshark", "GitHub", "Analyse"],
       pdf: "/assets/pdf/Extrait_Rapport_de_Stage_2e_annee_GEII_Ly_Minh-Quan.pdf",
       // Données spécifiques pour le mode 'Story' (par image)
       descriptions: [
@@ -285,10 +286,7 @@ function App() {
         "Bilan et Compétences Acquises :\n\nCe stage m'a permis de consolider mes compétences en C++ orienté objet et en programmation événementielle. J'ai aussi appris à travailler avec des outils de versionning (Git) dans un contexte professionnel.\n\nLe projet a été validé par l'équipe et sera déployé sur la prochaine version des robots."
       ],
       skillsList: [
-        ["Analyse", "UML", ],
-        [, "Qt Widgets", "UI Design"],
-        ["TCP/IP", "Sockets", "Wireshark"],
-        ["Git", "Communication", "Autonomie"]
+
       ]
     }
   ];
@@ -366,7 +364,7 @@ function App() {
       category: "hard"
     },
     { 
-      name: "Gitub", 
+      name: "GitHub", 
       level: "Intermédiaire",
       desc: "Gestion de version et travail collaboratif.",
       category: "hard"
@@ -386,6 +384,12 @@ function App() {
       name: "Autonomie", 
       desc: "Capacité à prioriser les tâches et à s'auto-former.",
       category: "soft"
+    },
+    { 
+    name: "Qt", 
+    level: "Notions",
+    desc: "Développement d'interfaces graphiques et d'applications multiplateformes.",
+    category: "hard"
     },
     { 
       name: "Communication", 
@@ -983,7 +987,17 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 
   // Sélection du contenu en fonction du mode
   const currentDescription = isStoryMode ? project.descriptions[imageIndex] : project.description;
-  const currentSkills = project.skills;
+  const currentSkills = project.skills || [];
+
+  const hardSkills = currentSkills.filter(skillName => {
+    const s = skillsList.find(sk => sk.name === skillName);
+    return s && s.category === 'hard';
+  });
+
+  const softSkills = currentSkills.filter(skillName => {
+    const s = skillsList.find(sk => sk.name === skillName);
+    return s && s.category === 'soft';
+  });
 
   return (
     <motion.div
@@ -1097,17 +1111,33 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
             {/* Pins de compétences */}
             <div>
               <h3 className="text-lg font-semibold mb-3">{translations.modal.skills}</h3>
-              <div className="flex flex-wrap gap-2">
-                {currentSkills
-                  .filter(skillName => skillsList.some(s => s.name === skillName))
-                  .map((skillName, index) => {
-                    const skillObj = skillsList.find(s => s.name === skillName);
-                    return (
-                      <button key={index} onClick={() => onSkillClick(skillObj)} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-blue-500/40 transition-colors cursor-pointer">
-                        {skillName}
-                      </button>
-                    );
-                  })}
+              
+              <div className="flex flex-col gap-4">
+                {hardSkills.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-neutral-400 mb-2 uppercase tracking-wider">Compétences Techniques</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {hardSkills.map((skillName, index) => (
+                        <button key={index} onClick={() => onSkillClick(skillsList.find(s => s.name === skillName))} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-blue-500/40 transition-colors cursor-pointer">
+                          {skillName}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {softSkills.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-neutral-400 mb-2 uppercase tracking-wider">Compétences Transversales</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {softSkills.map((skillName, index) => (
+                        <button key={index} onClick={() => onSkillClick(skillsList.find(s => s.name === skillName))} className="bg-neutral-500/20 text-neutral-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-neutral-500/40 transition-colors cursor-pointer">
+                          {skillName}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
