@@ -79,7 +79,16 @@ function App() {
       interests: { title: "Centres d'intérêts", desc: "Au-delà de la technique, je cultive des passions qui nourrissent ma curiosité et mon équilibre personnel." },
       contact: { title: "Contacts", desc: "N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn.", linkedinTooltip: "En cliquant ici, vous allez être redirigé vers LinkedIn" }
     },
-    modal: { skills: "Compétences utilisées", tooltip: "Pour plus de précision sur le projet, vous pouvez consulter le rapport ou compte rendu téléchargeable ici.", yearTime: "Année et Temps", year: "Année de réalisation", duration: "Temps de conception" }
+    modal: { 
+      skills: "Compétences utilisées", 
+      tooltip: "Pour plus de précision sur le projet, vous pouvez consulter le rapport ou compte rendu téléchargeable ici.", 
+      projectFeedback: "Ressenti du projet",
+      difficulties: "Difficultés rencontrées",
+      takeaways: "Apports et satisfactions",
+      extensions: "Prolongements possibles",
+      yearTime: "Année et Temps", year: "Année de réalisation", 
+      duration: "Temps de conception",
+ }
   };
 
   const links = [
@@ -131,7 +140,12 @@ function App() {
       description: "Description détaillée du projet 1...",
       skills: ["Arduino IDE", "C++", "Lecture de datasheets", "Electronique", "Travail d'équipe",
          "Rédaction de rapports", "Microsoft Office", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
-      pdf: "/path/to/rapport_projet1.pdf"
+      pdf: "/path/to/rapport_projet1.pdf",
+      feedback: {
+        difficulties: "La principale difficulté a été de gérer la communication sans fil de manière fiable entre les différents modules, notamment à cause des interférences.",
+        takeaways: "J'ai particulièrement apprécié la phase de conception du PCB et la résolution des problèmes liés à l'alimentation. Ce projet m'a permis de monter en compétence sur la programmation C++ embarquée.",
+        extensions: "Une amélioration possible serait d'ajouter une interface web pour contrôler les lumières à distance via Wi-Fi."
+      }
     },
     {
       id: 2,
@@ -143,7 +157,12 @@ function App() {
       ],
       description: "Description détaillée du projet 2...",
       skills: ["Arduino IDE", "C/C++", "Electronique",  "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie"],
-      pdf: "/path/to/rapport_projet2.pdf"
+      pdf: "/path/to/rapport_projet2.pdf",
+      feedback: {
+        difficulties: "Difficulté à trouver des composants qui respectent les contraintes du cahier des charges.",
+        takeaways: "Ce que j'ai aimé faire c'est la conception de la carte sur Kicad et la programmation du microcontrôleur pour gérer tous les capteurs ensemblent.",
+        extensions: "Intégration d'un assistant vocal pour le contrôle des périphériques."
+      }
     },
     {
       id: 3,
@@ -167,7 +186,12 @@ function App() {
         }
       ],
       skills: ["C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Python", "Autonomie"],
-      pdf: "/assets/pdf/ProjetRobotGiesRapport.pdf"
+      pdf: "/assets/pdf/ProjetRobotGiesRapport.pdf",
+      feedback: {
+        difficulties: "La gestion de la communication UART avec un protocole fiable (checksum) a été un défi technique intéressant à relever.",
+        takeaways: "Le développement de l'interface en C# et l'intégration du contrôle par manette PS4 ont été les parties les plus gratifiantes, car elles ont rendu le robot interactif et plus facile à piloter.",
+        extensions: "Implémentation d'un algorithme de cartographie (SLAM) pour permettre au robot de se repérer dans son environnement."
+      }
     },
     {
       id: 4,
@@ -181,11 +205,16 @@ function App() {
       ],
       description: "Description détaillée du projet 4...",
       skills: ["JavaScript", "TailwindCSS", "Vite", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie"],
-      pdf: "/path/to/rapport_projet4.pdf"
+      pdf: "/path/to/rapport_projet4.pdf",
+      feedback: {
+        difficulties: "L'optimisation de la consommation d'énergie pour atteindre les objectifs de basse consommation a nécessité de nombreuses itérations et tests. De plus, il y eut quelques difficultés à trouver des composants qui respectent les contraintes du cahier des charges (soit des composants qui consome le moins possible) s'ajoute à cela la difficulté de la communication radio dans la bonne fréquence.",
+        takeaways: "J'ai beaucoup appris sur les techniques de conception de circuits à faible consommation et sur les protocoles de communication radio. La phase de routage du PCB a été particulièrement instructive.",
+        extensions: "Développement d'un réseau maillé pour étendre la portée de la communication ou encore trouver des composants qui consomment encore moins d'énergie pour faire durée plus longtemps la carte."
+      }
     },
     {
       id: 5,
-      title: "Projet Vérifier",
+      title: "Projet de maintenance et vérification d'un système de domotique",
       year: "2023",
       duration: "20 heures",
       images: [
@@ -194,7 +223,12 @@ function App() {
       ],
       description: "Description détaillée du projet 5...",
       skills: ["Microsoft Office", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
-      pdf: "/path/to/rapport_projet5.pdf"
+      pdf: "/path/to/rapport_projet5.pdf",
+      feedback: {
+        difficulties: "Diagnostiquer la cause racine des pannes intermittentes a été complexe et a demandé une approche méthodique.",
+        takeaways: "Ce projet m'a permis de développer mes compétences en dépannage et en analyse de systèmes existants. J'ai apprécié le côté 'enquête' pour trouver la solution.",
+        extensions: "Mise en place d'un système de maintenance prédictive basé sur l'analyse des données de fonctionnement."
+      }
     },
     {
       id: 6,
@@ -206,7 +240,12 @@ function App() {
       ],
       description: "Description détaillée du projet 6...",
       skills: ["STM32", "C", "RTOS", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
-      pdf: "/path/to/rapport_projet6.pdf"
+      pdf: "/path/to/rapport_projet6.pdf",
+      feedback: {
+        difficulties: "La prise en main d'un système d'exploitation temps réel (RTOS) et la gestion des tâches concurrentes ont représenté une courbe d'apprentissage abrupte.",
+        takeaways: "J'ai adoré programmer à un niveau plus proche du matériel avec le STM32. Comprendre et maîtriser les contraintes temps réel a été une expérience très enrichissante.",
+        extensions: "Portage du code sur une architecture multi-cœur pour améliorer les performances."
+      }
     },
     {
       id: 7,
@@ -219,7 +258,12 @@ function App() {
       ],
       description: "Description détaillée du projet 7...",
       skills: ["Java", "Spring Boot", "SQL", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
-      pdf: "/path/to/rapport_projet7.pdf"
+      pdf: "/path/to/rapport_projet7.pdf",
+      feedback: {
+        difficulties: "La configuration de l'environnement Spring Boot et la connexion à la base de données ont posé quelques problèmes initiaux.",
+        takeaways: "Développer une application web complète avec un backend robuste a été très satisfaisant. J'ai particulièrement aimé la conception du modèle de données et la création des API REST.",
+        extensions: "Ajout de fonctionnalités de sécurité avancées (OAuth2) et déploiement sur le cloud."
+      }
     },
     {
       id: 8,
@@ -233,7 +277,12 @@ function App() {
       ],
       description: "Description détaillée du projet 8...",
       skills: ["Docker", "Kubernetes", "CI/CD", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
-      pdf: "/path/to/rapport_projet8.pdf"
+      pdf: "/path/to/rapport_projet8.pdf",
+      feedback: {
+        difficulties: "La courbe d'apprentissage de Kubernetes et la rédaction des fichiers de configuration YAML étaient importantes.",
+        takeaways: "Mettre en place un pipeline CI/CD complet et voir le déploiement automatisé de l'application a été une grande réussite. J'ai pris goût à l'automatisation et à l'infrastructure as code.",
+        extensions: "Mise en place d'un monitoring avancé avec Prometheus et Grafana."
+      }
     },
     {
       id: 9,
@@ -246,7 +295,12 @@ function App() {
       ],
       description: "Description détaillée du projet 9...",
       skills: ["Vue.js", "Firebase", "GraphQL", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
-      pdf: "/path/to/rapport_projet9.pdf"
+      pdf: "/path/to/rapport_projet9.pdf",
+      feedback: {
+        difficulties: "Comprendre le fonctionnement de GraphQL et l'intégrer avec Firebase a demandé du temps de recherche et d'expérimentation.",
+        takeaways: "Créer une interface utilisateur réactive et dynamique avec Vue.js était très plaisant. La facilité d'utilisation de Firebase pour le backend a permis de se concentrer sur l'expérience utilisateur.",
+        extensions: "Développement d'une application mobile native avec React Native ou Flutter."
+      }
     },
     {
       id: 10,
@@ -258,7 +312,12 @@ function App() {
       ],
       description: "Description détaillée du projet 10...",
       skills: ["Angular", "TypeScript", "RxJS", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
-      pdf: "/path/to/rapport_projet10.pdf"
+      pdf: "/path/to/rapport_projet10.pdf",
+      feedback: {
+        difficulties: "La programmation réactive avec RxJS est puissante mais complexe à maîtriser. Le débogage des flux de données asynchrones était un défi.",
+        takeaways: "J'ai apprécié la structure et la rigueur qu'apporte Angular au développement front-end. L'utilisation de TypeScript a grandement amélioré la qualité et la maintenabilité du code.",
+        extensions: "Migration vers la dernière version d'Angular et utilisation de composants standalone."
+      }
     },
   ].sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
@@ -278,6 +337,11 @@ function App() {
       description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
       skills: ["C/C++", "Qt", "Autonomie", "Travail d'équipe", "Datasheets","Linux","Wireshark", "GitHub", "Analyse"],
       pdf: "/assets/pdf/Extrait_Rapport_de_Stage_2e_annee_GEII_Ly_Minh-Quan.pdf",
+      feedback: {
+        difficulties: "L'adaptation à un codebase existant et complexe a été un défi initial. Comprendre l'architecture logicielle et les interactions entre les modules a demandé une période d'analyse intensive.",
+        takeaways: "J'ai adoré travailler sur une application concrète avec un impact direct pour les utilisateurs. La collaboration avec l'équipe R&D et l'apprentissage des bonnes pratiques de développement en entreprise (versioning, tests) ont été très formateurs.",
+        extensions: "Le projet pourrait être étendu en ajoutant des fonctionnalités de contrôle à distance via une application mobile."
+      },
       // Données spécifiques pour le mode 'Story' (par image)
       descriptions: [
         "Introduction et Contexte :\n\nDurant ce stage de 10 semaines, j'ai intégré l'équipe R&D de l'entreprise. L'objectif principal était de moderniser l'interface de contrôle d'un robot industriel.\n\nJ'ai commencé par :\n- Analyser l'existant et les besoins des opérateurs.\n- Mettre en place l'environnement de développement (Linux, Qt).\n- Définir l'architecture logicielle du nouveau module.",
@@ -555,34 +619,80 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
       name: "Concevoir", 
       color: "blue", 
       levels: [
-        { id: 1, desc: "Mener une conception partielle intégrant une démarche projet.", percentage: 100, explanation: "Validation des acquis par la réalisation de projets tuteurés en première année.", projectIds: [1, 3] },
-        { id: 2, desc: "Concevoir un système en fiabilisant les solutions.", percentage: 90, explanation: "Application de méthodes de conception rigoureuses lors des projets de deuxième année.", projectIds: [2, 5] },
-        { id: 3, desc: "Concevoir un système en adoptant une approche sélective dans ses choix technologiques.", percentage: 85, explanation: "Démonstration de cette compétence lors du stage de fin d'études et des projets complexes.", projectIds: ["stage-1", 6] }
+        
+        { id: 1, 
+          desc: "Mener une conception partielle intégrant une démarche projet.", 
+          percentage: 90, 
+          explanation: "Je suis capable de concevoir et mener à bien une conception d'un projet tout en respectant un cahier des charges précis et dans un temps imparti.", 
+          projectIds: [1,2,3,"stage-1"] },
+        
+          { id: 2,
+          desc: "Concevoir un système en fiabilisant les solutions.", 
+          percentage: 90, 
+          explanation: "Mes conceptions sont fiables, mais je dois faire plus attention au côté concret. Parfois, je reste trop dans la théorie et j'oublie des détails de terrain. J'apprends à mieux imaginer l'utilisation finale pour éviter ces petites erreurs. ", 
+          projectIds: [2,"stage-1"] },
+        
+          { id: 3, 
+          desc: "Concevoir un système en adoptant une approche sélective dans ses choix technologiques.", 
+          percentage: 90, 
+          explanation: "Le niveau est de 90% car je pense être en capacité de concevoir des systèmes complexes, en choisissant les composants et logiciels adaptés, mais il me manque encore de l'expérience pratique pour atteindre une maîtrise totale.", 
+          projectIds: [2,4] 
+        }
       ]
     },
     { 
       name: "Vérifier", 
       color: "green", 
       levels: [
-        { id: 1, desc: "Effectuer les tests et mesures nécessaires à une vérification d’un système.", percentage: 100, explanation: "Maîtrise des appareils de mesure standards (oscilloscope, multimètre) validée en TP.", projectIds: [1, 4] },
-        { id: 2, desc: "Mettre en place un protocole de tests pour valider le fonctionnement d’un système.", percentage: 95, explanation: "Élaboration de plans de tests pour valider les prototypes fonctionnels.", projectIds: [2, 7] },
-        { id: 3, desc: "Élaborer une procédure intégrant une démarche qualité pour valider le fonctionnement d’un système.", percentage: 90, explanation: "Mise en place de procédures de validation qualité en entreprise.", projectIds: ["stage-1"] }
+        { id: 1, 
+          desc: "Effectuer les tests et mesures nécessaires à une vérification d’un système.", 
+          percentage: 90, 
+          explanation: "Je maîtrise des appareils de mesure standards (tel que l'oscilloscope, le multimètre) validée en TP mais aussi dans tous mes projets. Je les maitrises certes mais pas à 100%, je dois encore m'améliorer sur certains appareil (comme le RIGOL ou l'utilisation plus poussée de l'oscilloscope).", 
+          projectIds: [1,2, 3, 4, 5, 6, 7, 8, 9, 10, "stage-1"] },
+        
+        { id: 2, 
+          desc: "Mettre en place un protocole de tests pour valider le fonctionnement d’un système.", 
+          percentage: 80, 
+          explanation: "Élaboration de plans de tests pour valider les prototypes fonctionnels.", 
+          projectIds: [1, 2, 4, 3, 4, 5, 6, 7, 8, 9, 10,"stage-1"] },
+        
+        { id: 3, 
+          desc: "Élaborer une procédure intégrant une démarche qualité pour valider le fonctionnement d’un système.", 
+          percentage: 90, 
+          explanation: "Mise en place de procédures de validation qualité en entreprise.", 
+          projectIds: ["stage-1"] }
       ]
     },
     { 
       name: "Maintenir", 
       color: "yellow", 
       levels: [
-        { id: 1, desc: "Intervenir sur un système pour effectuer une opération de maintenance.", percentage: 90, explanation: "Capacité à identifier et remplacer des composants défectueux sur des cartes électroniques.", projectIds: [3, 10] },
-        { id: 2, desc: "Mettre en place une stratégie de maintenance pour garantir un fonctionnement optimal.", percentage: 75, explanation: "Analyse approfondie de dysfonctionnements sur des systèmes embarqués temps réel.", projectIds: [6, 8] }
+        { id: 1, 
+          desc: "Intervenir sur un système pour effectuer une opération de maintenance.", 
+          percentage: 90, 
+          explanation: "Capacité à identifier et remplacer des composants défectueux sur des cartes électroniques.", 
+          projectIds: [3, 10] },
+        { id: 2, 
+          desc: "Mettre en place une stratégie de maintenance pour garantir un fonctionnement optimal.", 
+          percentage: 75, 
+          explanation: "Analyse approfondie de dysfonctionnements sur des systèmes embarqués temps réel.", 
+          projectIds: [6, 8] }
       ]
     },
     { 
       name: "Implanter", 
       color: "red", 
       levels: [
-        { id: 1, desc: "Réaliser un système en mettant en place une démarche qualité en conformité avec le dossier de fabrication.", percentage: 100, explanation: "Réalisation de câblages d'armoires et de cartes électroniques en respectant les normes.", projectIds: [1, 5] },
-        { id: 2, desc: "Interagir avec les différents acteurs, lors de l’installation et de la mise en service d’un système, dans une démarche qualité.", percentage: 95, explanation: "Déploiement et configuration de réseaux de capteurs et d'architectures IoT.", projectIds: [8, 9] }
+        { id: 1, 
+          desc: "Réaliser un système en mettant en place une démarche qualité en conformité avec le dossier de fabrication.", 
+          percentage: 100, 
+          explanation: "Réalisation de câblages d'armoires et de cartes électroniques en respectant les normes.", 
+          projectIds: [1, 5] },
+        { id: 2, 
+          desc: "Interagir avec les différents acteurs, lors de l’installation et de la mise en service d’un système, dans une démarche qualité.", 
+          percentage: 95, 
+          explanation: "Déploiement et configuration de réseaux de capteurs et d'architectures IoT.", 
+          projectIds: [8, 9] }
       ]
     },
   ];
@@ -962,8 +1072,9 @@ const variants = {
 const ProjectModal = ({ project, onClose, language, translations, skillsList, onSkillClick }) => {
   const modalRef = useRef(null);
   const [showPdfPreview, setShowPdfPreview] = useState(false);
+  const [showLightbox, setShowLightbox] = useState(false);
   useOutsideClick(modalRef, () => {
-    if (!showPdfPreview) onClose();
+    if (!showPdfPreview && !showLightbox) onClose();
   });
 
   const [[page, direction], setPage] = useState([0, 0]);
@@ -1044,7 +1155,8 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                     opacity: { duration: 0.2 },
                   }}
                   alt={`${project.title} - Image ${imageIndex + 1}`}
-                  className="absolute w-full h-full object-contain"
+                  className="absolute w-full h-full object-contain cursor-zoom-in"
+                  onClick={() => setShowLightbox(true)}
                 />
               </AnimatePresence>
 
@@ -1060,6 +1172,25 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                 </>
               )}
             </div>
+
+            {/* Indicateurs (Dots) */}
+            {project.images.length > 1 && (
+              <div className="flex justify-center gap-2 mt-4">
+                {project.images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      const direction = idx > imageIndex ? 1 : -1;
+                      setPage([page + (idx - imageIndex), direction]);
+                    }}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      idx === imageIndex ? "w-8 bg-white" : "w-2 bg-neutral-600 hover:bg-neutral-500"
+                    }`}
+                    aria-label={`Voir l'image ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Informations en bas */}
@@ -1087,11 +1218,40 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                   ))}
                 </div>
               ) : (
-                <p className="text-sm md:text-base text-neutral-300 whitespace-pre-wrap">
-                  {Array.isArray(currentDescription) ? currentDescription.join("") : currentDescription}
-                </p>
+                <div className="bg-neutral-800/30 p-4 rounded-lg border border-neutral-700/50">
+                  <p className="text-sm md:text-base text-neutral-300 whitespace-pre-wrap">
+                    {Array.isArray(currentDescription) ? currentDescription.join("") : currentDescription}
+                  </p>
+                </div>
               )}
             </div>
+
+            {/* Ressenti du projet */}
+            {project.feedback && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-3 text-white">{translations.modal.projectFeedback}</h3>
+                <div className="flex flex-col gap-4">
+                  {project.feedback.difficulties && (
+                    <div className="bg-neutral-800/50 p-4 rounded-lg border border-neutral-700/50">
+                      <h4 className="text-md font-semibold mb-2 text-red-400">{translations.modal.difficulties}</h4>
+                      <p className="text-sm text-neutral-300 whitespace-pre-wrap">{project.feedback.difficulties}</p>
+                    </div>
+                  )}
+                  {project.feedback.takeaways && (
+                    <div className="bg-neutral-800/50 p-4 rounded-lg border border-neutral-700/50">
+                      <h4 className="text-md font-semibold mb-2 text-green-400">{translations.modal.takeaways}</h4>
+                      <p className="text-sm text-neutral-300 whitespace-pre-wrap">{project.feedback.takeaways}</p>
+                    </div>
+                  )}
+                  {project.feedback.extensions && (
+                    <div className="bg-neutral-800/50 p-4 rounded-lg border border-neutral-700/50">
+                      <h4 className="text-md font-semibold mb-2 text-blue-400">{translations.modal.extensions}</h4>
+                      <p className="text-sm text-neutral-300 whitespace-pre-wrap">{project.feedback.extensions}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Sous-titre Année et Temps */}
             <div className="mb-6 bg-neutral-800/30 p-4 rounded-lg border border-neutral-700/50">
@@ -1164,6 +1324,58 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
           </div>
         )}
       </motion.div>
+
+      {/* Lightbox (Image en grand) */}
+      <AnimatePresence>
+        {showLightbox && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex justify-center items-center"
+            onClick={() => setShowLightbox(false)}
+          >
+            {/* Bouton fermer */}
+            <button 
+              className="absolute top-4 right-4 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors z-50"
+              onClick={() => setShowLightbox(false)}
+            >
+              <IconX size={32} />
+            </button>
+
+            {/* Image en grand */}
+            <motion.img
+              key={page}
+              src={project.images[imageIndex]}
+              alt={project.title}
+              className="max-w-[95vw] max-h-[95vh] object-contain select-none"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {/* Navigation Lightbox */}
+            {project.images.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => { e.stopPropagation(); paginate(-1); }}
+                  className="absolute left-4 text-white/70 hover:text-white p-3 rounded-full hover:bg-white/10 transition-colors z-50"
+                >
+                  <IconChevronLeft size={40} />
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); paginate(1); }}
+                  className="absolute right-4 text-white/70 hover:text-white p-3 rounded-full hover:bg-white/10 transition-colors z-50"
+                >
+                  <IconChevronRight size={40} />
+                </button>
+              </>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Modale de prévisualisation PDF */}
       <AnimatePresence>
