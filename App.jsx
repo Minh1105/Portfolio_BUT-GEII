@@ -32,7 +32,9 @@ import CarteDomotique from './assets/images/CarteDomotique.png';
 
 import RobotGies1 from './assets/images/RobotGies1.png';
 import RobotGies2 from './assets/images/RobotGies2.png';
-
+import RobotGies3Cote from './assets/images/RobotGies3Cote.jpg';
+import RobotGies4_ESP from './assets/images/RobotGies4_ESP.jpg';
+import AffichageVS from './assets/images/AffichageVS.png';
 
 import CarteBasseConso3D from './assets/images/CarteBasseConso3D.png';
 import SchématiqueBasseConso from './assets/images/SchématiqueBasseConso.png';
@@ -45,6 +47,11 @@ import VérifierMaintenance2 from './assets/images/VérifierMaintenance2.jpg';
 
 import LR_logical from './assets/images/LR_logical.png';
 import Stage_PCB_Kicad from './assets/images/Stage_PCB_Kicad.png';
+
+
+import EmissionReception1 from './assets/images/EmissionReception1.jpg';
+import EmissionReception2 from './assets/images/EmissionReception2.jpg';
+import EmissionReceptionBrea3 from './assets/images/EmissionReceptionBread3.jpg';
 /*
 
 import robot3 from './assets/images/robot3.png';
@@ -172,6 +179,9 @@ function App() {
       images: [
         RobotGies1,
         RobotGies2,
+        RobotGies3Cote,
+        RobotGies4_ESP,
+        AffichageVS,
       ],
       description: [
         {
@@ -232,14 +242,16 @@ function App() {
     },
     {
       id: 6,
-      title: "Projet 6",
-      year: "2022",
-      duration: "400 heures",
+      title: "Conception d'une carte d'émission réception sonore",
+      year: "2023",
+      duration: "70 heures",
       images: [
-        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+6+-+Image+1",
+        EmissionReceptionBrea3,
+        EmissionReception1,
+        EmissionReception2,
       ],
       description: "Description détaillée du projet 6...",
-      skills: ["STM32", "C", "RTOS", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet6.pdf",
       feedback: {
         difficulties: "La prise en main d'un système d'exploitation temps réel (RTOS) et la gestion des tâches concurrentes ont représenté une courbe d'apprentissage abrupte.",
@@ -636,7 +648,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           desc: "Concevoir un système en adoptant une approche sélective dans ses choix technologiques.", 
           percentage: 90, 
           explanation: "Le niveau est de 90% car je pense être en capacité de concevoir des systèmes complexes, en choisissant les composants et logiciels adaptés, mais il me manque encore de l'expérience pratique pour atteindre une maîtrise totale.", 
-          projectIds: [2,4] 
+          projectIds: [2,4,6] 
         }
       ]
     },
