@@ -214,7 +214,7 @@ function App() {
         PCBBasseConso,
       ],
       description: "Description détaillée du projet 4...",
-      skills: ["JavaScript", "TailwindCSS", "Vite", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie"],
+      skills: ["Kicad","JavaScript", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie"],
       pdf: "/path/to/rapport_projet4.pdf",
       feedback: {
         difficulties: "L'optimisation de la consommation d'énergie pour atteindre les objectifs de basse consommation a nécessité de nombreuses itérations et tests. De plus, il y eut quelques difficultés à trouver des composants qui respectent les contraintes du cahier des charges (soit des composants qui consome le moins possible) s'ajoute à cela la difficulté de la communication radio dans la bonne fréquence.",
@@ -232,7 +232,7 @@ function App() {
         VérifierMaintenance2,
       ],
       description: "Description détaillée du projet 5...",
-      skills: ["Microsoft Office", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["Microsoft Office","Kicad", "LaTeX / Overleaf","Rapports & CR", "Tests & Vérif.", "Datasheets"],
       pdf: "/path/to/rapport_projet5.pdf",
       feedback: {
         difficulties: "Diagnostiquer la cause racine des pannes intermittentes a été complexe et a demandé une approche méthodique.",
@@ -250,13 +250,22 @@ function App() {
         EmissionReception1,
         EmissionReception2,
       ],
-      description: "Description détaillée du projet 6...",
-      skills: ["Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
-      pdf: "/path/to/rapport_projet6.pdf",
+      description: [
+        {
+          title: "Partie émettrice",
+          text: "J'ai réalisé la conception de la chaîne d'émission sonore. Elle débute par un générateur astable à base d'AOP qui produit un signal carré stable à 2,26 kHz. Ce signal est ensuite épuré par un filtre actif de Sallen-Key d'ordre 2 (passe-bas) pour ne conserver que la fondamentale sinusoïdale, puis amplifié en courant par un étage de puissance Push-Pull (transistors complémentaires) afin de commander le haut-parleur sans écraser la tension du filtre."
+        },
+        {
+          title: "Partie réceptrice",
+          text: "Le signal est capté par un microphone électret et amplifié par un préamplificateur non-inverseur. Il subit ensuite un filtrage passe-bande étroit pour éliminer les parasites, avant d'être traité par un redresseur double alternance et un comparateur à hystérésis (MCP6541) qui convertit l'enveloppe du signal en une commande logique stable pour le robot."
+        }
+      ],
+      skills: ["Electronique" ,"Kicad" , "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      pdf: "/assets/pdf/EmetteurRecepteurRobotS2.pdf",
       feedback: {
-        difficulties: "La prise en main d'un système d'exploitation temps réel (RTOS) et la gestion des tâches concurrentes ont représenté une courbe d'apprentissage abrupte.",
-        takeaways: "J'ai adoré programmer à un niveau plus proche du matériel avec le STM32. Comprendre et maîtriser les contraintes temps réel a été une expérience très enrichissante.",
-        extensions: "Portage du code sur une architecture multi-cœur pour améliorer les performances."
+        difficulties: "Le principal défi a été l'accordage précis entre la fréquence de l'astable et la fréquence de coupure du filtre pour garantir un signal pur. Il a également fallu stabiliser l'étage de puissance pour éviter toute distorsion sonore lors de l'émission.",
+        takeaways: "Ce projet m'a permis de maîtriser la conception de circuits analogiques, du calcul théorique à la validation expérimentale. J'ai eu la satisfaction de voir mon émetteur commander avec succès le robot à distance.",
+        extensions: "Le système pourrait être amélioré par l'ajout d'un codage numérique du signal pour éviter les déclenchements par des bruits ambiants. On pourrait aussi optimiser la consommation d'énergie pour augmenter l'autonomie de la télécommande."
       }
     },
     {
@@ -347,7 +356,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan+et+Resultats",
       ],
       description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
-      skills: ["C/C++", "Qt", "Autonomie", "Travail d'équipe", "Datasheets","Linux","Wireshark", "GitHub", "Analyse"],
+      skills: ["C/C++", "Qt","Kicad", "Electronique", "Autonomie", "Travail d'équipe", "Datasheets", "Linux", "Wireshark", "Analyse"],
       pdf: "/assets/pdf/Extrait_Rapport_de_Stage_2e_annee_GEII_Ly_Minh-Quan.pdf",
       feedback: {
         difficulties: "L'adaptation à un codebase existant et complexe a été un défi initial. Comprendre l'architecture logicielle et les interactions entre les modules a demandé une période d'analyse intensive.",
@@ -403,6 +412,12 @@ function App() {
       name: "Datasheets", 
       level: "Avancée",
       desc: "Lecture et analyse de spécifications techniques.",
+      category: "hard"
+    },
+    {
+      name: "Kicad",
+      level: "Avancée",
+      desc: "Conception de schémas électroniques et de circuits imprimés (PCB).",
       category: "hard"
     },
     { 
@@ -683,12 +698,12 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           desc: "Intervenir sur un système pour effectuer une opération de maintenance.", 
           percentage: 90, 
           explanation: "Capacité à identifier et remplacer des composants défectueux sur des cartes électroniques.", 
-          projectIds: [3, 10] },
+          projectIds: [6, 10] },
         { id: 2, 
           desc: "Mettre en place une stratégie de maintenance pour garantir un fonctionnement optimal.", 
           percentage: 75, 
           explanation: "Analyse approfondie de dysfonctionnements sur des systèmes embarqués temps réel.", 
-          projectIds: [6, 8] }
+          projectIds: [3, 8] }
       ]
     },
     { 
