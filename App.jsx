@@ -45,17 +45,24 @@ import VérifierMaintenance1 from './assets/images/VérifierMaintenance1.jpg';
 import VérifierMaintenance2 from './assets/images/VérifierMaintenance2.jpg';
 
 
+
 import LR_logical from './assets/images/LR_logical.png';
 import Stage_PCB_Kicad from './assets/images/Stage_PCB_Kicad.png';
+import StageEpreuve from './assets/images/StageEpreuve.jpg';
 
 
 import EmissionReception1 from './assets/images/EmissionReception1.jpg';
 import EmissionReception2 from './assets/images/EmissionReception2.jpg';
 import EmissionReceptionBrea3 from './assets/images/EmissionReceptionBread3.jpg';
-/*
 
-import robot3 from './assets/images/robot3.png';
-import robot3 from './assets/images/robot3.png';
+import Alim_USB_PPS from './assets/images/Alim_USB_PPS.jpg';
+import Arlo_Resultat_Oscillo from './assets/images/Arlo_Resultat_Oscillo.jpg';
+import SAE_Arlo_VOUT_PPS from './assets/images/SAE_Arlo_VOUT_PPS.png';
+import Arlo_scope_2 from './assets/images/Arlo_scope_2.png';
+
+/*
+import  from './assets/images/.jpg';
+import  from './assets/images/.jpg';
 */
 
 
@@ -142,16 +149,17 @@ function App() {
       id: 1,
       title: "Projet SmartLight",
       year: "2023",
-      duration: "50 heures",
-      images: [SmartLight], // 2. Utilisez les variables d'image importées
+      duration: "70 heures",
+      images: [
+        SmartLight
+      ], 
       description: "Description détaillée du projet 1...",
-      skills: ["Arduino IDE", "C++", "Lecture de datasheets", "Electronique", "Travail d'équipe",
-         "Rédaction de rapports", "Microsoft Office", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["Arduino IDE", "C++", "Lecture de datasheets", "Electronique", "Rédaction de rapports", "Microsoft Office", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Analyse", "Autonomie", "Communication"],
       pdf: "/path/to/rapport_projet1.pdf",
       feedback: {
-        difficulties: "La principale difficulté a été de gérer la communication sans fil de manière fiable entre les différents modules, notamment à cause des interférences.",
-        takeaways: "J'ai particulièrement apprécié la phase de conception du PCB et la résolution des problèmes liés à l'alimentation. Ce projet m'a permis de monter en compétence sur la programmation C++ embarquée.",
-        extensions: "Une amélioration possible serait d'ajouter une interface web pour contrôler les lumières à distance via Wi-Fi."
+        difficulties: "",
+        takeaways: "",
+        extensions: ""
       }
     },
     {
@@ -163,7 +171,7 @@ function App() {
         CarteDomotique, 
       ],
       description: "Description détaillée du projet 2...",
-      skills: ["Arduino IDE", "C/C++", "Electronique",  "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie"],
+      skills: ["Arduino IDE", "C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie", "Analyse", "Communication"],
       pdf: "/path/to/rapport_projet2.pdf",
       feedback: {
         difficulties: "Difficulté à trouver des composants qui respectent les contraintes du cahier des charges.",
@@ -175,7 +183,7 @@ function App() {
       id: 3,
       title: "Conception d'un robot mobile autonome",
       year: "2026-2024",
-      duration: "+120 heures",
+      duration: "+130 heures",
       images: [
         RobotGies1,
         RobotGies2,
@@ -195,7 +203,7 @@ function App() {
           text: "Une interface graphique développée en C# (WPF) permet de visualiser les données du robot, telles que la vitesse et la distance des capteurs, tout en lui transmettant des ordres. La communication entre le PC et le robot s'effectue par liaison série UART à 115 200 bauds, sécurisée par un protocole incluant un 'checksum' pour vérifier l'intégrité des messages. Pour un contrôle plus intuitif, un module ESP32 a été ajouté afin de connecter une manette de PS4 via Bluetooth. Ce système permet de diriger le robot manuellement en utilisant les gâchettes pour l'accélération proportionnelle et le joystick pour la direction."
         }
       ],
-      skills: ["C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Python", "Autonomie"],
+      skills: ["C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Python", "Autonomie", "Matlab", "Travail d'équipe", "Analyse", "Communication"],
       pdf: "/assets/pdf/ProjetRobotGiesRapport.pdf",
       feedback: {
         difficulties: "La gestion de la communication UART avec un protocole fiable (checksum) a été un défi technique intéressant à relever.",
@@ -214,7 +222,7 @@ function App() {
         PCBBasseConso,
       ],
       description: "Description détaillée du projet 4...",
-      skills: ["Kicad","JavaScript", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie"],
+      skills: ["Kicad", "JavaScript", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie", "Travail d'équipe", "Analyse", "Communication"],
       pdf: "/path/to/rapport_projet4.pdf",
       feedback: {
         difficulties: "L'optimisation de la consommation d'énergie pour atteindre les objectifs de basse consommation a nécessité de nombreuses itérations et tests. De plus, il y eut quelques difficultés à trouver des composants qui respectent les contraintes du cahier des charges (soit des composants qui consome le moins possible) s'ajoute à cela la difficulté de la communication radio dans la bonne fréquence.",
@@ -226,13 +234,13 @@ function App() {
       id: 5,
       title: "Projet de maintenance et vérification d'un système de domotique",
       year: "2023",
-      duration: "20 heures",
+      duration: "30 heures",
       images: [
         VérifierMaintenance1,
         VérifierMaintenance2,
       ],
       description: "Description détaillée du projet 5...",
-      skills: ["Microsoft Office","Kicad", "LaTeX / Overleaf","Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["Microsoft Office", "Kicad", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       pdf: "/path/to/rapport_projet5.pdf",
       feedback: {
         difficulties: "Diagnostiquer la cause racine des pannes intermittentes a été complexe et a demandé une approche méthodique.",
@@ -260,7 +268,7 @@ function App() {
           text: "Le signal est capté par un microphone électret et amplifié par un préamplificateur non-inverseur. Il subit ensuite un filtrage passe-bande étroit pour éliminer les parasites, avant d'être traité par un redresseur double alternance et un comparateur à hystérésis (MCP6541) qui convertit l'enveloppe du signal en une commande logique stable pour le robot."
         }
       ],
-      skills: ["Electronique" ,"Kicad" , "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["Electronique", "Kicad", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       pdf: "/assets/pdf/EmetteurRecepteurRobotS2.pdf",
       feedback: {
         difficulties: "Le principal défi a été l'accordage précis entre la fréquence de l'astable et la fréquence de coupure du filtre pour garantir un signal pur. Il a également fallu stabiliser l'étage de puissance pour éviter toute distorsion sonore lors de l'émission.",
@@ -278,7 +286,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+7+-+Image+2",
       ],
       description: "Description détaillée du projet 7...",
-      skills: ["Java", "Spring Boot", "SQL", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       pdf: "/path/to/rapport_projet7.pdf",
       feedback: {
         difficulties: "La configuration de l'environnement Spring Boot et la connexion à la base de données ont posé quelques problèmes initiaux.",
@@ -288,21 +296,23 @@ function App() {
     },
     {
       id: 8,
-      title: "Projet 8",
-      year: "2024",
-      duration: "140 heures",
+      title: "Alimentation Programmable avec un chargeur USB-C PPS",
+      year: "2025",
+      duration: "80 heures",
       images: [
-        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+8+-+Image+1",
-        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+8+-+Image+2",
-        "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Projet+8+-+Image+3",
+        Alim_USB_PPS,
+        Arlo_Resultat_Oscillo,
+        SAE_Arlo_VOUT_PPS,
+        Arlo_scope_2,
+
       ],
-      description: "Description détaillée du projet 8...",
-      skills: ["Docker", "Kubernetes", "CI/CD", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
-      pdf: "/path/to/rapport_projet8.pdf",
+      description: "La conception d’une alimentation portable et peu coûteuse est détaillée dans ce rapport, s’appuyant sur l’utilisation d’un chargeur USB-C et du protocole Power Delivery. Le système est piloté par une carte Arduino Nano qui communique avec un module AP33772S via un bus I2C. Grâce au mode PPS, une tension précise peut être demandée au chargeur par pas de 20 mV. Le fonctionnement des trames de communication a été analysé et vérifié à l'aide d'un oscilloscope pour garantir la cohérence des commandes envoyées.",
+      skills: ["Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
+      pdf: "/assets/pdf/Rapport_SAE_LY_Moreau_.pdf",
       feedback: {
-        difficulties: "La courbe d'apprentissage de Kubernetes et la rédaction des fichiers de configuration YAML étaient importantes.",
-        takeaways: "Mettre en place un pipeline CI/CD complet et voir le déploiement automatisé de l'application a été une grande réussite. J'ai pris goût à l'automatisation et à l'infrastructure as code.",
-        extensions: "Mise en place d'un monitoring avancé avec Prometheus et Grafana."
+        difficulties: "Une oscillation du signal de sortie de 40 mV a été observée , et la limitation de l'intensité en sortie n'a pas pu être implémentée malgré plusieurs tentatives de modification du programme.",
+        takeaways: "La compréhension des protocoles I2C et Power Delivery a été acquise , permettant d'obtenir une tension de sortie parfaitement conforme à la consigne utilisateur.",
+        extensions: "L'ajout d'un filtre en sortie est préconisé pour réduire les parasites , tout comme une étude supplémentaire pour protéger les composants contre les intensités trop élevées."
       }
     },
     {
@@ -315,7 +325,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+9+-+Image+2",
       ],
       description: "Description détaillée du projet 9...",
-      skills: ["Vue.js", "Firebase", "GraphQL", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: [ "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       pdf: "/path/to/rapport_projet9.pdf",
       feedback: {
         difficulties: "Comprendre le fonctionnement de GraphQL et l'intégrer avec Firebase a demandé du temps de recherche et d'expérimentation.",
@@ -332,7 +342,7 @@ function App() {
         "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+10+-+Image+1",
       ],
       description: "Description détaillée du projet 10...",
-      skills: ["Angular", "TypeScript", "RxJS", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets"],
+      skills: ["LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       pdf: "/path/to/rapport_projet10.pdf",
       feedback: {
         difficulties: "La programmation réactive avec RxJS est puissante mais complexe à maîtriser. Le débogage des flux de données asynchrones était un défi.",
@@ -352,11 +362,11 @@ function App() {
       images: [
         LR_logical,
         Stage_PCB_Kicad,
-        "https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Reseau+et+Serveur",
+        StageEpreuve,
         "https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan+et+Resultats",
       ],
       description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
-      skills: ["C/C++", "Qt","Kicad", "Electronique", "Autonomie", "Travail d'équipe", "Datasheets", "Linux", "Wireshark", "Analyse"],
+      skills: ["C/C++", "Qt", "Kicad", "Electronique", "Autonomie", "Travail d'équipe", "Datasheets", "Linux", "Wireshark", "Analyse", "Rapports & CR", "Communication"],
       pdf: "/assets/pdf/Extrait_Rapport_de_Stage_2e_annee_GEII_Ly_Minh-Quan.pdf",
       feedback: {
         difficulties: "L'adaptation à un codebase existant et complexe a été un défi initial. Comprendre l'architecture logicielle et les interactions entre les modules a demandé une période d'analyse intensive.",
@@ -503,6 +513,36 @@ function App() {
       name: "SQL", 
       level: "Notions",
       desc: "Gestion et interrogation de bases de données relationnelles.",
+      category: "hard"
+    },
+    { 
+      name: "MQTT", 
+      level: "Notions",
+      desc: "Protocole de messagerie publish-subscribe pour l'IoT.",
+      category: "hard"
+    },
+    { 
+      name: "CoDeSys", 
+      level: "Notions",
+      desc: "Environnement de développement pour automates programmables.",
+      category: "hard"
+    },
+    { 
+      name: "Base de données", 
+      level: "Intermédiaire",
+      desc: "Conception et gestion de bases de données.",
+      category: "hard"
+    },
+    { 
+      name: "Grafana", 
+      level: "Notions",
+      desc: "Outil de visualisation et de monitoring de données.",
+      category: "hard"
+    },
+    { 
+      name: "Matlab", 
+      level: "Intermédiaire",
+      desc: "Calcul numérique, modélisation et simulation.",
       category: "hard"
     },
   ].sort((a, b) => {
@@ -703,7 +743,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           desc: "Mettre en place une stratégie de maintenance pour garantir un fonctionnement optimal.", 
           percentage: 75, 
           explanation: "Analyse approfondie de dysfonctionnements sur des systèmes embarqués temps réel.", 
-          projectIds: [3, 8] }
+          projectIds: [6, 8] }
       ]
     },
     { 
@@ -714,12 +754,12 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           desc: "Réaliser un système en mettant en place une démarche qualité en conformité avec le dossier de fabrication.", 
           percentage: 100, 
           explanation: "Réalisation de câblages d'armoires et de cartes électroniques en respectant les normes.", 
-          projectIds: [1, 5] },
+          projectIds: [1, 8] },
         { id: 2, 
           desc: "Interagir avec les différents acteurs, lors de l’installation et de la mise en service d’un système, dans une démarche qualité.", 
           percentage: 95, 
           explanation: "Déploiement et configuration de réseaux de capteurs et d'architectures IoT.", 
-          projectIds: [8, 9] }
+          projectIds: [9, "stage-1"] }
       ]
     },
   ];
