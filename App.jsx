@@ -13,6 +13,7 @@ import {
   IconUserBolt,
   IconFileTypePdf,
   IconLanguage,
+  IconBrandGithub,
   IconBrandLinkedin,
   IconMail,
   IconHeart,
@@ -60,6 +61,12 @@ import Arlo_Resultat_Oscillo from './assets/images/Arlo_Resultat_Oscillo.jpg';
 import SAE_Arlo_VOUT_PPS from './assets/images/SAE_Arlo_VOUT_PPS.png';
 import Arlo_scope_2 from './assets/images/Arlo_scope_2.png';
 
+import Optiplant0 from './assets/images/Optiplant0.jpg';
+import Optiplant1 from './assets/images/Optiplant1.png';
+import Optiplant2 from './assets/images/Optiplant2.png';
+import Optiplant3 from './assets/images/Optiplant3.png';
+import Optiplant4 from './assets/images/Optiplant4.png';
+
 /*
 import  from './assets/images/.jpg';
 import  from './assets/images/.jpg';
@@ -91,7 +98,7 @@ function App() {
       experiences: { title: "Mes Expériences", desc: "Voici une sélection de mes projets académiques, personnels et de mes stages. Ils illustrent mes compétences techniques et ma capacité à mener à bien des réalisations concrètes, du développement logiciel à l'électronique embarquée." },
       skills: { title: "Compétences", desc: "Retrouvez ici l'ensemble des compétences techniques et transversales que j'ai développées au cours de ma formation et de mes expériences. Elles couvrent le développement, l'électronique, et la gestion de projet." },
       interests: { title: "Centres d'intérêts", desc: "Au-delà de la technique, je cultive des passions qui nourrissent ma curiosité et mon équilibre personnel." },
-      contact: { title: "Contacts", desc: "N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn.", linkedinTooltip: "En cliquant ici, vous allez être redirigé vers LinkedIn" }
+      contact: { title: "Contacts", desc: "N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn.", linkedinTooltip: "En cliquant ici, vous allez être redirigé vers LinkedIn", githubTooltip: "En cliquant ici, vous allez être redirigé vers mon profil GitHub." }
     },
     modal: { 
       skills: "Compétences utilisées", 
@@ -166,17 +173,17 @@ function App() {
       id: 2,
       title: "Projet de conception d'un assistant domotique",
       year: "2024",
-      duration: "35 heures",
+      duration: "40 heures",
       images: [
         CarteDomotique, 
       ],
-      description: "Description détaillée du projet 2...",
-      skills: ["Arduino IDE", "C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie", "Analyse", "Communication"],
-      pdf: "/path/to/rapport_projet2.pdf",
+      description: "Ce projet consiste en la conception d'un assistant domotique pour l'habitat, articulé autour d'un microcontrôleur ESP32-C6 qui centralise les données de divers capteurs (température, pression, luminosité, qualité de l'air et lecteur RFID). L'appareil dispose d'une interface utilisateur double : un écran tactile TFT local pour l'affichage en temps réel et le contrôle direct, ainsi qu'une page web hébergée localement permettant de surveiller et de piloter à distance des équipements via un relais. L'ensemble du système est programmé avec l'IDE Arduino et utilise des technologies web standards (HTML, JavaScript, CSS).",
+      skills: ["Arduino IDE", "C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie", "Analyse"],
+      pdf: "/assets/pdf/Rapport_Domotique.pdf",
       feedback: {
-        difficulties: "Difficulté à trouver des composants qui respectent les contraintes du cahier des charges.",
-        takeaways: "Ce que j'ai aimé faire c'est la conception de la carte sur Kicad et la programmation du microcontrôleur pour gérer tous les capteurs ensemblent.",
-        extensions: "Intégration d'un assistant vocal pour le contrôle des périphériques."
+        difficulties: "Difficulté à faire fonctionner les différents modules ensemble",
+        takeaways: "",
+        extensions: ""
       }
     },
     {
@@ -239,7 +246,7 @@ function App() {
         VérifierMaintenance1,
         VérifierMaintenance2,
       ],
-      description: "Description détaillée du projet 5...",
+      description: "Ce projet consiste en une analyse approfondie d'une maquette technique industrielle afin d'en maîtriser parfaitement le fonctionnement. J'ai commencé par identifier et étudier chaque composant du système, notamment l'unité centrale de commande (automate Unitronics avec écran IHM tacticle), les modules d'alimentation rail DIN (24V et 12V), les interfaces de puissance (relais, gradateur LED CVDIM1), ainsi que les actionneurs finaux, à savoir un banc de trois lampes halogènes et des ventilateurs de refroidissement. L'objectif était de cartographier les interactions et les flux d'énergie entre ces éléments.\n\nDans un second temps, le projet a consisté à appliquer des protocoles de maintenance rigoureux pour diagnostiquer précisément l'origine de pannes potentielles. En utilisant des outils de mesure sur le bornier de raccordement et en analysant le comportement de l'interface de commande, j'ai dû mener de véritables enquêtes techniques pour isoler l'élément défaillant (par exemple, tester le fusible de protection transparent ou valider la commande d'un relais). ",
       skills: ["Microsoft Office", "Kicad", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       pdf: "/path/to/rapport_projet5.pdf",
       feedback: {
@@ -310,32 +317,44 @@ function App() {
       skills: ["Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       pdf: "/assets/pdf/Rapport_SAE_LY_Moreau_.pdf",
       feedback: {
-        difficulties: "Une oscillation du signal de sortie de 40 mV a été observée , et la limitation de l'intensité en sortie n'a pas pu être implémentée malgré plusieurs tentatives de modification du programme.",
-        takeaways: "La compréhension des protocoles I2C et Power Delivery a été acquise , permettant d'obtenir une tension de sortie parfaitement conforme à la consigne utilisateur.",
-        extensions: "L'ajout d'un filtre en sortie est préconisé pour réduire les parasites , tout comme une étude supplémentaire pour protéger les composants contre les intensités trop élevées."
+        difficulties: "Outre la configuration de STM32CubeIDE, nous avons été confrontés à l'instabilité de la tension de sortie (oscillations de 40 mV) et à l'impossibilité technique de brider l'intensité via le programme.",
+        takeaways: "Nous avons réussi à piloter le module AP33772 via le bus I2C pour obtenir une tension précise pour respecter le cahier des charges.",
+        extensions: "Il serait pertinent d'ajouter un étage de filtrage pour stabiliser la tension. Et d'avoir une carte PCB personnalisée pour intégrer tous les composants de manière plus compacte et sécurisée."
       }
     },
     {
       id: 9,
-      title: "Projet 9",
-      year: "2023",
-      duration: "350 heures",
+      title: "Optiplant - Application de suivi de plantes en temps réel",
+      year: "2026",
+      duration: "50 heures",
       images: [
-        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+9+-+Image+1",
-        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+9+-+Image+2",
+        Optiplant0,
+        Optiplant1,
+        Optiplant2,
+        Optiplant3,
+        Optiplant4,
       ],
-      description: "Description détaillée du projet 9...",
-      skills: [ "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
+      description: [
+        {
+          title: "Description Globale du projet",
+          text: "Le projet Optiplant propose un système hydroponique innovant. Cette méthode écologique permet de cultiver des plantes de manière efficace, en assurant un apport optimal en nutriments essentiels, ce qui favorise une croissance accrue et une production améliorée des plantes. Pour renforcer cette optimisation, des ombrières automatisées ont été intégrées, permettant un réglage précis de l'exposition au soleil des cultures. De plus, le système utilise un réservoir pour la récupération de l'eau de pluie, rendant l'irrigation partiellement autonome en eau. Des panneaux solaires installés sur la structure rendent également le projet autonome en électricité. \n\nAinsi le projet est séparé en plusieurs parties : \n- La partie communication automate / IHM, \n- La partie base de données, \n- La partie site web pour le suivi des plantes."
+        },
+        {
+          title: "Communication Automate / IHM",
+          text: "Ma contribution sur ce projet a été de développer la partie communication entre l'automate et l'interface homme-machine (IHM). J'ai mis en place le protocole Modbus pour assurer une transmission des données fiable et en temps réel codé en Python, c'est une partie très importante du projet car sans elle, il n'y aurait pas de réel suivi du système hydroponique."
+        }
+      ],
+      skills: [ "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication", "Python"],
       pdf: "/path/to/rapport_projet9.pdf",
       feedback: {
-        difficulties: "Comprendre le fonctionnement de GraphQL et l'intégrer avec Firebase a demandé du temps de recherche et d'expérimentation.",
-        takeaways: "Créer une interface utilisateur réactive et dynamique avec Vue.js était très plaisant. La facilité d'utilisation de Firebase pour le backend a permis de se concentrer sur l'expérience utilisateur.",
-        extensions: "Développement d'une application mobile native avec React Native ou Flutter."
+        difficulties: "Le choix du protocole de communication entre la base de données et l'interface homme machine (MQTT, MySQL, et Modbus). Le travail d'équipe (9 personnes) est aussi une difficulté car il faut gérer son temps pour ne pas retarder les autres parties / groupe.",
+        takeaways: "J'ai apprécié faire la partie de communication entre la base de données et l'interface homme machine, en utilisant le protocole Modbus pour assurer une transmission efficace et simple des données en temps réel.",
+        extensions: "En soit, le projet sera repris pour être amélioré et optimisé dans le but d'avoir un fonctionnement autonome."
       }
     },
     {
       id: 10,
-      title: "Projet 10",
+      title: "Robot détecteur d'obstacle",
       year: "2022",
       duration: "60 heures",
       images: [
@@ -1081,6 +1100,33 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                     text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 
                     transition-opacity pointer-events-none text-center z-10">
                       {translations.sections.contact.linkedinTooltip}
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              {/* Séparateur */}
+              <div className="w-full h-px bg-neutral-700/50"></div>
+
+              {/* GitHub */}
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="bg-white p-2 rounded-lg flex-shrink-0">
+                  <img 
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent("https://github.com/Minh1105")}`} 
+                    alt="GitHub QR Code" 
+                    className="w-24 h-24 md:w-32 md:h-32"
+                  />
+                </div>
+                <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                  <a href="https://github.com/Minh1105" target="_blank" rel="noopener noreferrer" className="relative group flex items-center gap-2 mb-2 text-neutral-300 hover:text-white transition-colors">
+                    <IconBrandGithub size={32} />
+                    <h3 className="text-xl font-bold">GitHub</h3>
+                    {/* Tooltip */}
+                    <div className="absolute bottom-full left-full mb-2 ml-2 w-48 p-2 
+                    bg-neutral-900 border border-neutral-700 text-neutral-200 
+                    text-xs rounded-lg shadow-xl opacity-0 group-hover:opacity-100 
+                    transition-opacity pointer-events-none text-center z-10">
+                      {translations.sections.contact.githubTooltip}
                     </div>
                   </a>
                 </div>
