@@ -22,14 +22,19 @@ import {
   IconBarbell,
   IconActivity,
   IconAddressBook,
+  IconPlayerPlay,
+  IconZoomIn,
 } from "@tabler/icons-react";
 import { useOutsideClick } from './components/use-outside-click';
 
 // 1. Importez vos images locales ici
 // Créez un dossier `src/assets/images` et placez-y vos images.
 import SmartLight from './assets/images/SmartLight.jpg';
+import SmatLightInfographie from './assets/images/SmatLightInfographie.jpg';
+
 
 import CarteDomotique from './assets/images/CarteDomotique.png';
+import DomotiqueWeb from './assets/images/DomotiqueWeb.png';
 
 import RobotGies1 from './assets/images/RobotGies1.png';
 import RobotGies2 from './assets/images/RobotGies2.png';
@@ -67,6 +72,9 @@ import Optiplant2 from './assets/images/Optiplant2.png';
 import Optiplant3 from './assets/images/Optiplant3.png';
 import Optiplant4 from './assets/images/Optiplant4.png';
 
+import RobotObst1 from './assets/images/RobotObst1.jpg';
+import ConcoursRobotS1 from './assets/images/ConcoursRobotS1.mp4';
+
 /*
 import  from './assets/images/.jpg';
 import  from './assets/images/.jpg';
@@ -75,6 +83,7 @@ import  from './assets/images/.jpg';
 
 
 import photo_profil from './assets/images/photo_profil.png'; // 1. Importez votre photo de profil ici (corrigez le nom du fichier si besoin)
+import { i } from 'framer-motion/client';
 
 function App() {
   const [language, setLanguage] = useState('fr');
@@ -158,9 +167,10 @@ function App() {
       year: "2023",
       duration: "70 heures",
       images: [
-        SmartLight
+        SmartLight,
+        SmatLightInfographie
       ], 
-      description: "Description détaillée du projet 1...",
+      description: "Le projet SmartLight consiste à créer une lampe intelligente et polyvalente pilotée par une carte Arduino. Le système permet de régler l'ambiance lumineuse de plusieurs façons : on peut faire varier l'intensité d'une lampe principale, changer les couleurs d'une LED RGB ou utiliser des petites LEDs de signalisation. Pour interagir avec la lampe, l'utilisateur dispose de deux boutons-poussoirs physiques et d'une télécommande infrarouge pour un contrôle à distance. La lampe est également autonome grâce à différents capteurs qui mesurent la lumière ambiante pour adapter l'éclairage automatiquement. Enfin, l'ensemble du programme est conçu pour gérer toutes ces fonctions en même temps, assurant une réponse fluide aux commandes tout en surveillant la luminosité de la pièce.",
       skills: ["Arduino IDE", "C++", "Lecture de datasheets", "Electronique", "Rédaction de rapports", "Microsoft Office", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Analyse", "Autonomie", "Communication"],
       pdf: "/path/to/rapport_projet1.pdf",
       feedback: {
@@ -176,14 +186,15 @@ function App() {
       duration: "40 heures",
       images: [
         CarteDomotique, 
+        DomotiqueWeb,
       ],
       description: "Ce projet consiste en la conception d'un assistant domotique pour l'habitat, articulé autour d'un microcontrôleur ESP32-C6 qui centralise les données de divers capteurs (température, pression, luminosité, qualité de l'air et lecteur RFID). L'appareil dispose d'une interface utilisateur double : un écran tactile TFT local pour l'affichage en temps réel et le contrôle direct, ainsi qu'une page web hébergée localement permettant de surveiller et de piloter à distance des équipements via un relais. L'ensemble du système est programmé avec l'IDE Arduino et utilise des technologies web standards (HTML, JavaScript, CSS).",
       skills: ["Arduino IDE", "C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie", "Analyse"],
       pdf: "/assets/pdf/Rapport_Domotique.pdf",
       feedback: {
-        difficulties: "Difficulté à faire fonctionner les différents modules ensemble",
-        takeaways: "",
-        extensions: ""
+        difficulties: "Difficulté à faire fonctionner les différents modules ensemble (surtout l'écran TFT et le lecteur RFID). Il y avait aussi l'autonomie qu'il fallait gérer ",
+        takeaways: "C'est l'un des premiers projets où j'ai réussi à intégrer plusieurs capteurs/modules et interfaces dans un même système fonctionnel, ce qui m'a beaucoup appris sur la gestion de projets et à gérer mon autonomie.",
+        extensions: "Ce petit projet isolé pourrait être intégré dans un projet plus global de maison connectée, en ajoutant par exemple des fonctionnalités de contrôle vocal ou d'intégration avec des assistants virtuels comme Alexa ou Google Home avec un site web qui centralise le tout."
       }
     },
     {
@@ -358,15 +369,24 @@ function App() {
       year: "2022",
       duration: "60 heures",
       images: [
-        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+10+-+Image+1",
+        RobotObst1,
+        ConcoursRobotS1,
       ],
-      description: "Description détaillée du projet 10...",
-      skills: ["LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
-      pdf: "/path/to/rapport_projet10.pdf",
+      description: [
+        {
+          title: "Description Globale du projet",
+          text: "Ce projet consiste en la conception et la réalisation d'un robot mobile autonome capable de détecter et d'éviter des obstacles en temps réel. Il s'agit d'un système mécatronique complet où une unité de contrôle (type Arduino) traite les données provenant de capteurs de distance (infrarouge et ultrason) pour piloter deux moteurs à courant continu via une interface de puissance. Le robot est conçu pour fonctionner soit de manière totalement autonome en analysant son environnement, soit en mode manuel grâce à une interface de radiocommande, garantissant ainsi une navigation fluide et sécurisée dans un espace donné."
+        },
+        {
+          title: "Détails Techniques",
+          text: "Le projet s'appuie sur plusieurs piliers fondamentaux : l'alimentation est assurée par une batterie au plomb de 12V dont la durée de vie est optimisée par une gestion précise des cycles de charge. La propulsion repose sur des moteurs à courant continu pilotés par un pont en H, une structure électronique permettant de varier la vitesse par modulation de largeur d'impulsion (PWM) et d'inverser le sens de marche. Pour la perception, le robot combine un télémètre ultrason, idéal pour mesurer des distances par écho acoustique, et un télémètre infrarouge SHARP qui utilise la triangulation lumineuse pour une détection de proximité précise. Enfin, le pilotage est rendu possible par un récepteur radio captant des signaux PPM (Pulse Position Modulation), permettant au programme de basculer entre le mode manuel et l'algorithme d'évitement d'obstacles automatique."
+        }
+      ],
+      skills: ["Arduino IDE", "C/C++", "Microsoft Office", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       feedback: {
-        difficulties: "La programmation réactive avec RxJS est puissante mais complexe à maîtriser. Le débogage des flux de données asynchrones était un défi.",
-        takeaways: "J'ai apprécié la structure et la rigueur qu'apporte Angular au développement front-end. L'utilisation de TypeScript a grandement amélioré la qualité et la maintenabilité du code.",
-        extensions: "Migration vers la dernière version d'Angular et utilisation de composants standalone."
+        difficulties: "La principale complexité réside dans la gestion de la batterie au plomb pour éviter les décharges profondes fatales et dans le traitement des signaux non linéaires du télémètre infrarouge. Mais aussi la logique de contrôle pour l'évitement d'obstacles.",
+        takeaways: "Ce projet était le premier projet de robotique que j'ai réalisé, j'y ai découvert les bases de la programmation de microcontrôleurs en embarqués, la gestion de capteurs et la logique de contrôle pour l'évitement d'obstacles, ce qui a été très enrichissant. En particulier, le petit concours en fin de semestre était très amusant.",
+        extensions: "Une évolution possible serait l'ajout d'un module Bluetooth pour le retour de données en temps réel ou l'implémentation d'un asservissement PID pour stabiliser la vitesse du robot."
       }
     },
   ].sort((a, b) => parseInt(b.year) - parseInt(a.year));
@@ -1184,6 +1204,7 @@ const variants = {
 // Composant pour la modale de projet
 const ProjectModal = ({ project, onClose, language, translations, skillsList, onSkillClick }) => {
   const modalRef = useRef(null);
+  const videoRef = useRef(null);
   const [showPdfPreview, setShowPdfPreview] = useState(false);
   const [showLightbox, setShowLightbox] = useState(false);
   useOutsideClick(modalRef, () => {
@@ -1192,25 +1213,43 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 
   const [[page, direction], setPage] = useState([0, 0]);
   const [isHovering, setIsHovering] = useState(false);
+  const [isCarouselVideoPlaying, setIsCarouselVideoPlaying] = useState(true);
 
   // Détection du mode "Story" (pour le stage) si des descriptions multiples existent
   const isStoryMode = project.descriptions && Array.isArray(project.descriptions);
 
   const imageIndex = (page % project.images.length + project.images.length) % project.images.length;
+  const currentMedia = project.images[imageIndex];
+  const isVideo = typeof currentMedia === 'string' && (currentMedia.endsWith('.mp4') || currentMedia.endsWith('.webm') || currentMedia.endsWith('.ogg'));
 
   const paginate = useCallback((newDirection) => {
-    setPage([page + newDirection, newDirection]);
-  }, [page]);
+    setPage([page + newDirection, newDirection]); }, [page]);
+
+  // Gère la fin de la vidéo dans le carrousel pour passer au slide suivant
+  const handleVideoEnd = () => {
+    paginate(1);
+  };
+
+  // Gère le clic sur la vidéo du carrousel pour la mettre en pause/lecture
+  const toggleCarouselVideo = (e) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  };
 
   useEffect(() => {
     // Désactiver le défilement automatique si on est en mode Story ou s'il n'y a qu'une image
-    if (project.images.length <= 1 || isHovering || isStoryMode) return;
+    if (project.images.length <= 1 || isHovering || isStoryMode || isVideo) return;
     const autoplay = setInterval(() => paginate(1), 5000); // Défilement toutes les 3 secondes
     return () => clearInterval(autoplay);
-  }, [isHovering, paginate, project.images.length, isStoryMode]);
-
-  // Sélection du contenu en fonction du mode
+  }, [isHovering, paginate, project.images.length, isStoryMode, isVideo]); // Sélection du contenu en fonction du mode
   const currentDescription = isStoryMode ? project.descriptions[imageIndex] : project.description;
+
   const currentSkills = project.skills || [];
 
   const hardSkills = currentSkills.filter(skillName => {
@@ -1255,22 +1294,62 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
               onMouseLeave={() => setIsHovering(false)}
             >
               <AnimatePresence initial={false} custom={direction}>
-                <motion.img
-                  key={page}
-                  src={project.images[imageIndex]}
-                  custom={direction}
-                  variants={variants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{
-                    x: { type: "spring", stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.2 },
-                  }}
-                  alt={`${project.title} - Image ${imageIndex + 1}`}
-                  className="absolute w-full h-full object-contain cursor-zoom-in"
-                  onClick={() => setShowLightbox(true)}
-                />
+                {isVideo ? (
+                  <div className="absolute w-full h-full cursor-pointer" onClick={toggleCarouselVideo}>
+                    <motion.video
+                      ref={videoRef}
+                      key={page}
+                      src={currentMedia}
+                      custom={direction}
+                      variants={variants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{
+                        x: { type: "spring", stiffness: 300, damping: 30 },
+                        opacity: { duration: 0.2 },
+                      }}
+                      className="absolute w-full h-full object-contain"
+                      autoPlay
+                      muted
+                      playsInline
+                      onPlay={() => setIsCarouselVideoPlaying(true)}
+                      onPause={() => setIsCarouselVideoPlaying(false)}
+                      onEnded={handleVideoEnd}
+                    />
+                    {!isCarouselVideoPlaying && (
+                      <div className="absolute inset-0 flex justify-center items-center bg-black/30 pointer-events-none">
+                        <IconPlayerPlay size={48} className="text-white" />
+                      </div>
+                    )}
+                    {isHovering && (
+                       <button
+                         onClick={(e) => { e.stopPropagation(); setShowLightbox(true); }}
+                         className="absolute top-2 right-2 z-10 p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors"
+                         title="Agrandir"
+                       >
+                         <IconZoomIn size={20} />
+                       </button>
+                    )}
+                  </div>
+                ) : (
+                  <motion.img
+                    key={page}
+                    src={currentMedia}
+                    custom={direction}
+                    variants={variants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{
+                      x: { type: "spring", stiffness: 300, damping: 30 },
+                      opacity: { duration: 0.2 },
+                    }}
+                    alt={`${project.title} - Image ${imageIndex + 1}`}
+                    className="absolute w-full h-full object-contain cursor-zoom-in"
+                    onClick={() => setShowLightbox(true)}
+                  />
+                )}
               </AnimatePresence>
 
               {/* Boutons de navigation du carrousel */}
@@ -1457,17 +1536,33 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
             </button>
 
             {/* Image en grand */}
-            <motion.img
-              key={page}
-              src={project.images[imageIndex]}
-              alt={project.title}
-              className="max-w-[95vw] max-h-[95vh] object-contain select-none"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              onClick={(e) => e.stopPropagation()}
-            />
+            {isVideo ? (
+              <motion.video
+                key={page}
+                src={currentMedia}
+                className="max-w-[95vw] max-h-[95vh] object-contain select-none"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                onClick={(e) => e.stopPropagation()}
+                autoPlay
+                loop
+                playsInline
+                controls
+              />
+            ) : (
+              <motion.img
+                key={page}
+                src={currentMedia}
+                className="max-w-[95vw] max-h-[95vh] object-contain select-none"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            )}
 
             {/* Navigation Lightbox */}
             {project.images.length > 1 && (
