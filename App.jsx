@@ -239,13 +239,22 @@ function App() {
         SchématiqueBasseConso,
         PCBBasseConso,
       ],
-      description: "Description détaillée du projet 4...",
+      description: [
+        {
+          title: "Description Globale du projet",
+          text: "L'objectif central de ce projet est la conception d'un module d'envoi de données par radio à très faible consommation. Le système est conçu pour être alimenté par des piles de type AA avec une contrainte d'autonomie majeure : fonctionner de manière autonome pendant deux ans.\n\nLa démarche a suivi un cycle de développement complet, allant de la définition d'une architecture théorique et du choix de composants spécifiques, jusqu'à la réalisation d'une carte électronique (PCB) dédiée. Le projet a abouti à un prototype fonctionnel et industriellement viable, validant l'utilisation de modes de veille profonde pour atteindre les objectifs énergétiques fixés."
+        },
+        {
+          title: "Détails Techniques",
+          text: "L'architecture matérielle repose sur le microcontrôleur STM32G031K8T6, choisi pour son mode « Shutdown » performant qui permet de réduire la consommation à environ 350 nA à température ambiante. Pour assurer cette sobriété, le système intègre un régulateur LDO XC6223H331MRG possédant un courant de repos quasi nul de 0,01 µA, ainsi qu'un Load Switch AP22913W67. Ce dernier joue un rôle crucial en isolant physiquement le pont diviseur de tension lorsqu'il n'est pas utilisé, éliminant ainsi toute fuite de courant inutile vers la mesure de la batterie. L'ensemble de la carte a été conçu sous KiCad, avec un soin particulier apporté au placement du quartz de 32,768 kHz et des condensateurs de découplage au plus près du microcontrôleur pour minimiser les parasites.\n\nLa transmission des données est assurée par un module LoRa RA-02 communiquant via un bus SPI, tandis qu'un module HC-12 agissant comme un pont UART transparent a également été étudié pour sa simplicité d'intégration. Deux scénarios d'utilisation valident l'autonomie de deux ans : le premier prévoit un envoi toutes les 5 minutes à une puissance de +14 dBm pour une portée locale, tandis que le second autorise une portée allant jusqu'à 10 km avec un envoi toutes les 35 minutes à +17 dBm. Dans les deux cas, le courant moyen consommé reste inférieur au seuil critique (environ 0,14 mA), confirmant que la gestion logicielle des modes de veille et le choix des composants passifs, comme les résistances du pont diviseur calibrées à 12 kΩ et 4,2 kΩ, sont parfaitement adaptés aux enjeux du projet."
+        }
+      ],
       skills: ["Kicad", "JavaScript", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie", "Travail d'équipe", "Analyse", "Communication"],
-      pdf: "/path/to/rapport_projet4.pdf",
+      pdf: "/asset/pdf/Extrait_Rapport_SAE_Capteur_Basse_Conso.pdf",
       feedback: {
         difficulties: "L'optimisation de la consommation d'énergie pour atteindre les objectifs de basse consommation a nécessité de nombreuses itérations et tests. De plus, il y eut quelques difficultés à trouver des composants qui respectent les contraintes du cahier des charges (soit des composants qui consome le moins possible) s'ajoute à cela la difficulté de la communication radio dans la bonne fréquence.",
         takeaways: "J'ai beaucoup appris sur les techniques de conception de circuits à faible consommation et sur les protocoles de communication radio. La phase de routage du PCB a été particulièrement instructive.",
-        extensions: "Développement d'un réseau maillé pour étendre la portée de la communication ou encore trouver des composants qui consomment encore moins d'énergie pour faire durée plus longtemps la carte."
+        extensions: "Développement d'un réseau maillé pour étendre la portée de la communication ou encore trouver des composants qui consomment encore moins d'énergie pour faire durée plus longtemps la carte. Et une application est de pouvoir ce servir de la carte pour contrôler un robot mobile autonome, par exemple, grâce à l'envoie de données que la carte peut faire, on pourrait faire en sorte que le robot puisse recevoir des ordres à distance pour se déplacer ou faire des actions spécifiques."
       }
     },
     {
@@ -259,7 +268,7 @@ function App() {
       ],
       description: "Ce projet consiste en une analyse approfondie d'une maquette technique industrielle afin d'en maîtriser parfaitement le fonctionnement. J'ai commencé par identifier et étudier chaque composant du système, notamment l'unité centrale de commande (automate Unitronics avec écran IHM tacticle), les modules d'alimentation rail DIN (24V et 12V), les interfaces de puissance (relais, gradateur LED CVDIM1), ainsi que les actionneurs finaux, à savoir un banc de trois lampes halogènes et des ventilateurs de refroidissement. L'objectif était de cartographier les interactions et les flux d'énergie entre ces éléments.\n\nDans un second temps, le projet a consisté à appliquer des protocoles de maintenance rigoureux pour diagnostiquer précisément l'origine de pannes potentielles. En utilisant des outils de mesure sur le bornier de raccordement et en analysant le comportement de l'interface de commande, j'ai dû mener de véritables enquêtes techniques pour isoler l'élément défaillant (par exemple, tester le fusible de protection transparent ou valider la commande d'un relais). ",
       skills: ["Microsoft Office", "Kicad", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
-      pdf: "/path/to/rapport_projet5.pdf",
+
       feedback: {
         difficulties: "Diagnostiquer la cause racine des pannes intermittentes a été complexe et a demandé une approche méthodique.",
         takeaways: "Ce projet m'a permis de développer mes compétences en dépannage et en analyse de systèmes existants. J'ai apprécié le côté 'enquête' pour trouver la solution.",
@@ -292,24 +301,6 @@ function App() {
         difficulties: "Le principal défi a été l'accordage précis entre la fréquence de l'astable et la fréquence de coupure du filtre pour garantir un signal pur. Il a également fallu stabiliser l'étage de puissance pour éviter toute distorsion sonore lors de l'émission.",
         takeaways: "Ce projet m'a permis de maîtriser la conception de circuits analogiques, du calcul théorique à la validation expérimentale. J'ai eu la satisfaction de voir mon émetteur commander avec succès le robot à distance.",
         extensions: "Le système pourrait être amélioré par l'ajout d'un codage numérique du signal pour éviter les déclenchements par des bruits ambiants. On pourrait aussi optimiser la consommation d'énergie pour augmenter l'autonomie de la télécommande."
-      }
-    },
-    {
-      id: 7,
-      title: "Projet 7",
-      year: "2022",
-      duration: "200 heures",
-      images: [
-        "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Projet+7+-+Image+1",
-        "https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Projet+7+-+Image+2",
-      ],
-      description: "Description détaillée du projet 7...",
-      skills: ["LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
-      pdf: "/path/to/rapport_projet7.pdf",
-      feedback: {
-        difficulties: "La configuration de l'environnement Spring Boot et la connexion à la base de données ont posé quelques problèmes initiaux.",
-        takeaways: "Développer une application web complète avec un backend robuste a été très satisfaisant. J'ai particulièrement aimé la conception du modèle de données et la création des API REST.",
-        extensions: "Ajout de fonctionnalités de sécurité avancées (OAuth2) et déploiement sur le cloud."
       }
     },
     {
@@ -394,30 +385,76 @@ function App() {
   // Données pour le stage (structure identique aux projets pour la compatibilité)
   const internshipData = [
     {
+      id: 7,
+      title: "Stage à ATEM RF & Microwaves (BUT3)",
+      year: "2026",
+      duration: "14 semaines",
+      // L'image ici sert de miniature pour la grille principale
+      images: ["https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Stage+ATEM+RF"],
+      description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
+      skills: ["Linux", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
+      pdf: "/assets/pdf/Rapport_Stage_ATEM_RF_Microwaves.pdf",
+      feedback: {
+        difficulties: "",
+        takeaways: "",
+        extensions: ""
+      },
+      // Descriptions spécifiques par image pour le mode Story
+      descriptions: [
+        { title: "Introduction et Contexte", 
+          text: "Introduction et Contexte du stage à ATEM RF & Microwaves.",
+          images: ["https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Intro+Image+1", "https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Intro+Image+2"]
+        },
+        { title: "Réhabilitation de l'enceinte climatique : remise en service et optimisation du pilotage", 
+          text: "Travail technique sur l'enceinte climatique.",
+          images: ["https://via.placeholder.com/800x450.png/2a2a2a/ffffff?text=Enceinte+Climatique"]
+        },
+        { title: "Tiroir démonstrateur GPS : conception et intégration matérielle", 
+          text: "Détails sur la conception du tiroir GPS.",
+          images: ["https://via.placeholder.com/800x450.png/3a3a3a/ffffff?text=Tiroir+GPS"]
+        },
+        { title: "Bilan et Résultats", 
+          text: "Bilan, compétences acquises et résultats concrets obtenus durant le stage.",
+          images: ["https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan"]
+        }
+      ]
+    },
+    {
       id: "stage-1",
-      title: "Stage BUT GEII",
+      title: "Stage au Laboratoire du LIS (BUT2)",
       year: "2025",
       duration: "8 semaines",
-      images: [
-        LR_logical,
-        Stage_PCB_Kicad,
-        StageEpreuve,
-        "https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan+et+Resultats",
-      ],
+      images: [LR_logical],
       description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
       skills: ["C/C++", "Qt", "Kicad", "Electronique", "Autonomie", "Travail d'équipe", "Datasheets", "Linux", "Wireshark", "Analyse", "Rapports & CR", "Communication"],
       pdf: "/assets/pdf/Extrait_Rapport_de_Stage_2e_annee_GEII_Ly_Minh-Quan.pdf",
       feedback: {
-        difficulties: "L'adaptation à un codebase existant et complexe a été un défi initial. Comprendre l'architecture logicielle et les interactions entre les modules a demandé une période d'analyse intensive.",
-        takeaways: "J'ai adoré travailler sur une application concrète avec un impact direct pour les utilisateurs. La collaboration avec l'équipe R&D et l'apprentissage des bonnes pratiques de développement en entreprise (versioning, tests) ont été très formateurs.",
-        extensions: "Le projet pourrait être étendu en ajoutant des fonctionnalités de contrôle à distance via une application mobile."
+        difficulties: "",
+        takeaways: "",
+        extensions: ""
       },
       // Données spécifiques pour le mode 'Story' (par image)
       descriptions: [
-        "Introduction et Contexte :\n\nDurant ce stage de 10 semaines, j'ai intégré l'équipe R&D de l'entreprise. L'objectif principal était de moderniser l'interface de contrôle d'un robot industriel.\n\nJ'ai commencé par :\n- Analyser l'existant et les besoins des opérateurs.\n- Mettre en place l'environnement de développement (Linux, Qt).\n- Définir l'architecture logicielle du nouveau module.",
-        "Développement de l'Interface (IHM) :\n\nLa première phase technique a consisté à développer l'interface graphique avec le framework Qt (C++). J'ai créé des widgets personnalisés pour afficher les capteurs du robot en temps réel.\n\nChallenges relevés :\n- Gestion du rafraîchissement fluide des graphiques.\n- Création d'un design ergonomique et sombre pour réduire la fatigue visuelle.",
-        "Communication Réseau & Backend :\n\nPour que l'interface communique avec le robot, j'ai implémenté un client TCP/IP asynchrone. Le robot agit comme un serveur envoyant des trames de données structurées.\n\nJ'ai dû décoder ces trames binaires, gérer les erreurs de connexion et assurer la reconnexion automatique en cas de perte de signal.",
-        "Bilan et Compétences Acquises :\n\nCe stage m'a permis de consolider mes compétences en C++ orienté objet et en programmation événementielle. J'ai aussi appris à travailler avec des outils de versionning (Git) dans un contexte professionnel.\n\nLe projet a été validé par l'équipe et sera déployé sur la prochaine version des robots."
+        {
+          title: "Introduction et Contexte",
+          text: "Durant ce stage de 8 semaines au laboratoire LIS, j'ai participé au développement d'un Escape Game pédagogique pour le département GEII de l'IUT de Toulon.\n\nMa mission consistait à reprendre un projet existant pour le fiabiliser et documenter les différentes épreuves techniques destinées aux futurs étudiants.",
+          images: [LR_logical]
+        },
+        {
+          title: "Configuration Système & Partitionnement",
+          text: "Une étape cruciale a été la préparation du nano-ordinateur Raspberry Pi 4. J'ai utilisé l'outil Gparted pour créer un système d'exploitation (Raspbian) partitionné de manière optimale (30 Go).\n\nCela permettait d'assurer une sauvegarde fiable de l'image système et une duplication facile sur plusieurs cartes SD pour le déploiement de l'Escape Game.",
+          images: [Stage_PCB_Kicad]
+        },
+        {
+          title: "Épreuves Techniques & Documentation",
+          text: "J'ai travaillé sur plusieurs modules techniques : \n- Analyse de trafic réseau avec Wireshark.\n- Mise en œuvre de signaux PWM pour le contrôle de puissance.\n- Programmation d'épreuves basées sur l'affichage LED et la restitution sonore.\n\nChaque épreuve a été rigoureusement testée et documentée pour garantir sa maintenance.",
+          images: [StageEpreuve]
+        },
+        {
+          title: "Bilan et Compétences Acquises",
+          text: "Ce stage a été une réelle opportunité de mettre en pratique mes connaissances en électronique et informatique industrielle dans un cadre de recherche et développement.\n\nJ'ai développé mon autonomie face à des systèmes complexes et consolidé ma méthodologie de rédaction technique (LaTeX).",
+          images: ["https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan+LIS"]
+        }
       ],
       skillsList: [
 
@@ -493,7 +530,7 @@ function App() {
     },
     { 
       name: "Linux", 
-      level: "Intermédiaire",
+      level: "Avancée",
       desc: "Maîtrise de la ligne de commande (Bash) et administration système.",
       category: "hard"
     },
@@ -716,7 +753,8 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
   const allProjectsAndInternships = [...projects, ...(internship || [])];
-  const allExperiences = [...allProjectsAndInternships].sort((a, b) => parseInt(b.year) - parseInt(a.year));
+  const internships = internship;
+  const academicProjects = projects.sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
   // Données pour les compétences spéciales GEII
   // TODO: Ajustez les pourcentages de maîtrise (propriété 'percentage') selon votre évaluation
@@ -928,32 +966,66 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mb-6 md:mb-8 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.experiences.desc}</p>
             </div>
-            {/* Grille d'expériences */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-10">
-              {allExperiences.map((item) => (
-                <motion.div
-                  key={item.id}
-                  className="bg-neutral-800 rounded-lg cursor-pointer overflow-hidden"
-                  onClick={() => {
-                    // Si la modale est déjà ouverte, le clic sur un projet en arrière-plan la fermera.
-                    // Sinon, on ouvre la modale du projet cliqué.
-                    if (isModalOpen) return;
-                    onProjectClick(item);
-                  }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <img src={item.images[0]} alt={item.title} className="w-full h-40 object-cover" />
-                  <div className="p-4">
-                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                    <div className="flex justify-between text-sm text-neutral-400">
-                      <span>{item.year}</span>
-                      <span>{item.duration}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+
+            {/* Section Stages */}
+            {internships.length > 0 && (
+              <div className="mb-10">
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">Mes Stages</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-10">
+                  {internships.map((item) => (
+                    <motion.div
+                      key={item.id}
+                      className="bg-neutral-800 rounded-lg cursor-pointer overflow-hidden"
+                      onClick={() => {
+                        if (isModalOpen) return;
+                        onProjectClick(item);
+                      }}
+                      whileHover={{ scale: 1.05, y: -5 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    >
+                      <img src={item.images[0]} alt={item.title} className="w-full h-40 object-cover" />
+                      <div className="p-4">
+                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                        <div className="flex justify-between text-sm text-neutral-400">
+                          <span>{item.year}</span>
+                          <span>{item.duration}</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Section Projets */}
+            {academicProjects.length > 0 && (
+              <div className="mb-10">
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">Mes Projets</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-10">
+                  {academicProjects.map((item) => (
+                    <motion.div
+                      key={item.id}
+                      className="bg-neutral-800 rounded-lg cursor-pointer overflow-hidden"
+                      onClick={() => {
+                        if (isModalOpen) return;
+                        onProjectClick(item);
+                      }}
+                      whileHover={{ scale: 1.05, y: -5 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    >
+                      <img src={item.images[0]} alt={item.title} className="w-full h-40 object-cover" />
+                      <div className="p-4">
+                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                        <div className="flex justify-between text-sm text-neutral-400">
+                          <span>{item.year}</span>
+                          <span>{item.duration}</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            )}
           </section>
           )}
 
@@ -964,7 +1036,6 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 mb-8 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.skills.desc}</p>
             </div>
-
             {/* Section spéciale Compétences GEII */}
             <div className="mb-10">
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">Compétences du Référentiel GEII</h3>
@@ -996,7 +1067,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {section.skills.map((skill, idx) => {
                       // Trouver les projets qui utilisent cette compétence
-                      const relatedProjects = allProjectsAndInternships.filter(p => p.skills && p.skills.includes(skill.name));
+                      const relatedProjects = [...internships, ...academicProjects].filter(p => p.skills && p.skills.includes(skill.name));
                       
                       return (
                         <motion.div 
@@ -1216,11 +1287,33 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
   const [isCarouselVideoPlaying, setIsCarouselVideoPlaying] = useState(true);
 
   // Détection du mode "Story" (pour le stage) si des descriptions multiples existent
-  const isStoryMode = project.descriptions && Array.isArray(project.descriptions);
+  // On vérifie si la première description contient un tableau d'images
+  const isStoryMode = project.descriptions && Array.isArray(project.descriptions) && project.descriptions[0].images;
 
-  const imageIndex = (page % project.images.length + project.images.length) % project.images.length;
-  const currentMedia = project.images[imageIndex];
+  // Préparation des images pour le carrousel
+  const modalImages = isStoryMode 
+    ? project.descriptions.flatMap(d => d.images) 
+    : (project.images || []);
+
+  const imageIndex = modalImages.length > 0 
+    ? (page % modalImages.length + modalImages.length) % modalImages.length 
+    : 0;
+  
+  const currentMedia = modalImages[imageIndex];
   const isVideo = typeof currentMedia === 'string' && (currentMedia.endsWith('.mp4') || currentMedia.endsWith('.webm') || currentMedia.endsWith('.ogg'));
+
+  // Détermination de la description à afficher (soit globale, soit par étape)
+  let currentDescription = project.description;
+  if (isStoryMode) {
+    let cumulative = 0;
+    for (const desc of project.descriptions) {
+      cumulative += desc.images.length;
+      if (imageIndex < cumulative) {
+        currentDescription = desc;
+        break;
+      }
+    }
+  }
 
   const paginate = useCallback((newDirection) => {
     setPage([page + newDirection, newDirection]); }, [page]);
@@ -1244,11 +1337,10 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 
   useEffect(() => {
     // Désactiver le défilement automatique si on est en mode Story ou s'il n'y a qu'une image
-    if (project.images.length <= 1 || isHovering || isStoryMode || isVideo) return;
+    if (modalImages.length <= 1 || isHovering || isStoryMode || isVideo) return;
     const autoplay = setInterval(() => paginate(1), 5000); // Défilement toutes les 3 secondes
     return () => clearInterval(autoplay);
-  }, [isHovering, paginate, project.images.length, isStoryMode, isVideo]); // Sélection du contenu en fonction du mode
-  const currentDescription = isStoryMode ? project.descriptions[imageIndex] : project.description;
+  }, [isHovering, paginate, modalImages.length, isStoryMode, isVideo]);
 
   const currentSkills = project.skills || [];
 
@@ -1353,7 +1445,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
               </AnimatePresence>
 
               {/* Boutons de navigation du carrousel */}
-              {project.images.length > 1 && (
+              {modalImages.length > 1 && (
                 <>
                   <button onClick={() => paginate(-1)} className="absolute top-1/2 left-2 -translate-y-1/2 bg-black/30 text-white p-1 rounded-full hover:bg-black/50 transition-colors z-10">
                     <IconChevronLeft size={24} />
@@ -1366,9 +1458,9 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
             </div>
 
             {/* Indicateurs (Dots) */}
-            {project.images.length > 1 && (
+            {modalImages.length > 1 && (
               <div className="flex justify-center gap-2 mt-4">
-                {project.images.map((_, idx) => (
+                {modalImages.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => {
@@ -1408,6 +1500,15 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                       </p>
                     </div>
                   ))}
+                </div>
+              ) : typeof currentDescription === 'object' && currentDescription !== null ? (
+                <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-5 shadow-sm">
+                  <div className="mb-3 border-b border-neutral-700/50 pb-2">
+                    <h4 className="text-xl font-bold text-blue-400">{currentDescription.title}</h4>
+                  </div>
+                  <p className="text-sm md:text-base text-neutral-300 whitespace-pre-wrap leading-relaxed">
+                    {currentDescription.text}
+                  </p>
                 </div>
               ) : (
                 <div className="bg-neutral-800/30 p-4 rounded-lg border border-neutral-700/50">
@@ -1565,7 +1666,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
             )}
 
             {/* Navigation Lightbox */}
-            {project.images.length > 1 && (
+            {modalImages.length > 1 && (
               <>
                 <button
                   onClick={(e) => { e.stopPropagation(); paginate(-1); }}
