@@ -83,7 +83,6 @@ import  from './assets/images/.jpg';
 
 
 import photo_profil from './assets/images/photo_profil.png'; // 1. Importez votre photo de profil ici (corrigez le nom du fichier si besoin)
-import { i } from 'framer-motion/client';
 
 function App() {
   const [language, setLanguage] = useState('fr');
@@ -188,7 +187,16 @@ function App() {
         CarteDomotique, 
         DomotiqueWeb,
       ],
-      description: "Ce projet consiste en la conception d'un assistant domotique pour l'habitat, articulé autour d'un microcontrôleur ESP32-C6 qui centralise les données de divers capteurs (température, pression, luminosité, qualité de l'air et lecteur RFID). L'appareil dispose d'une interface utilisateur double : un écran tactile TFT local pour l'affichage en temps réel et le contrôle direct, ainsi qu'une page web hébergée localement permettant de surveiller et de piloter à distance des équipements via un relais. L'ensemble du système est programmé avec l'IDE Arduino et utilise des technologies web standards (HTML, JavaScript, CSS).",
+      description: [
+        {
+          title: "Description Globale du projet",
+          text: "Ce projet consiste en la conception d'un assistant domotique pour l'habitat, articulé autour d'un microcontrôleur ESP32-C6 qui centralise les données de divers capteurs (température, pression, luminosité, qualité de l'air et lecteur RFID). L'appareil dispose d'une interface utilisateur double : un écran tactile TFT local pour l'affichage en temps réel et le contrôle direct, ainsi qu'une page web hébergée localement permettant de surveiller et de piloter à distance des équipements via un relais. L'ensemble du système est programmé avec l'IDE Arduino et utilise des technologies web standards (HTML, JavaScript, CSS)."
+        },
+        {
+          title: "Détails Techniques",
+          text: "Le système est articulé autour d'un microcontrôleur ESP32-C6 (Wi-Fi 6 / Matter). Il intègre des capteurs de température, pression, luminosité, qualité de l'air et un lecteur RFID pour le contrôle d'accès. L'interface locale utilise un écran tactile TFT, tandis que le pilotage s'effectue via un serveur web asynchrone codé en HTML, CSS et JavaScript."
+        }
+      ],
       skills: ["Arduino IDE", "C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Autonomie", "Analyse"],
       pdf: "/assets/pdf/Rapport_Domotique.pdf",
       feedback: {
@@ -287,6 +295,10 @@ function App() {
       ],
       description: [
         {
+          title: "Description Globale du projet",
+          text: "Ce projet a porté sur la conception et la réalisation d'un système de télécommande acoustique permettant le pilotage à distance d'un robot mobile. L'objectif principal était de générer et de traiter un signal sonore spécifique à 3 kHz pour déclencher des actions automatiques. Au sein du groupe de travail, la responsabilité de la partie émettrice m'a été confiée intégralement. Ce module d'émission a été conçu pour produire une onde stable et suffisamment puissante pour être capté par un récepteur distant, tout en respectant les contraintes de filtrage pour éviter les perturbations sonores parasites. Cette réalisation a permis de valider la mise en œuvre d'une chaîne de transmission analogique complète, du signal électronique jusqu'à sa diffusion acoustique.",
+        },
+        {
           title: "Partie émettrice",
           text: "J'ai réalisé la conception de la chaîne d'émission sonore. Elle débute par un générateur astable à base d'AOP qui produit un signal carré stable à 2,26 kHz. Ce signal est ensuite épuré par un filtre actif de Sallen-Key d'ordre 2 (passe-bas) pour ne conserver que la fondamentale sinusoïdale, puis amplifié en courant par un étage de puissance Push-Pull (transistors complémentaires) afin de commander le haut-parleur sans écraser la tension du filtre."
         },
@@ -294,6 +306,7 @@ function App() {
           title: "Partie réceptrice",
           text: "Le signal est capté par un microphone électret et amplifié par un préamplificateur non-inverseur. Il subit ensuite un filtrage passe-bande étroit pour éliminer les parasites, avant d'être traité par un redresseur double alternance et un comparateur à hystérésis (MCP6541) qui convertit l'enveloppe du signal en une commande logique stable pour le robot."
         }
+        
       ],
       skills: ["Electronique", "Kicad", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       pdf: "/assets/pdf/EmetteurRecepteurRobotS2.pdf",
@@ -344,14 +357,19 @@ function App() {
         {
           title: "Communication Automate / IHM",
           text: "Ma contribution sur ce projet a été de développer la partie communication entre l'automate et l'interface homme-machine (IHM). J'ai mis en place le protocole Modbus pour assurer une transmission des données fiable et en temps réel codé en Python, c'est une partie très importante du projet car sans elle, il n'y aurait pas de réel suivi du système hydroponique."
+        },
+        {
+          title: "Détails Techniques",
+          text: "Pour le projet OptiPlant, j'ai conçu l'interface de communication en développant un client Modbus TCP/IP sous Python pour interroger un automate Schneider. Mon travail a consisté à mapper précisément les registres de maintien (Holding Registers) de l'automate afin d'extraire les données brutes des capteurs, tout en gérant les types de données (Integer/Float) pour assurer la précision des mesures de pH et d'humidité. J'ai configuré la gestion des trames pour permettre une lecture cyclique fiable et l'écriture de commandes de pilotage vers les sorties de l'automate, isolant ainsi la logique de contrôle du reste de l'infrastructure logicielle (SQL/InfluxDB) qui vient simplement consommer ces données.",
         }
+        
       ],
-      skills: [ "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication", "Python"],
+      skills: [ "MQTT", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication", "Python"],
       pdf: "/path/to/rapport_projet9.pdf",
       feedback: {
         difficulties: "Le choix du protocole de communication entre la base de données et l'interface homme machine (MQTT, MySQL, et Modbus). Le travail d'équipe (9 personnes) est aussi une difficulté car il faut gérer son temps pour ne pas retarder les autres parties / groupe.",
         takeaways: "J'ai apprécié faire la partie de communication entre la base de données et l'interface homme machine, en utilisant le protocole Modbus pour assurer une transmission efficace et simple des données en temps réel.",
-        extensions: "En soit, le projet sera repris pour être amélioré et optimisé dans le but d'avoir un fonctionnement autonome."
+        extensions: "Le projet sera repris pour être amélioré et optimisé dans le but d'avoir un fonctionnement autonome."
       }
     },
     {
@@ -536,7 +554,7 @@ function App() {
     },
     { 
       name: "LaTeX / Overleaf", 
-      level: "Intermédiaire",
+      level: "Avancée",
       desc: "Rédaction de documents scientifiques et techniques structurés.",
       category: "hard"
     },
@@ -790,20 +808,20 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
       levels: [
         { id: 1, 
           desc: "Effectuer les tests et mesures nécessaires à une vérification d’un système.", 
-          percentage: 90, 
+          percentage: 80, 
           explanation: "Je maîtrise des appareils de mesure standards (tel que l'oscilloscope, le multimètre) validée en TP mais aussi dans tous mes projets. Je les maitrises certes mais pas à 100%, je dois encore m'améliorer sur certains appareil (comme le RIGOL ou l'utilisation plus poussée de l'oscilloscope).", 
-          projectIds: [1,2, 3, 4, 5, 6, 7, 8, 9, 10, "stage-1"] },
+          projectIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "stage-1"] },
         
         { id: 2, 
           desc: "Mettre en place un protocole de tests pour valider le fonctionnement d’un système.", 
-          percentage: 80, 
-          explanation: "Élaboration de plans de tests pour valider les prototypes fonctionnels.", 
+          percentage: 90, 
+          explanation: "Je suis en capacité de mettre en place un protocole de test pour valider le fonctionnement d'un système, mais je dois encore améliorer ma rigueur et ma méthodologie pour atteindre une maîtrise totale.", 
           projectIds: [1, 2, 4, 3, 4, 5, 6, 7, 8, 9, 10,"stage-1"] },
         
         { id: 3, 
           desc: "Élaborer une procédure intégrant une démarche qualité pour valider le fonctionnement d’un système.", 
           percentage: 90, 
-          explanation: "Mise en place de procédures de validation qualité en entreprise.", 
+          explanation: "J'ai acquis une solide maîtrise dans la rédaction de protocoles de tests rigoureux. Lors de mes projets, je veille systématiquement à ce que chaque étape de validation respecte les normes de qualité pour garantir la fiabilité du système électronique final.", 
           projectIds: ["stage-1"] }
       ]
     },
@@ -813,14 +831,14 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
       levels: [
         { id: 1, 
           desc: "Intervenir sur un système pour effectuer une opération de maintenance.", 
-          percentage: 90, 
-          explanation: "Capacité à identifier et remplacer des composants défectueux sur des cartes électroniques.", 
-          projectIds: [6, 10] },
+          percentage:80, 
+          explanation: "Quand un système tombe en panne, je sais mettre les mains dedans pour trouver d'où vient le problème et le changer. Je suis efficace pour réparer et remettre en service, même si je dois faire l'effort de mieux noter ce que j'ai fait pour que le suivant comprenne mon intervention.", 
+          projectIds: [5, 7, "stage-1"] },
         { id: 2, 
           desc: "Mettre en place une stratégie de maintenance pour garantir un fonctionnement optimal.", 
           percentage: 75, 
-          explanation: "Analyse approfondie de dysfonctionnements sur des systèmes embarqués temps réel.", 
-          projectIds: [6, 8] }
+          explanation: "Je sais identifier les points sensibles de mes systèmes pour prévenir les pannes avant qu'elles n'arrivent. J'applique les bases de la maintenance préventive pour que mes montages restent fiables dans le temps, même si je dois encore m'améliorer sur la rédaction de procédures de dépannage plus détaillées pour faciliter le travail des autres.", 
+          projectIds: [6, 7, 9, "stage-1"] }
       ]
     },
     { 
@@ -829,14 +847,14 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
       levels: [
         { id: 1, 
           desc: "Réaliser un système en mettant en place une démarche qualité en conformité avec le dossier de fabrication.", 
-          percentage: 100, 
-          explanation: "Réalisation de câblages d'armoires et de cartes électroniques en respectant les normes.", 
-          projectIds: [1, 8] },
+          percentage: 80, 
+          explanation: "Je sais transformer un dossier technique en un prototype réel qui fonctionne. Je suis rigoureux sur le câblage et la soudure pour que ce soit conforme à ce qui est demandé, même si je dois encore gagner en fluidité pour passer plus vite de la théorie à la réalisation pratique.", 
+          projectIds: [1, 2, 3, 4, 7, 8, 9, 10, "stage-1"] },
         { id: 2, 
           desc: "Interagir avec les différents acteurs, lors de l’installation et de la mise en service d’un système, dans une démarche qualité.", 
-          percentage: 95, 
-          explanation: "Déploiement et configuration de réseaux de capteurs et d'architectures IoT.", 
-          projectIds: [9, "stage-1"] }
+          percentage: 90, 
+          explanation: "Même si c'était en TP, j'ai toujours livré des programmes et des modules fonctionnels. Je communique bien avec les profs pour valider mon travail, mais je dois apprendre à mieux anticiper les contraintes du \"monde réel\" au-delà du laboratoire pour que l'installation soit parfaite du premier coup.", 
+          projectIds: [2, 4, 8, 9, "stage-1"] }
       ]
     },
   ];
