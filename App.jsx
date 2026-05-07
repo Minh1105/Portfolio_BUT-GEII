@@ -364,8 +364,8 @@ function App() {
         }
         
       ],
-      skills: [ "MQTT", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication", "Python"],
-      pdf: "/path/to/rapport_projet9.pdf",
+      skills: ["Python", "CodeSys", "MQTT", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
+      pdf: "/assets/pdf/Rapport_Optiplant_vf_Partiel.pdf",
       feedback: {
         difficulties: "Le choix du protocole de communication entre la base de données et l'interface homme machine (MQTT, MySQL, et Modbus). Le travail d'équipe (9 personnes) est aussi une difficulté car il faut gérer son temps pour ne pas retarder les autres parties / groupe.",
         takeaways: "J'ai apprécié faire la partie de communication entre la base de données et l'interface homme machine, en utilisant le protocole Modbus pour assurer une transmission efficace et simple des données en temps réel.",
