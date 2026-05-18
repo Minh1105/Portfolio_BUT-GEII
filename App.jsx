@@ -45,6 +45,7 @@ import AffichageVS from './assets/images/AffichageVS.png';
 import CarteBasseConso3D from './assets/images/CarteBasseConso3D.png';
 import SchématiqueBasseConso from './assets/images/SchématiqueBasseConso.png';
 import PCBBasseConso from './assets/images/PCBBasseConso.png';
+import InfographieBasConso from './assets/images/InfographieBasConso.png';
 
 
 import VérifierMaintenance1 from './assets/images/VérifierMaintenance1.jpg';
@@ -55,6 +56,7 @@ import VérifierMaintenance2 from './assets/images/VérifierMaintenance2.jpg';
 import LR_logical from './assets/images/LR_logical.png';
 import Stage_PCB_Kicad from './assets/images/Stage_PCB_Kicad.png';
 import StageEpreuve from './assets/images/StageEpreuve.jpg';
+import LIS from './assets/images/LIS.png';
 
 
 import EmissionReception1 from './assets/images/EmissionReception1.jpg';
@@ -170,8 +172,8 @@ function App() {
         SmatLightInfographie
       ], 
       description: "Le projet SmartLight consiste à créer une lampe intelligente et polyvalente pilotée par une carte Arduino. Le système permet de régler l'ambiance lumineuse de plusieurs façons : on peut faire varier l'intensité d'une lampe principale, changer les couleurs d'une LED RGB ou utiliser des petites LEDs de signalisation. Pour interagir avec la lampe, l'utilisateur dispose de deux boutons-poussoirs physiques et d'une télécommande infrarouge pour un contrôle à distance. La lampe est également autonome grâce à différents capteurs qui mesurent la lumière ambiante pour adapter l'éclairage automatiquement. Enfin, l'ensemble du programme est conçu pour gérer toutes ces fonctions en même temps, assurant une réponse fluide aux commandes tout en surveillant la luminosité de la pièce.",
-      skills: ["Arduino IDE", "C++", "Lecture de datasheets", "Electronique", "Rédaction de rapports", "Microsoft Office", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Analyse", "Autonomie", "Communication"],
-      pdf: "/path/to/rapport_projet1.pdf",
+      skills: ["Arduino IDE", "C++", "Lecture de datasheets", "Electronique", "Rédaction de rapports", "Microsoft Office", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Analyse", "Autonomie", "Communication"],
+      //pdf: "/path/to/rapport_projet1.pdf",
       feedback: {
         difficulties: "",
         takeaways: "",
@@ -216,19 +218,19 @@ function App() {
         RobotGies3Cote,
         RobotGies4_ESP,
         AffichageVS,
-      ],
+      ],  
       description: [
         {
           period: "2024-2025",
           title: "Conception Matérielle et Autonomie",
           text: "Ce projet porte sur la création d'un robot mobile articulé autour d'un microcontrôleur dsPIC33EP512MU814 et programmé via l'environnement MPLAB. Le robot utilise cinq télémètres infrarouges connectés à des entrées ADC pour convertir les distances en données numériques exploitables. La propulsion est assurée par des moteurs pilotés en PWM, incluant des rampes d'accélération pour éviter les changements brusques de vitesse. L'évitement d'obstacles repose sur une méthode numérique traitant 32 combinaisons de capteurs (2^5) afin de déterminer une action précise, comme tourner ou reculer, en fonction de la proximité des obstacles."
         },
-        {
+        { 
           period: "2025-2026",
           title: "Interface et Pilotage Manuel",
           text: "Une interface graphique développée en C# (WPF) permet de visualiser les données du robot, telles que la vitesse et la distance des capteurs, tout en lui transmettant des ordres. La communication entre le PC et le robot s'effectue par liaison série UART à 115 200 bauds, sécurisée par un protocole incluant un 'checksum' pour vérifier l'intégrité des messages. Pour un contrôle plus intuitif, un module ESP32 a été ajouté afin de connecter une manette de PS4 via Bluetooth. Ce système permet de diriger le robot manuellement en utilisant les gâchettes pour l'accélération proportionnelle et le joystick pour la direction."
         }
-      ],
+      ],  
       skills: ["C/C++", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Python", "Autonomie", "Matlab", "Travail d'équipe", "Analyse", "Communication"],
       pdf: "/assets/pdf/ProjetRobotGiesRapport.pdf",
       feedback: {
@@ -239,13 +241,14 @@ function App() {
     },
     {
       id: 4,
-      title: "Conception d'un carte à transmission radio à basse consommation",
+      title: "Conception d'une carte à transmission radio à basse consommation",
       year: "2025",
       duration: "+90 heures",
       images: [
         CarteBasseConso3D,
         SchématiqueBasseConso,
         PCBBasseConso,
+        InfographieBasConso,
       ],
       description: [
         {
@@ -320,7 +323,7 @@ function App() {
       id: 8,
       title: "Alimentation Programmable avec un chargeur USB-C PPS",
       year: "2025",
-      duration: "80 heures",
+      duration: "60 heures",
       images: [
         Alim_USB_PPS,
         Arlo_Resultat_Oscillo,
@@ -410,7 +413,7 @@ function App() {
       // L'image ici sert de miniature pour la grille principale
       images: ["https://via.placeholder.com/800x450.png/1a1a1a/ffffff?text=Stage+ATEM+RF"],
       description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
-      skills: ["Linux", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
+      skills: ["Linux", "Prog. Embarquée", "Electronique", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       pdf: "/assets/pdf/Rapport_Stage_ATEM_RF_Microwaves.pdf",
       feedback: {
         difficulties: "",
@@ -444,19 +447,19 @@ function App() {
       duration: "8 semaines",
       images: [LR_logical],
       description: "Stage de fin d'études. Cliquez pour découvrir le déroulement du stage étape par étape.",
-      skills: ["C/C++", "Qt", "Kicad", "Electronique", "Autonomie", "Travail d'équipe", "Datasheets", "Linux", "Wireshark", "Analyse", "Rapports & CR", "Communication"],
+      skills: ["C/C++", "Qt", "Prog. Embarquée", "Kicad", "Electronique", "Autonomie", "Travail d'équipe", "Datasheets", "Linux", "Wireshark", "Analyse", "Rapports & CR", "Communication"],
       pdf: "/assets/pdf/Extrait_Rapport_de_Stage_2e_annee_GEII_Ly_Minh-Quan.pdf",
       feedback: {
-        difficulties: "",
-        takeaways: "",
-        extensions: ""
+        difficulties: "Plusieurs choses ont été difficiles : la prise en main d'un projet existant avec une documentation limitée, la configuration du Raspberry Pi pour le déploiement de l'Escape Game (car je ne l'avais jamais fait auparavant), et la mise en œuvre de protocoles de communication pour les épreuves techniques.",
+        takeaways: "J'ai pu développer mes compétences en électronique et en programmation embarquée, tout en apprenant à travailler de manière autonome sur un projet complexe. J'ai également amélioré ma capacité à documenter techniquement les systèmes que je développe. Mais aussi, savoir que ce que j'ai fait sera réutilisé est déjà un résultat très gratifiant.",
+        extensions: "Ce projet pourrait être étendu en ajoutant de nouvelles épreuves techniques à l'Escape Game, ou en développant une interface de gestion pour les enseignants afin de personnaliser les épreuves et suivre les performances des étudiants."
       },
       // Données spécifiques pour le mode 'Story' (par image)
       descriptions: [
         {
           title: "Introduction et Contexte",
-          text: "Durant ce stage de 8 semaines au laboratoire LIS, j'ai participé au développement d'un Escape Game pédagogique pour le département GEII de l'IUT de Toulon.\n\nMa mission consistait à reprendre un projet existant pour le fiabiliser et documenter les différentes épreuves techniques destinées aux futurs étudiants.",
-          images: [LR_logical]
+          text: "Durant ce stage de 8 semaines au laboratoire LIS, j'ai participé au développement d'un Escape Game pédagogique pour le département GEII de l'IUT de Toulon.\n\nMa mission consistait à reprendre un projet existant (pas terminer) pour le fiabiliser et documenter les différentes épreuves techniques mais aussi participer à la réalisation à l'aide à un cahier des charges. ",
+          images: [LIS]
         },
         {
           title: "Configuration Système & Partitionnement",
@@ -471,11 +474,8 @@ function App() {
         {
           title: "Bilan et Compétences Acquises",
           text: "Ce stage a été une réelle opportunité de mettre en pratique mes connaissances en électronique et informatique industrielle dans un cadre de recherche et développement.\n\nJ'ai développé mon autonomie face à des systèmes complexes et consolidé ma méthodologie de rédaction technique (LaTeX).",
-          images: ["https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan+LIS"]
+          images: [LR_logical]
         }
-      ],
-      skillsList: [
-
       ]
     }
   ];
@@ -792,7 +792,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           desc: "Concevoir un système en fiabilisant les solutions.", 
           percentage: 90, 
           explanation: "Mes conceptions sont fiables, mais je dois faire plus attention au côté concret. Parfois, je reste trop dans la théorie et j'oublie des détails de terrain. J'apprends à mieux imaginer l'utilisation finale pour éviter ces petites erreurs. ", 
-          projectIds: [2,"stage-1"] },
+          projectIds: [2, 4, 6, 9,"stage-1"] },
         
           { id: 3, 
           desc: "Concevoir un système en adoptant une approche sélective dans ses choix technologiques.", 
@@ -822,7 +822,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           desc: "Élaborer une procédure intégrant une démarche qualité pour valider le fonctionnement d’un système.", 
           percentage: 90, 
           explanation: "J'ai acquis une solide maîtrise dans la rédaction de protocoles de tests rigoureux. Lors de mes projets, je veille systématiquement à ce que chaque étape de validation respecte les normes de qualité pour garantir la fiabilité du système électronique final.", 
-          projectIds: ["stage-1"] }
+          projectIds: [4, 7, 9, "stage-1"] }
       ]
     },
     { 
@@ -1356,7 +1356,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
   useEffect(() => {
     // Désactiver le défilement automatique si on est en mode Story ou s'il n'y a qu'une image
     if (modalImages.length <= 1 || isHovering || isStoryMode || isVideo) return;
-    const autoplay = setInterval(() => paginate(1), 5000); // Défilement toutes les 3 secondes
+    const autoplay = setInterval(() => paginate(1), 7000); // Défilement toutes les X secondes
     return () => clearInterval(autoplay);
   }, [isHovering, paginate, modalImages.length, isStoryMode, isVideo]);
 
