@@ -88,10 +88,7 @@ import photo_profil from './assets/images/photo_profil.png'; // 1. Importez votr
 
 function App() {
   const [language, setLanguage] = useState('fr');
-  const [activeTab, setActiveTab] = useState(() => {
-    const hash = window.location.hash.replace('#', '');
-    return hash || 'accueil';
-  });
+  const [activeTab, setActiveTab] = useState('accueil');
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -102,25 +99,151 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const translations = {
-    sidebar: { home: "Accueil", experiences: "Mes Expériences", skills: "Compétences", interests: "Centres d'intérêts", contact: "Contacts" },
-    sections: {
-      experiences: { title: "Mes Expériences", desc: "Voici une sélection de mes projets académiques, personnels et de mes stages. Ils illustrent mes compétences techniques et ma capacité à mener à bien des réalisations concrètes, du développement logiciel à l'électronique embarquée." },
-      skills: { title: "Compétences", desc: "Retrouvez ici l'ensemble des compétences techniques et transversales que j'ai développées au cours de ma formation et de mes expériences. Elles couvrent le développement, l'électronique, et la gestion de projet." },
-      interests: { title: "Centres d'intérêts", desc: "Au-delà de la technique, je cultive des passions qui nourrissent ma curiosité et mon équilibre personnel." },
-      contact: { title: "Contacts", desc: "N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn.", linkedinTooltip: "En cliquant ici, vous allez être redirigé vers LinkedIn", githubTooltip: "En cliquant ici, vous allez être redirigé vers mon profil GitHub." }
+  // Ensure the site always opens on the accueil section by default
+  useEffect(() => {
+    if (window.location.hash.replace('#', '') !== 'accueil') {
+      window.location.hash = '#accueil';
+      setActiveTab('accueil');
+    }
+  }, []);
+
+  const translationsAll = {
+    fr: {
+      sidebar: { home: "Accueil", experiences: "Mes Expériences", skills: "Compétences", interests: "Centres d'intérêts", contact: "Contacts" },
+      sections: {
+        experiences: { title: "Mes Expériences", desc: "Voici une sélection de mes projets académiques, personnels et de mes stages. Ils illustrent mes compétences techniques et ma capacité à mener à bien des réalisations concrètes, du développement logiciel à l'électronique embarquée." },
+        skills: { title: "Compétences", desc: "Ici vous trouverez les compétences techniques et humaines que j'ai développées au cours de mes études et de mes projets. Elles couvrent le développement, l'électronique et la gestion de projet." },
+        interests: { title: "Centres d'intérêts", desc: "Au-delà de la technique, je cultive des passions qui nourrissent ma curiosité et mon équilibre personnel." },
+        contact: { title: "Contacts", desc: "N'hésitez pas à me contacter pour toute opportunité professionnelle ou question sur mon parcours. Je suis joignable par email ou via LinkedIn.", linkedinTooltip: "En cliquant ici, vous allez être redirigé vers LinkedIn", githubTooltip: "En cliquant ici, vous allez être redirigé vers mon profil GitHub." }
+      },
+      modal: {
+        skills: "Compétences utilisées",
+        tooltip: "Pour plus de précision sur le projet, vous pouvez consulter le rapport ou compte rendu téléchargeable ici.",
+        projectFeedback: "Ressenti du projet",
+        difficulties: "Difficultés rencontrées",
+        takeaways: "Apports et satisfactions",
+        extensions: "Prolongements possibles",
+        yearTime: "Année et Temps",
+        year: "Année de réalisation",
+        duration: "Temps de conception"
+      },
+      skillModal: {
+        levelDetails: "Détails du niveau",
+        mastery: "Maîtrise",
+        whyLevel: "Pourquoi ce niveau ?",
+        associatedProjects: "Projets associés au niveau {level}",
+        noAssociatedProjects: "Aucun projet spécifique associé à ce niveau."
+      },
+      ui: {
+        portfolio: "Portfolio",
+        studentTitle: "Étudiant en Génie Électrique et Informatique Industrielle (GEII)",
+        intro: "Passionné par la robotique depuis mon très jeune âge, je suis actuellement étudiant en BUT GEII spécialisé en Electroniques et Systèmes Embarqués (ESE), où je développe mes compétences en électronique, informatique et automatique. Curieux et rigoureux, je suis constamment à la recherche de nouveaux défis pour transformer des idées innovantes en solutions concrètes.",
+        discoverProjects: "Découvrir mes projets",
+        viewCV: "Voir mon CV",
+        openCVTitle: "Ouvrir le CV dans un nouvel onglet",
+        myInternships: "Mes Stages",
+        myProjects: "Mes Projets",
+        geiiHeading: "Compétences du Référentiel GEII",
+        technicalSkills: "Compétences Techniques",
+        transversalSkills: "Compétences Transversales",
+        changeLanguage: "Changer de langue",
+        projectsAssociated: (n) => `${n} projet${n>1 ? "s" : ""} associé${n>1 ? "s" : ""}`,
+        download: "Télécharger"
+      }
     },
-    modal: { 
-      skills: "Compétences utilisées", 
-      tooltip: "Pour plus de précision sur le projet, vous pouvez consulter le rapport ou compte rendu téléchargeable ici.", 
-      projectFeedback: "Ressenti du projet",
-      difficulties: "Difficultés rencontrées",
-      takeaways: "Apports et satisfactions",
-      extensions: "Prolongements possibles",
-      yearTime: "Année et Temps", year: "Année de réalisation", 
-      duration: "Temps de conception",
- }
+    en: {
+      sidebar: { home: "Home", experiences: "My Experiences", skills: "Skills", interests: "Interests", contact: "Contact" },
+      sections: {
+        experiences: { title: "My Experiences", desc: "A selection of my academic, personal projects and internships. They showcase my technical skills and ability to deliver concrete results, from software development to embedded electronics." },
+        skills: { title: "Skills", desc: "Here you can find the technical and soft skills I developed during my studies and projects. They cover development, electronics, and project management." },
+        interests: { title: "Interests", desc: "Beyond technical work, I pursue passions that nurture my curiosity and personal balance." },
+        contact: { title: "Contact", desc: "Feel free to contact me for professional opportunities or questions about my background. I'm reachable by email or via LinkedIn.", linkedinTooltip: "Clicking here will open LinkedIn", githubTooltip: "Clicking here will open my GitHub profile." }
+      },
+      modal: {
+        skills: "Used skills",
+        tooltip: "For more details about the project, you can consult the downloadable report here.",
+        projectFeedback: "Project feedback",
+        difficulties: "Difficulties encountered",
+        takeaways: "Learnings and outcomes",
+        extensions: "Possible extensions",
+        yearTime: "Year and Time",
+        year: "Year of realization",
+        duration: "Design time"
+      },
+      skillModal: {
+        levelDetails: "Level details",
+        mastery: "Mastery",
+        whyLevel: "Why this level?",
+        associatedProjects: "Projects associated with level {level}",
+        noAssociatedProjects: "No specific projects associated with this level."
+      },
+      ui: {
+        portfolio: "Portfolio",
+        studentTitle: "Student in Electrical Engineering and Industrial Computing (GEII)",
+        intro: "Passionate about robotics since my childhood, I am currently a student in BUT GEII specialized in Electronics and Embedded Systems (ESE), where I develop skills in electronics, computing and control systems. Curious and rigorous, I constantly seek new challenges to turn innovative ideas into concrete solutions.",
+        discoverProjects: "Discover my projects",
+        viewCV: "View my CV",
+        openCVTitle: "Open CV in a new tab",
+        myInternships: "My Internships",
+        myProjects: "My Projects",
+        geiiHeading: "GEII Reference Skills",
+        technicalSkills: "Technical Skills",
+        transversalSkills: "Cross-cutting Skills",
+        changeLanguage: "Change language",
+        projectsAssociated: (n) => `${n} project${n>1 ? "s" : ""} associated`,
+        download: "Download"
+      }
+    },
+    vi: {
+      sidebar: { home: "Trang chủ", experiences: "Kinh nghiệm", skills: "Kỹ năng", interests: "Sở thích", contact: "Liên hệ" },
+      sections: {
+        experiences: { title: "Kinh nghiệm của tôi", desc: "Một số dự án học thuật, cá nhân và thực tập của tôi. Chúng minh họa kỹ năng kỹ thuật của tôi và khả năng thực hiện các sản phẩm thực tế, từ phát triển phần mềm đến điện tử nhúng." },
+        skills: { title: "Kỹ năng", desc: "Tại đây bạn có thể tìm thấy các kỹ năng kỹ thuật và mềm mà tôi đã phát triển trong quá trình học và thực hành. Chúng bao gồm phát triển, điện tử và quản lý dự án." },
+        interests: { title: "Sở thích", desc: "Ngoài công việc kỹ thuật, tôi có những sở thích nuôi dưỡng sự tò mò và cân bằng cá nhân." },
+        contact: { title: "Liên hệ", desc: "Hãy liên hệ với tôi cho các cơ hội nghề nghiệp hoặc câu hỏi về quá trình của tôi. Tôi có thể liên lạc qua email hoặc LinkedIn.", linkedinTooltip: "Nhấn vào đây để mở LinkedIn", githubTooltip: "Nhấn vào đây để mở hồ sơ GitHub của tôi." }
+      },
+      modal: {
+        skills: "Kỹ năng sử dụng",
+        tooltip: "Để biết chi tiết về dự án, bạn có thể xem báo cáo tải xuống ở đây.",
+        projectFeedback: "Phản hồi dự án",
+        difficulties: "Khó khăn gặp phải",
+        takeaways: "Bài học và kết quả",
+        extensions: "Mở rộng có thể thực hiện",
+        yearTime: "Năm và Thời gian",
+        year: "Năm thực hiện",
+        duration: "Thời gian thiết kế"
+      },
+      skillModal: {
+        levelDetails: "Chi tiết cấp độ",
+        mastery: "Mức độ thành thạo",
+        whyLevel: "Tại sao ở cấp độ này?",
+        associatedProjects: "Dự án liên quan đến cấp độ {level}",
+        noAssociatedProjects: "Không có dự án cụ thể nào liên quan đến cấp độ này."
+      },
+      ui: {
+        portfolio: "Portfolio",
+        studentTitle: "Sinh viên Kỹ thuật Điện và Tin học Công nghiệp (GEII)",
+        intro: "Đam mê robot từ nhỏ, hiện tôi là sinh viên BUT GEII chuyên ngành Điện tử và Hệ thống nhúng (ESE), phát triển kỹ năng về điện tử, lập trình và điều khiển. Tò mò và kỷ luật, tôi luôn tìm kiếm thử thách mới để biến ý tưởng thành giải pháp thực tế.",
+        discoverProjects: "Khám phá dự án của tôi",
+        viewCV: "Xem CV",
+        openCVTitle: "Mở CV trong tab mới",
+        myInternships: "Thực tập của tôi",
+        myProjects: "Các dự án của tôi",
+        geiiHeading: "Kỹ năng tham chiếu GEII",
+        technicalSkills: "Kỹ năng kỹ thuật",
+        transversalSkills: "Kỹ năng mềm",
+        changeLanguage: "Thay đổi ngôn ngữ",
+        projectsAssociated: (n) => `${n} dự án liên quan`,
+        download: "Tải xuống"
+      }
+    }
   };
+  const translations = translationsAll[language] || translationsAll.fr;
+
+  function getProjectFeedbackText(project, field, language) {
+    if (!project || !project.feedback) return '';
+    return project.translations?.[language]?.[field] ?? project.feedback[field] ?? '';
+  }
 
   const links = [
     {
@@ -179,6 +302,17 @@ function App() {
         takeaways: "",
         extensions: ""
       }
+      ,
+      translations: {
+        en: {
+          title: "SmartLight Project",
+          description: "The SmartLight project creates an intelligent, versatile lamp controlled by an Arduino board. The system allows adjusting the lighting atmosphere in several ways: varying the main lamp intensity, changing RGB LED colors, or using small indicator LEDs. The user interacts via two physical push-buttons and an infrared remote for remote control. The lamp is also autonomous thanks to sensors measuring ambient light to adapt illumination automatically. The program is designed to manage all these functions concurrently, ensuring smooth responses while monitoring room brightness.",
+        },
+        vi: {
+          title: "Dự án SmartLight",
+          description: "Dự án SmartLight tạo ra một đèn thông minh, linh hoạt điều khiển bằng Arduino. Hệ thống cho phép điều chỉnh ánh sáng theo nhiều cách: thay đổi cường độ đèn chính, đổi màu LED RGB, hoặc dùng LED báo hiệu. Người dùng tương tác bằng hai nút nhấn và điều khiển từ xa hồng ngoại. Đèn cũng hoạt động tự động nhờ cảm biến đo ánh sáng môi trường để điều chỉnh ánh sáng. Chương trình quản lý đồng thời các chức năng để phản hồi mượt mà đồng thời giám sát độ sáng phòng."
+        }
+      }
     },
     {
       id: 2,
@@ -205,6 +339,40 @@ function App() {
         difficulties: "Difficulté à faire fonctionner les différents modules ensemble (surtout l'écran TFT et le lecteur RFID). Il y avait aussi l'autonomie qu'il fallait gérer ",
         takeaways: "C'est l'un des premiers projets où j'ai réussi à intégrer plusieurs capteurs/modules et interfaces dans un même système fonctionnel, ce qui m'a beaucoup appris sur la gestion de projets et à gérer mon autonomie.",
         extensions: "Ce petit projet isolé pourrait être intégré dans un projet plus global de maison connectée, en ajoutant par exemple des fonctionnalités de contrôle vocal ou d'intégration avec des assistants virtuels comme Alexa ou Google Home avec un site web qui centralise le tout."
+      },
+      translations: {
+        en: {
+          title: "Design of a Home Automation Assistant",
+          description: [
+            {
+              title: "Overall Project Description",
+              text: "This project consists of designing a home automation assistant for housing, built around an ESP32-C6 microcontroller that centralizes data from various sensors (temperature, pressure, light, air quality, and RFID reader). The device has a dual user interface: a local TFT touchscreen for real-time display and direct control, and a locally hosted web page to monitor and control devices remotely via a relay. The system is programmed using the Arduino IDE and uses standard web technologies (HTML, JavaScript, CSS)."
+            },
+            {
+              title: "Technical Details",
+              text: "The system is organized around an ESP32-C6 microcontroller (Wi-Fi 6 / Matter). It includes sensors for temperature, pressure, light, air quality, and an RFID reader for access control. The local interface uses a TFT touchscreen, while operation is handled by an asynchronous web server coded in HTML, CSS and JavaScript."
+            }
+          ],
+          difficulties: "Difficulty making the different modules work together (especially the TFT screen and the RFID reader). Power autonomy also had to be managed.",
+          takeaways: "This is one of the first projects where I successfully integrated several sensors/modules and interfaces into a single functional system, which taught me a lot about project management and autonomy.",
+          extensions: "This small standalone project could be integrated into a larger connected home project, for example by adding voice control features or integration with virtual assistants like Alexa or Google Home along with a centralized website."
+        },
+        vi: {
+          title: "Thiết kế trợ lý tự động hóa nhà",
+          description: [
+            {
+              title: "Mô tả chung về dự án",
+              text: "Dự án này thiết kế một trợ lý nhà thông minh cho gia đình, dựa trên vi điều khiển ESP32-C6 tổng hợp dữ liệu từ các cảm biến khác nhau (nhiệt độ, áp suất, ánh sáng, chất lượng không khí và đầu đọc RFID). Thiết bị có giao diện người dùng kép: màn hình cảm ứng TFT cục bộ để hiển thị thời gian thực và điều khiển trực tiếp, cùng một trang web lưu trữ cục bộ để giám sát và điều khiển thiết bị từ xa qua relay. Hệ thống được lập trình bằng Arduino IDE và sử dụng các công nghệ web tiêu chuẩn (HTML, JavaScript, CSS)."
+            },
+            {
+              title: "Chi tiết kỹ thuật",
+              text: "Hệ thống được xây dựng xung quanh vi điều khiển ESP32-C6 (Wi-Fi 6 / Matter). Nó bao gồm các cảm biến nhiệt độ, áp suất, ánh sáng, chất lượng không khí và đầu đọc RFID cho điều khiển truy cập. Giao diện cục bộ dùng màn hình cảm ứng TFT, trong khi điều khiển thực hiện bằng một máy chủ web bất đồng bộ viết bằng HTML, CSS và JavaScript."
+            }
+          ],
+          difficulties: "Khó khăn khi làm cho các module khác nhau hoạt động cùng nhau (đặc biệt là màn hình TFT và đầu đọc RFID). Vấn đề năng lượng cũng cần được quản lý.",
+          takeaways: "Đây là một trong những dự án đầu tiên mà tôi tích hợp thành công nhiều cảm biến/module và giao diện vào một hệ thống hoạt động, điều đó dạy tôi nhiều về quản lý dự án và tính tự chủ.",
+          extensions: "Dự án nhỏ này có thể tích hợp vào một dự án nhà kết nối lớn hơn, ví dụ bằng cách thêm tính năng điều khiển giọng nói hoặc tích hợp với trợ lý ảo như Alexa hoặc Google Home cùng một trang web tập trung."
+        }
       }
     },
     {
@@ -237,6 +405,44 @@ function App() {
         difficulties: "La gestion de la communication UART avec un protocole fiable (checksum) a été un défi technique intéressant à relever.",
         takeaways: "Le développement de l'interface en C# et l'intégration du contrôle par manette PS4 ont été les parties les plus gratifiantes, car elles ont rendu le robot interactif et plus facile à piloter.",
         extensions: "Implémentation d'un algorithme de cartographie (SLAM) pour permettre au robot de se repérer dans son environnement."
+      },
+      translations: {
+        en: {
+          title: "Design of an Autonomous Mobile Robot",
+          description: [
+            {
+              period: "2024-2025",
+              title: "Hardware Design and Autonomy",
+              text: "This project focuses on developing an autonomous mobile robot based on a dsPIC33EP512MU814 microcontroller programmed via the MPLAB environment. The robot uses five infrared range sensors connected to ADC inputs to convert distances into usable digital data. Propulsion is provided by PWM-driven motors, including acceleration ramps to avoid abrupt speed changes. Obstacle avoidance relies on a numerical method processing 32 sensor combinations (2^5) to decide precise actions like turning or reversing depending on obstacle proximity."
+            },
+            {
+              period: "2025-2026",
+              title: "Interface and Manual Control",
+              text: "A C# (WPF) graphical interface allows visualizing the robot's data such as speed and sensor distance while transmitting commands. Communication between the PC and the robot takes place via UART serial link at 115,200 baud, secured by a protocol including a checksum to verify message integrity. For more intuitive control, an ESP32 module was added to connect a PS4 controller via Bluetooth. This system allows manual operation with triggers controlling proportional acceleration and the joystick steering."
+            }
+          ],
+          difficulties: "Managing UART communication with a reliable checksum protocol was an interesting technical challenge.",
+          takeaways: "Developing the C# interface and integrating PS4 controller support were the most rewarding parts, making the robot interactive and easier to control.",
+          extensions: "Implementing a mapping algorithm (SLAM) would allow the robot to localize itself in its environment."
+        },
+        vi: {
+          title: "Thiết kế Robot Di động Tự hành",
+          description: [
+            {
+              period: "2024-2025",
+              title: "Thiết kế Phần cứng và Tự chủ",
+              text: "Dự án này tập trung vào việc phát triển một robot di động tự hành dựa trên vi điều khiển dsPIC33EP512MU814 lập trình qua môi trường MPLAB. Robot sử dụng năm cảm biến khoảng cách hồng ngoại nối với đầu vào ADC để chuyển đổi khoảng cách thành dữ liệu số dùng được. Động lực được cung cấp bởi động cơ điều khiển PWM, bao gồm các ramp gia tốc để tránh thay đổi tốc độ đột ngột. Tránh chướng ngại vật dựa trên phương pháp số xử lý 32 tổ hợp cảm biến (2^5) để quyết định hành động chính xác như quay hoặc lùi tùy theo độ gần chướng ngại vật."
+            },
+            {
+              period: "2025-2026",
+              title: "Giao diện và Điều khiển Thủ công",
+              text: "Giao diện đồ họa C# (WPF) cho phép trực quan hóa dữ liệu robot như tốc độ và khoảng cách cảm biến trong khi truyền lệnh. Giao tiếp giữa PC và robot diễn ra qua kết nối UART ở 115.200 baud, được bảo mật bằng giao thức có checksum để kiểm tra tính toàn vẹn của thông điệp. Để điều khiển trực quan hơn, một module ESP32 được thêm vào để kết nối bộ điều khiển PS4 qua Bluetooth. Hệ thống này cho phép điều khiển thủ công với nút kích hoạt điều khiển gia tốc tỷ lệ và joystick điều khiển hướng."
+            }
+          ],
+          difficulties: "Quản lý giao tiếp UART với giao thức checksum đáng tin cậy là một thách thức kỹ thuật thú vị.",
+          takeaways: "Phát triển giao diện C# và tích hợp điều khiển bộ điều khiển PS4 là phần thưởng nhất, giúp robot tương tác và dễ điều khiển hơn.",
+          extensions: "Việc triển khai thuật toán lập bản đồ (SLAM) sẽ cho phép robot định vị trong môi trường của nó."
+        }
       }
     },
     {
@@ -266,6 +472,40 @@ function App() {
         difficulties: "L'optimisation de la consommation d'énergie pour atteindre les objectifs de basse consommation a nécessité de nombreuses itérations et tests. De plus, il y eut quelques difficultés à trouver des composants qui respectent les contraintes du cahier des charges (soit des composants qui consome le moins possible) s'ajoute à cela la difficulté de la communication radio dans la bonne fréquence.",
         takeaways: "J'ai beaucoup appris sur les techniques de conception de circuits à faible consommation et sur les protocoles de communication radio. La phase de routage du PCB a été particulièrement instructive.",
         extensions: "Développement d'un réseau maillé pour étendre la portée de la communication ou encore trouver des composants qui consomment encore moins d'énergie pour faire durée plus longtemps la carte. Et une application est de pouvoir ce servir de la carte pour contrôler un robot mobile autonome, par exemple, grâce à l'envoie de données que la carte peut faire, on pourrait faire en sorte que le robot puisse recevoir des ordres à distance pour se déplacer ou faire des actions spécifiques."
+      },
+      translations: {
+        en: {
+          title: "Design of a Low-Power Radio Transmission Board",
+          description: [
+            {
+              title: "Overall Project Description",
+              text: "The central goal of this project was to design a very low-power radio data transmission module. The system is designed to be powered by AA batteries with a major autonomy requirement: operate independently for two years. The development cycle covered theoretic architecture, component selection, and the production of a dedicated PCB. The project produced a functional, industrially viable prototype, validating the use of deep sleep modes to meet energy objectives."
+            },
+            {
+              title: "Technical Details",
+              text: "The hardware architecture is based on the STM32G031K8T6 microcontroller, chosen for its high-performance Shutdown mode that reduces consumption to about 350 nA at room temperature. To achieve this efficiency, the system includes an LDO regulator XC6223H331MRG with near-zero quiescent current of 0.01 µA and an AP22913W67 load switch. The switch isolates the voltage divider when unused, eliminating wasteful leakage currents to the battery measurement. The board was designed in KiCad with careful quartz and decoupling capacitor placement close to the microcontroller to minimize interference. Data transmission uses a LoRa RA-02 module over SPI, and an HC-12 transparent UART bridge was also studied for its integration simplicity. Two use cases validate the two-year autonomy: one sending every 5 minutes at +14 dBm for local range, the other every 35 minutes at +17 dBm for up to 10 km. In both cases, average current stays below the critical threshold (~0.14 mA), confirming that sleep mode management and passive component choices are well suited to the project goals."
+            }
+          ],
+          difficulties: "Optimizing power consumption to meet low-power targets required many iterations and tests. It was also difficult to find components that met the strict energy budget and to manage radio communication at the correct frequency.",
+          takeaways: "I learned a lot about low-power circuit design and radio communication protocols. The PCB routing phase was especially instructive.",
+          extensions: "A mesh network could extend communication range and component selection could be further optimized for even lower energy consumption. One application could be using the board to control an autonomous mobile robot remotely via data transmission."
+        },
+        vi: {
+          title: "Thiết kế bo truyền radio tiêu thụ thấp",
+          description: [
+            {
+              title: "Mô tả dự án tổng quan",
+              text: "Mục tiêu chính của dự án này là thiết kế một module truyền dữ liệu radio tiêu thụ rất thấp. Hệ thống được thiết kế để sử dụng pin AA với yêu cầu quan trọng: hoạt động độc lập trong hai năm. Chu trình phát triển bao gồm kiến trúc lý thuyết, chọn linh kiện và sản xuất PCB chuyên dụng. Dự án tạo ra một nguyên mẫu chức năng và khả thi về mặt công nghiệp, xác nhận việc sử dụng chế độ ngủ sâu để đạt được mục tiêu năng lượng."
+            },
+            {
+              title: "Chi tiết kỹ thuật",
+              text: "Kiến trúc phần cứng dựa trên vi điều khiển STM32G031K8T6, được chọn vì chế độ Shutdown hiệu quả cho phép giảm tiêu thụ xuống khoảng 350 nA ở nhiệt độ phòng. Để đạt được độ hiệu quả này, hệ thống tích hợp bộ điều chỉnh LDO XC6223H331MRG với dòng nghỉ gần bằng 0,01 µA và công tắc tải AP22913W67. Công tắc cách ly cầu chia điện áp khi không sử dụng, loại bỏ dòng rò lãng phí đến phép đo pin. Bo mạch được thiết kế bằng KiCad với việc đặt thạch anh và tụ lọc gần vi điều khiển để giảm nhiễu. Truyền dữ liệu sử dụng module LoRa RA-02 qua SPI, và một giải pháp cầu UART HC-12 cũng được khảo sát vì tính đơn giản trong tích hợp. Hai kịch bản sử dụng xác nhận độ tự chủ hai năm: một gửi mỗi 5 phút ở +14 dBm cho phạm vi cục bộ, một gửi mỗi 35 phút ở +17 dBm cho khoảng cách tới 10 km. Trong cả hai trường hợp, dòng trung bình dưới ngưỡng quan trọng (~0,14 mA), xác nhận quản lý chế độ ngủ và lựa chọn linh kiện thụ động phù hợp với mục tiêu dự án."
+            }
+          ],
+          difficulties: "Tối ưu hóa tiêu thụ năng lượng để đạt mục tiêu tiêu thụ thấp đòi hỏi nhiều lần lặp và thử nghiệm. Cũng khó tìm linh kiện đáp ứng ngân sách năng lượng nghiêm ngặt và quản lý giao tiếp radio ở tần số chính xác.",
+          takeaways: "Tôi đã học được nhiều về thiết kế mạch tiêu thụ thấp và giao thức truyền thông radio. Giai đoạn đi dây PCB đặc biệt hữu ích.",
+          extensions: "Một mạng lưới mesh có thể mở rộng phạm vi truyền thông và lựa chọn linh kiện có thể được tối ưu thêm để tiêu thụ điện năng thấp hơn nữa. Một ứng dụng có thể là sử dụng bo mạch để điều khiển robot di động tự hành từ xa qua truyền dữ liệu."
+        }
       }
     },
     {
@@ -284,6 +524,22 @@ function App() {
         difficulties: "Diagnostiquer la cause racine des pannes intermittentes a été complexe et a demandé une approche méthodique.",
         takeaways: "Ce projet m'a permis de développer mes compétences en dépannage et en analyse de systèmes existants. J'ai apprécié le côté 'enquête' pour trouver la solution.",
         extensions: "Mise en place d'un système de maintenance prédictive basé sur l'analyse des données de fonctionnement."
+      },
+      translations: {
+        en: {
+          title: "Maintenance and Verification of a Home Automation System",
+          description: "This project involved a deep analysis of an industrial technical model to fully master its operation. I began by identifying and studying every component of the system, including the central control unit (Unitronics PLC with touchscreen HMI), DIN rail power supply modules (24V and 12V), power interfaces (relays, CVDIM1 LED dimmer), and final actuators such as a bank of three halogen lamps and cooling fans. The goal was to map the interactions and energy flows between these elements. In the second phase, the project applied rigorous maintenance protocols to diagnose the root causes of potential failures. Using measurement tools on the connection terminal, I analyzed the control interface behavior and conducted technical investigations to isolate the faulty element (for example testing the transparent protective fuse or validating a relay command).",
+          difficulties: "Diagnosing intermittent failure root causes was complex and required a methodical approach.",
+          takeaways: "This project helped me develop troubleshooting skills and system analysis. I enjoyed the investigative aspect of finding the solution.",
+          extensions: "Implementing a predictive maintenance system based on operating data analysis."
+        },
+        vi: {
+          title: "Bảo trì và xác nhận hệ thống tự động hóa nhà",
+          description: "Dự án này bao gồm phân tích sâu một mô hình kỹ thuật công nghiệp để nắm vững hoạt động của nó. Tôi bắt đầu bằng cách xác định và nghiên cứu từng thành phần của hệ thống, bao gồm bộ điều khiển trung tâm (PLC Unitronics với HMI màn hình cảm ứng), mô-đun nguồn rail DIN (24V và 12V), giao diện công suất (rơ le, bộ điều chỉnh độ sáng LED CVDIM1) và cơ cấu chấp hành cuối cùng như cụm ba đèn halogen và quạt làm mát. Mục tiêu là lập bản đồ tương tác và luồng năng lượng giữa các phần tử này. Trong giai đoạn thứ hai, dự án áp dụng các quy trình bảo trì nghiêm ngặt để chẩn đoán nguyên nhân gốc rễ của các hỏng hóc tiềm ẩn. Sử dụng dụng cụ đo trên đầu nối, tôi phân tích hành vi giao diện điều khiển và tiến hành điều tra kỹ thuật để cô lập phần tử bị lỗi (ví dụ kiểm tra cầu chì bảo vệ trong suốt hoặc xác minh lệnh rơ le).",
+          difficulties: "Chẩn đoán nguyên nhân gốc rễ của các hỏng hóc ngắt quãng rất phức tạp và đòi hỏi phương pháp tiếp cận có hệ thống.",
+          takeaways: "Dự án này giúp tôi phát triển kỹ năng khắc phục sự cố và phân tích hệ thống. Tôi thích khía cạnh điều tra của việc tìm ra giải pháp.",
+          extensions: "Triển khai một hệ thống bảo trì dự đoán dựa trên phân tích dữ liệu vận hành."
+        }
       }
     },
     {
@@ -317,6 +573,48 @@ function App() {
         difficulties: "Le principal défi a été l'accordage précis entre la fréquence de l'astable et la fréquence de coupure du filtre pour garantir un signal pur. Il a également fallu stabiliser l'étage de puissance pour éviter toute distorsion sonore lors de l'émission.",
         takeaways: "Ce projet m'a permis de maîtriser la conception de circuits analogiques, du calcul théorique à la validation expérimentale. J'ai eu la satisfaction de voir mon émetteur commander avec succès le robot à distance.",
         extensions: "Le système pourrait être amélioré par l'ajout d'un codage numérique du signal pour éviter les déclenchements par des bruits ambiants. On pourrait aussi optimiser la consommation d'énergie pour augmenter l'autonomie de la télécommande."
+      },
+      translations: {
+        en: {
+          title: "Design of a Sound Transmission and Reception Board",
+          description: [
+            {
+              title: "Overall Project Description",
+              text: "This project involved designing and building an acoustic remote control system capable of commanding a mobile robot remotely. The main goal was to generate and process a specific 3 kHz sound signal to trigger automated actions. In the team, I was fully responsible for the transmitter side. This transmitter module was designed to produce a stable, sufficiently powerful wave to be captured by a remote receiver while respecting filtering constraints to avoid parasitic acoustic noise. This work validated a complete analog transmission chain from the electronic signal to acoustic emission."
+            },
+            {
+              title: "Transmitter Section",
+              text: "I designed the sound transmission chain starting with an op-amp based astable oscillator that produces a stable square wave at 2.26 kHz. This signal is then cleaned by a second-order Sallen-Key active low-pass filter to retain only the sine wave fundamental, then current-amplified by a push-pull power stage (complementary transistors) to drive the speaker without overloading the filter voltage."
+            },
+            {
+              title: "Receiver Section",
+              text: "The signal is captured by an electret microphone and amplified by a non-inverting preamplifier. It then undergoes narrowband band-pass filtering to eliminate noise before being processed by a full-wave rectifier and a hysteresis comparator (MCP6541) that converts the signal envelope into a stable logic command for the robot."
+            }
+          ],
+          difficulties: "The main challenge was precisely tuning the astable oscillator frequency to the filter cutoff frequency to ensure a pure signal. It was also necessary to stabilize the power stage to avoid audio distortion during transmission.",
+          takeaways: "This project allowed me to master analog circuit design from theoretical calculation to experimental validation. I was satisfied to see my transmitter successfully control the robot remotely.",
+          extensions: "The system could be improved by adding digital signal encoding to avoid false triggers from ambient noise. It could also be optimized for lower power consumption to extend remote control autonomy."
+        },
+        vi: {
+          title: "Thiết kế bo thu phát âm thanh",
+          description: [
+            {
+              title: "Mô tả dự án tổng quan",
+              text: "Dự án này thiết kế và xây dựng một hệ thống điều khiển từ xa bằng âm thanh cho robot di động. Mục tiêu chính là tạo và xử lý một tín hiệu âm thanh 3 kHz cụ thể để kích hoạt các hành động tự động. Trong nhóm, tôi chịu trách nhiệm hoàn toàn về phía bộ phát. Module bộ phát này được thiết kế để tạo ra một sóng ổn định, đủ mạnh để bộ thu từ xa nhận được, đồng thời tuân thủ các yêu cầu lọc để tránh nhiễu âm thanh không mong muốn. Công việc này xác nhận chuỗi truyền dẫn analog hoàn chỉnh từ tín hiệu điện đến phát âm thanh."
+            },
+            {
+              title: "Phần phát",
+              text: "Tôi thiết kế chuỗi truyền âm thanh bắt đầu từ một dao động astable dựa trên AOP tạo ra sóng vuông ổn định ở 2,26 kHz. Tín hiệu này sau đó được lọc sạch bằng bộ lọc thông thấp chủ động Sallen-Key bậc hai để chỉ giữ thành phần cơ bản sin, rồi khuếch đại dòng bởi tầng công suất Push-Pull (cặp transistor bổ sung) để điều khiển loa mà không làm quá tải điện áp của bộ lọc."
+            },
+            {
+              title: "Phần thu",
+              text: "Tín hiệu được thu bởi micro electret và khuếch đại bởi bộ tiền khuếch đại không đảo. Sau đó nó trải qua lọc băng thông hẹp để loại bỏ nhiễu trước khi được xử lý bởi mạch chỉnh lưu toàn sóng và so sánh có độ trễ (MCP6541) nhằm chuyển đổi bao tín hiệu thành lệnh logic ổn định cho robot."
+            }
+          ],
+          difficulties: "Thách thức chính là tinh chỉnh chính xác tần số dao động astable với tần số cắt của bộ lọc để đảm bảo tín hiệu tinh khiết. Cũng cần ổn định tầng công suất để tránh méo tiếng trong quá trình truyền.",
+          takeaways: "Dự án giúp tôi thành thạo thiết kế mạch analog từ tính toán lý thuyết đến xác nhận thực nghiệm. Tôi hài lòng khi thấy bộ phát điều khiển robot thành công từ xa.",
+          extensions: "Hệ thống có thể cải thiện bằng cách thêm mã hóa tín hiệu kỹ thuật số để tránh kích hoạt nhầm do tiếng ồn môi trường. Nó cũng có thể tối ưu để tiêu thụ điện năng thấp hơn nhằm tăng thời gian sử dụng điều khiển từ xa."
+        }
       }
     },
     {
@@ -338,6 +636,22 @@ function App() {
         difficulties: "Outre la configuration de STM32CubeIDE, nous avons été confrontés à l'instabilité de la tension de sortie (oscillations de 40 mV) et à l'impossibilité technique de brider l'intensité via le programme.",
         takeaways: "Nous avons réussi à piloter le module AP33772 via le bus I2C pour obtenir une tension précise pour respecter le cahier des charges.",
         extensions: "Il serait pertinent d'ajouter un étage de filtrage pour stabiliser la tension. Et d'avoir une carte PCB personnalisée pour intégrer tous les composants de manière plus compacte et sécurisée."
+      },
+      translations: {
+        en: {
+          title: "Programmable Power Supply with USB-C PPS Charger",
+          description: "The report details the design of a low-cost, portable power supply using a USB-C charger and Power Delivery protocol. The system is controlled by an Arduino Nano communicating with an AP33772S module over I2C. Thanks to PPS mode, a precise voltage can be requested from the charger in 20 mV steps. The communication frames were analyzed and verified with an oscilloscope to ensure command consistency.",
+          difficulties: "Beyond STM32CubeIDE configuration, we faced output voltage instability (40 mV oscillations) and the technical impossibility of limiting current through the firmware.",
+          takeaways: "We managed to control the AP33772 module via I2C to achieve a precise voltage that met the requirements.",
+          extensions: "It would be useful to add a filtering stage to stabilize the voltage and a custom PCB to integrate all components more compactly and securely."
+        },
+        vi: {
+          title: "Nguồn lập trình với bộ sạc USB-C PPS",
+          description: "Báo cáo trình bày thiết kế một nguồn di động giá rẻ sử dụng bộ sạc USB-C và giao thức Power Delivery. Hệ thống được điều khiển bằng Arduino Nano giao tiếp với module AP33772S qua I2C. Nhờ chế độ PPS, có thể yêu cầu điện áp chính xác từ bộ sạc theo bước 20 mV. Các khung truyền thông đã được phân tích và xác minh bằng oscilloscope để đảm bảo tính nhất quán của lệnh.",
+          difficulties: "Ngoài cấu hình STM32CubeIDE, chúng tôi gặp sự không ổn định của điện áp đầu ra (dao động 40 mV) và không thể kỹ thuật giới hạn dòng qua chương trình.",
+          takeaways: "Chúng tôi đã điều khiển module AP33772 qua I2C để đạt được điện áp chính xác đáp ứng yêu cầu.",
+          extensions: "Cần thêm tầng lọc để ổn định điện áp và một PCB tùy chỉnh để tích hợp các thành phần một cách nhỏ gọn và an toàn hơn."
+        }
       }
     },
     {
@@ -373,6 +687,48 @@ function App() {
         difficulties: "Le choix du protocole de communication entre la base de données et l'interface homme machine (MQTT, MySQL, et Modbus). Le travail d'équipe (9 personnes) est aussi une difficulté car il faut gérer son temps pour ne pas retarder les autres parties / groupe.",
         takeaways: "J'ai apprécié faire la partie de communication entre la base de données et l'interface homme machine, en utilisant le protocole Modbus pour assurer une transmission efficace et simple des données en temps réel.",
         extensions: "Le projet sera repris pour être amélioré et optimisé dans le but d'avoir un fonctionnement autonome."
+      },
+      translations: {
+        en: {
+          title: "Optiplant - Real-Time Plant Monitoring Application",
+          description: [
+            {
+              title: "Overall Project Description",
+              text: "The Optiplant project offers an innovative hydroponic system. This ecological method allows efficient plant cultivation by providing optimal essential nutrients, resulting in increased growth and higher yields. To enhance this optimization, automated shade structures were integrated to precisely adjust plant sunlight exposure. The system also uses a rainwater recovery tank, making irrigation partially water-autonomous. Solar panels installed on the structure provide electrical autonomy.\n\nThe project is divided into several parts:\n- PLC / HMI communication,\n- database backend,\n- web application for plant monitoring."
+            },
+            {
+              title: "PLC / HMI Communication",
+              text: "My contribution was developing the communication layer between the PLC and the human-machine interface (HMI). I implemented the Modbus protocol to ensure reliable, real-time data transmission coded in Python. This is a critical part of the project because without it there would be no real monitoring of the hydroponic system."
+            },
+            {
+              title: "Technical Details",
+              text: "For OptiPlant, I designed the communication interface by developing a Modbus TCP/IP client in Python to query a Schneider PLC. My work involved mapping PLC holding registers precisely to extract raw sensor data while handling data types (Integer/Float) to ensure accurate pH and humidity measurements. I configured frame handling to allow reliable cyclic reads and command writes to the PLC outputs, isolating control logic from the remaining SQL/InfluxDB infrastructure that simply consumes the data."
+            }
+          ],
+          difficulties: "Choosing the communication protocol between the database and the HMI (MQTT, MySQL, and Modbus) was challenging. Teamwork with nine people also made time management difficult to avoid delaying other parts of the project.",
+          takeaways: "I enjoyed working on the communication layer between the database and the HMI, using Modbus to ensure efficient, simple real-time data transmission.",
+          extensions: "The project will be continued to improve and optimize it toward autonomous operation."
+        },
+        vi: {
+          title: "Optiplant - Ứng dụng giám sát cây trồng thời gian thực",
+          description: [
+            {
+              title: "Mô tả tổng quan dự án",
+              text: "Dự án Optiplant cung cấp một hệ thống thủy canh sáng tạo. Phương pháp sinh thái này cho phép trồng cây hiệu quả bằng cách cung cấp dinh dưỡng thiết yếu tối ưu, giúp tăng trưởng và năng suất. Để tăng cường tối ưu này, đã tích hợp các cấu trúc che tự động để điều chỉnh chính xác ánh sáng mặt trời cho cây trồng. Hệ thống cũng sử dụng bể thu hồi nước mưa, khiến tưới tiêu phần nào tự động về nước. Các tấm năng lượng mặt trời lắp trên cấu trúc cũng cung cấp tính tự chủ về điện.\n\nDự án được chia thành nhiều phần:\n- giao tiếp PLC / HMI,\n- cơ sở dữ liệu,\n- ứng dụng web để theo dõi cây trồng."
+            },
+            {
+              title: "Giao tiếp PLC / HMI",
+              text: "Đóng góp của tôi là phát triển lớp giao tiếp giữa PLC và giao diện người-máy (HMI). Tôi đã triển khai giao thức Modbus để đảm bảo truyền dữ liệu thời gian thực đáng tin cậy bằng Python. Đây là phần quan trọng của dự án vì nếu không có nó, sẽ không có giám sát thực sự của hệ thống thủy canh."
+            },
+            {
+              title: "Chi tiết kỹ thuật",
+              text: "Đối với OptiPlant, tôi thiết kế giao diện giao tiếp bằng cách phát triển client Modbus TCP/IP bằng Python để truy vấn PLC Schneider. Công việc của tôi bao gồm ánh xạ chính xác các thanh ghi giữ (Holding Registers) của PLC để trích xuất dữ liệu cảm biến thô đồng thời xử lý các loại dữ liệu (Integer/Float) để đảm bảo đo pH và độ ẩm chính xác. Tôi cấu hình xử lý khung để cho phép đọc tuần hoàn đáng tin cậy và ghi lệnh đến đầu ra PLC, tách biệt logic điều khiển khỏi phần còn lại của cơ sở hạ tầng SQL/InfluxDB chỉ đơn giản tiêu thụ dữ liệu."
+            }
+          ],
+          difficulties: "Việc lựa chọn giao thức truyền thông giữa cơ sở dữ liệu và HMI (MQTT, MySQL, và Modbus) là thách thức. Làm việc theo nhóm 9 người cũng ảnh hưởng đến quản lý thời gian để tránh trì hoãn phần khác của dự án.",
+          takeaways: "Tôi thích làm việc về lớp giao tiếp giữa cơ sở dữ liệu và HMI, sử dụng Modbus để đảm bảo truyền dữ liệu hiệu quả và đơn giản theo thời gian thực.",
+          extensions: "Dự án sẽ được tiếp tục để cải tiến và tối ưu nhằm hướng tới vận hành tự động."
+        }
       }
     },
     {
@@ -399,6 +755,40 @@ function App() {
         difficulties: "La principale complexité réside dans la gestion de la batterie au plomb pour éviter les décharges profondes fatales et dans le traitement des signaux non linéaires du télémètre infrarouge. Mais aussi la logique de contrôle pour l'évitement d'obstacles.",
         takeaways: "Ce projet était le premier projet de robotique que j'ai réalisé, j'y ai découvert les bases de la programmation de microcontrôleurs en embarqués, la gestion de capteurs et la logique de contrôle pour l'évitement d'obstacles, ce qui a été très enrichissant. En particulier, le petit concours en fin de semestre était très amusant.",
         extensions: "Une évolution possible serait l'ajout d'un module Bluetooth pour le retour de données en temps réel ou l'implémentation d'un asservissement PID pour stabiliser la vitesse du robot."
+      },
+      translations: {
+        en: {
+          title: "Obstacle Detection Robot",
+          description: [
+            {
+              title: "Overall Project Description",
+              text: "This project consists of designing and building an autonomous mobile robot capable of detecting and avoiding obstacles in real time. It is a complete mechatronic system where a control unit (Arduino-based) processes distance sensor data (infrared and ultrasonic) to drive two DC motors through a power stage. The robot is designed to operate either fully autonomously by analyzing its environment or manually via a radio control interface, ensuring smooth and safe navigation within a given space."
+            },
+            {
+              title: "Technical Details",
+              text: "The project relies on several core pillars: power is supplied by a 12V lead-acid battery whose lifespan is optimized through precise charge cycle management. Propulsion uses PWM-driven DC motors with an H-bridge to vary speed and reverse direction. For perception, the robot combines an ultrasonic ranger for echo-based distance measurement and a SHARP infrared ranger using triangulation for accurate proximity detection. Finally, control is enabled by a radio receiver capturing PPM signals, allowing the program to switch between manual mode and the automatic obstacle avoidance algorithm."
+            }
+          ],
+          difficulties: "The main complexity was managing the lead-acid battery to avoid fatal deep discharges and handling the non-linear signals from the infrared ranger. Control logic for obstacle avoidance was also challenging.",
+          takeaways: "This was the first robotics project I completed, and I learned the fundamentals of embedded microcontroller programming, sensor management, and obstacle avoidance logic. The end-of-semester competition was especially fun.",
+          extensions: "A possible evolution would be adding a Bluetooth module for real-time telemetry or implementing PID control to stabilize robot speed."
+        },
+        vi: {
+          title: "Robot Phát hiện Chướng ngại vật",
+          description: [
+            {
+              title: "Mô tả dự án tổng quan",
+              text: "Dự án này gồm thiết kế và xây dựng một robot di động tự hành có khả năng phát hiện và tránh chướng ngại vật trong thời gian thực. Đây là một hệ thống cơ điện tử hoàn chỉnh, nơi bộ điều khiển (dựa trên Arduino) xử lý dữ liệu cảm biến khoảng cách (hồng ngoại và siêu âm) để điều khiển hai động cơ DC qua tầng công suất. Robot được thiết kế để hoạt động tự động hoàn toàn bằng cách phân tích môi trường hoặc điều khiển thủ công qua giao diện điều khiển radio, đảm bảo điều hướng mượt mà và an toàn trong không gian nhất định."
+            },
+            {
+              title: "Chi tiết kỹ thuật",
+              text: "Dự án dựa trên một số trụ cột chính: nguồn được cung cấp bởi pin axit-chì 12V với tuổi thọ được tối ưu hóa bằng quản lý chu kỳ sạc chính xác. Động lực sử dụng động cơ DC điều khiển PWM với cầu H để thay đổi tốc độ và đảo chiều. Về cảm biến, robot kết hợp bộ đo khoảng cách siêu âm cho đo khoảng cách bằng phản xạ và bộ đo hồng ngoại SHARP sử dụng tam giác hóa để phát hiện độ gần chính xác. Cuối cùng, điều khiển được kích hoạt bằng bộ thu radio nhận tín hiệu PPM, cho phép chương trình chuyển giữa chế độ thủ công và thuật toán tránh chướng ngại vật tự động."
+            }
+          ],
+          difficulties: "Khó khăn chính là quản lý pin axit-chì để tránh xả sâu mất mát và xử lý các tín hiệu phi tuyến từ bộ đo hồng ngoại. Logic điều khiển tránh chướng ngại vật cũng đầy thách thức.",
+          takeaways: "Đây là dự án robot đầu tiên tôi hoàn thành, và tôi đã học được các nguyên tắc lập trình vi điều khiển nhúng, quản lý cảm biến và logic tránh chướng ngại vật. Cuộc thi cuối kỳ đặc biệt rất vui.",
+          extensions: "Một cải tiến có thể là thêm module Bluetooth để truyền dữ liệu thời gian thực hoặc triển khai điều khiển PID để ổn định tốc độ robot."
+        }
       }
     },
   ].sort((a, b) => parseInt(b.year) - parseInt(a.year));
@@ -439,6 +829,29 @@ function App() {
           images: ["https://via.placeholder.com/800x450.png/4a4a4a/ffffff?text=Bilan"]
         }
       ]
+      ,
+      translations: {
+        en: {
+          title: "Internship at ATEM RF & Microwaves (Final Year)",
+          description: "Final year internship. Click to discover the internship steps and details.",
+          descriptions: [
+            { title: "Introduction and Context", text: "Introduction and context of the internship at ATEM RF & Microwaves." },
+            { title: "Rehabilitation of the climatic chamber: recommissioning and control optimization", text: "Technical work on the climatic chamber." },
+            { title: "GPS demonstrator drawer: design and hardware integration", text: "Details on the GPS drawer design." },
+            { title: "Summary and Results", text: "Summary, skills acquired and concrete results obtained during the internship." }
+          ]
+        },
+        vi: {
+          title: "Thực tập tại ATEM RF & Microwaves (Năm kết thúc)",
+          description: "Thực tập tốt nghiệp. Nhấn để xem các bước và chi tiết của kỳ thực tập.",
+          descriptions: [
+            { title: "Giới thiệu và Bối cảnh", text: "Giới thiệu và bối cảnh của kỳ thực tập tại ATEM RF & Microwaves." },
+            { title: "Phục hồi buồng khí hậu: đưa vào hoạt động lại và tối ưu hóa điều khiển", text: "Công việc kỹ thuật trên buồng khí hậu." },
+            { title: "Ngăn kéo trình diễn GPS: thiết kế và tích hợp phần cứng", text: "Chi tiết về thiết kế ngăn kéo GPS." },
+            { title: "Tổng kết và Kết quả", text: "Tổng kết, kỹ năng đạt được và kết quả cụ thể trong kỳ thực tập." }
+          ]
+        }
+      }
     },
     {
       id: "stage-1",
@@ -477,6 +890,29 @@ function App() {
           images: [LR_logical]
         }
       ]
+      ,
+      translations: {
+        en: {
+          title: "Internship at LIS Laboratory (2nd Year)",
+          description: "Internship. Click to discover the internship steps and details.",
+          descriptions: [
+            { title: "Introduction and Context", text: "During this 8-week internship at the LIS laboratory, I participated in the development of an educational Escape Game for the GEII department..." },
+            { title: "System Configuration & Partitioning", text: "A crucial step was preparing the Raspberry Pi 4 system and partitioning it using Gparted." },
+            { title: "Technical Challenges & Documentation", text: "I worked on several technical modules: network traffic analysis with Wireshark, PWM signal implementation, and programming challenges." },
+            { title: "Summary and Acquired Skills", text: "This internship was an opportunity to apply my electronics and industrial computing knowledge." }
+          ]
+        },
+        vi: {
+          title: "Thực tập tại Phòng thí nghiệm LIS (Năm 2)",
+          description: "Thực tập. Nhấn để xem các bước và chi tiết của kỳ thực tập.",
+          descriptions: [
+            { title: "Giới thiệu và Bối cảnh", text: "Trong 8 tuần thực tập tại phòng thí nghiệm LIS, tôi đã tham gia phát triển một Escape Game giáo dục cho khoa GEII..." },
+            { title: "Cấu hình hệ thống & Phân vùng", text: "Bước then chốt là chuẩn bị Raspberry Pi 4 và phân vùng bằng Gparted." },
+            { title: "Thách thức kỹ thuật & Tài liệu", text: "Tôi làm việc trên nhiều module kỹ thuật: phân tích lưu lượng mạng với Wireshark, triển khai tín hiệu PWM, và lập trình các thử thách." },
+            { title: "Tổng kết và Kỹ năng đạt được", text: "Kỳ thực tập này là cơ hội để áp dụng kiến thức điện tử và tin học công nghiệp." }
+          ]
+        }
+      }
     }
   ];
 
@@ -486,158 +922,185 @@ function App() {
       name: "Electronique", 
       level: "Avancée",
       desc: "Conception de circuits et systèmes embarqués.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Electronics", desc: "Design of circuits and embedded systems." }, vi: { name: "Điện tử", desc: "Thiết kế mạch và hệ thống nhúng." } }
     },
     { 
       name: "Prog. Embarquée", 
       level: "Avancée",
       desc: "Développement de logiciels pour systèmes à contraintes.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Embedded Programming", desc: "Software development for constrained systems." }, vi: { name: "Lập trình nhúng", desc: "Phát triển phần mềm cho các hệ thống giới hạn tài nguyên." } }
     },
     { 
       name: "C/C++", 
       level: "Avancée",
       desc: "Développement système performant et bas niveau.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "C/C++", desc: "High-performance low-level system development." }, vi: { name: "C/C++", desc: "Phát triển hệ thống hiệu năng cao ở mức thấp." } }
     },
     { 
       name: "Arduino IDE", 
       level: "Avancée",
       desc: "Prototypage rapide sur microcontrôleurs.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Arduino IDE", desc: "Rapid prototyping on microcontrollers." }, vi: { name: "Arduino IDE", desc: "Nhanh chóng tạo mẫu trên vi điều khiển." } }
     },
     { 
       name: "Microsoft Office", 
       level: "Avancée",
       desc: "Word, PowerPoint, Excel pour documentation et présentation.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Microsoft Office", desc: "Word, PowerPoint, Excel for documentation and presentation." }, vi: { name: "Microsoft Office", desc: "Word, PowerPoint, Excel cho tài liệu và thuyết trình." } }
     },
     { 
       name: "Datasheets", 
       level: "Avancée",
       desc: "Lecture et analyse de spécifications techniques.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Datasheets", desc: "Reading and analyzing technical specifications." }, vi: { name: "Datasheets", desc: "Đọc và phân tích thông số kỹ thuật." } }
     },
     {
       name: "Kicad",
       level: "Avancée",
       desc: "Conception de schémas électroniques et de circuits imprimés (PCB).",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Kicad", desc: "Design of electronic schematics and printed circuit boards (PCB)." }, vi: { name: "Kicad", desc: "Thiết kế sơ đồ điện tử và mạch in (PCB)." } }
     },
     { 
       name: "Rapports & CR", 
       desc: "Rédaction technique, comptes rendus et documentation.",
-      category: "soft"
+      category: "soft",
+      translations: { en: { name: "Reports & Minutes", desc: "Technical writing, reports and documentation." }, vi: { name: "Báo cáo & Biên bản", desc: "Viết kỹ thuật, báo cáo và tài liệu." } }
     },
     { 
       name: "STM32", 
       level: "Intermédiaire",
       desc: "Programmation de microcontrôleurs pour l'embarqué.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "STM32", desc: "Microcontroller programming for embedded systems." }, vi: { name: "STM32", desc: "Lập trình vi điều khiển cho hệ thống nhúng." } }
     },
     { 
       name: "Travail d'équipe", 
       desc: "Collaboration efficace et gestion de projet agile.",
-      category: "soft"
+      category: "soft",
+      translations: { en: { name: "Teamwork", desc: "Effective collaboration and agile project management." }, vi: { name: "Làm việc nhóm", desc: "Hợp tác hiệu quả và quản lý dự án linh hoạt." } }
     },
     { 
       name: "Tests & Vérif.", 
       level: "Intermédiaire",
       desc: "Validation de systèmes et protocoles de test.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Testing & Verification", desc: "System validation and test protocols." }, vi: { name: "Kiểm thử & Xác minh", desc: "Xác thực hệ thống và quy trình kiểm thử." } }
     },
     { 
       name: "Linux", 
       level: "Avancée",
       desc: "Maîtrise de la ligne de commande (Bash) et administration système.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Linux", desc: "Command-line proficiency (Bash) and system administration." }, vi: { name: "Linux", desc: "Thành thạo dòng lệnh (Bash) và quản trị hệ thống." } }
     },
     { 
       name: "LaTeX / Overleaf", 
       level: "Avancée",
       desc: "Rédaction de documents scientifiques et techniques structurés.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "LaTeX / Overleaf", desc: "Authoring structured scientific and technical documents." }, vi: { name: "LaTeX / Overleaf", desc: "Soạn thảo tài liệu khoa học và kỹ thuật có cấu trúc." } }
     },
     { 
       name: "GitHub", 
       level: "Intermédiaire",
       desc: "Gestion de version et travail collaboratif.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "GitHub", desc: "Version control and collaborative work." }, vi: { name: "GitHub", desc: "Quản lý phiên bản và làm việc cộng tác." } }
     },
     { 
       name: "Wireshark", 
       level: "Notions",
       desc: "Analyse de protocoles réseau et diagnostic de trafic.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Wireshark", desc: "Network protocol analysis and traffic diagnosis." }, vi: { name: "Wireshark", desc: "Phân tích giao thức mạng và chẩn đoán lưu lượng." } }
     },
     { 
       name: "Analyse", 
       desc: "Capacité d'audit, de synthèse et résolution de problèmes.",
-      category: "soft"
+      category: "soft",
+      translations: { en: { name: "Analysis", desc: "Ability to audit, synthesize and solve problems." }, vi: { name: "Phân tích", desc: "Khả năng đánh giá, tổng hợp và giải quyết vấn đề." } }
     },
     { 
       name: "Autonomie", 
       desc: "Capacité à prioriser les tâches et à s'auto-former.",
-      category: "soft"
+      category: "soft",
+      translations: { en: { name: "Autonomy", desc: "Ability to prioritize tasks and self-train." }, vi: { name: "Tự chủ", desc: "Khả năng ưu tiên công việc và tự học." } }
     },
     { 
     name: "Qt", 
     level: "Notions",
     desc: "Développement d'interfaces graphiques et d'applications multiplateformes.",
-    category: "hard"
+    category: "hard",
+    translations: { en: { name: "Qt", desc: "GUI development and cross-platform application development." }, vi: { name: "Qt", desc: "Phát triển giao diện đồ họa và ứng dụng đa nền tảng." } }
     },
     { 
       name: "Communication", 
       desc: "Transmission claire d'informations techniques.",
-      category: "soft"
+      category: "soft",
+      translations: { en: { name: "Communication", desc: "Clear transmission of technical information." }, vi: { name: "Giao tiếp", desc: "Truyền đạt thông tin kỹ thuật rõ ràng." } }
     },
     { 
       name: "Python", 
       level: "Intermédiaire",
       desc: "Analyse de données, IA et scripting polyvalent.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Python", desc: "Data analysis, AI and versatile scripting." }, vi: { name: "Python", desc: "Phân tích dữ liệu, AI và scripting đa năng." } }
     },
     { 
       name: "JavaScript", 
       level: "Intermédiaire",
       desc: "Langage de script essentiel pour le web interactif.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "JavaScript", desc: "Essential scripting language for interactive web." }, vi: { name: "JavaScript", desc: "Ngôn ngữ kịch bản cần thiết cho web tương tác." } }
     },
     { 
       name: "SQL", 
       level: "Notions",
       desc: "Gestion et interrogation de bases de données relationnelles.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "SQL", desc: "Management and querying of relational databases." }, vi: { name: "SQL", desc: "Quản lý và truy vấn cơ sở dữ liệu quan hệ." } }
     },
     { 
       name: "MQTT", 
       level: "Notions",
       desc: "Protocole de messagerie publish-subscribe pour l'IoT.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "MQTT", desc: "Publish-subscribe messaging protocol for IoT." }, vi: { name: "MQTT", desc: "Giao thức nhắn tin publish-subscribe cho IoT." } }
     },
     { 
       name: "CoDeSys", 
       level: "Notions",
       desc: "Environnement de développement pour automates programmables.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "CoDeSys", desc: "Development environment for programmable logic controllers." }, vi: { name: "CoDeSys", desc: "Môi trường phát triển cho bộ điều khiển logic lập trình được." } }
     },
     { 
       name: "Base de données", 
       level: "Intermédiaire",
       desc: "Conception et gestion de bases de données.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Databases", desc: "Design and management of databases." }, vi: { name: "Cơ sở dữ liệu", desc: "Thiết kế và quản lý cơ sở dữ liệu." } }
     },
     { 
       name: "Grafana", 
       level: "Notions",
       desc: "Outil de visualisation et de monitoring de données.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Grafana", desc: "Data visualization and monitoring tool." }, vi: { name: "Grafana", desc: "Công cụ trực quan hóa và giám sát dữ liệu." } }
     },
     { 
       name: "Matlab", 
       level: "Intermédiaire",
       desc: "Calcul numérique, modélisation et simulation.",
-      category: "hard"
+      category: "hard",
+      translations: { en: { name: "Matlab", desc: "Numerical computing, modeling and simulation." }, vi: { name: "Matlab", desc: "Tính toán số, mô hình hóa và mô phỏng." } }
     },
   ].sort((a, b) => {
     const order = { "Avancée": 1, "Intermédiaire": 2, "Notions": 3 };
@@ -730,6 +1193,8 @@ function App() {
               setSelectedSkill(null);
               setSelectedProject(project);
             }}
+            language={language}
+            translations={translations}
           />
         )}
       </AnimatePresence>
@@ -786,21 +1251,27 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           desc: "Mener une conception partielle intégrant une démarche projet.", 
           percentage: 90, 
           explanation: "Je suis capable de concevoir et mener à bien une conception d'un projet tout en respectant un cahier des charges précis et dans un temps imparti.", 
-          projectIds: [1,2,3,"stage-1"] },
+          projectIds: [1,2,3,"stage-1"],
+          translations: { en: { desc: "Carry out partial design using a project-based approach.", explanation: "I can design and complete a project while respecting a precise specification and time constraints." }, vi: { desc: "Tiến hành thiết kế một phần với phương pháp tiếp cận theo dự án.", explanation: "Tôi có thể thiết kế và hoàn thành một dự án trong khi tuân thủ yêu cầu và thời gian đã định." } }
+        },
         
           { id: 2,
           desc: "Concevoir un système en fiabilisant les solutions.", 
           percentage: 90, 
           explanation: "Mes conceptions sont fiables, mais je dois faire plus attention au côté concret. Parfois, je reste trop dans la théorie et j'oublie des détails de terrain. J'apprends à mieux imaginer l'utilisation finale pour éviter ces petites erreurs. ", 
-          projectIds: [2, 4, 6, 9,"stage-1"] },
+          projectIds: [2, 4, 6, 9,"stage-1"],
+          translations: { en: { desc: "Design a system while ensuring solution reliability.", explanation: "My designs are reliable, but I need to pay more attention to the practical side. Sometimes I stay too theoretical and miss field details. I am learning to better imagine final use to avoid these small errors." }, vi: { desc: "Thiết kế một hệ thống đồng thời đảm bảo độ tin cậy của giải pháp.", explanation: "Thiết kế của tôi đáng tin cậy, nhưng tôi cần chú ý hơn đến khía cạnh thực tế. Đôi khi tôi vẫn quá lý thuyết và bỏ lỡ các chi tiết hiện trường. Tôi đang học cách tưởng tượng tốt hơn về việc sử dụng cuối cùng để tránh những lỗi nhỏ này." } }
+        },
         
           { id: 3, 
-          desc: "Concevoir un système en adoptant une approche sélective dans ses choix technologiques.", 
+          desc: "Concevoir un système en adoptant une approche sélective dans ses choix technologiques.",
           percentage: 90, 
           explanation: "Le niveau est de 90% car je pense être en capacité de concevoir des systèmes complexes, en choisissant les composants et logiciels adaptés, mais il me manque encore de l'expérience pratique pour atteindre une maîtrise totale.", 
-          projectIds: [2,4,6] 
+          projectIds: [2,4,6],
+          translations: { en: { desc: "Design a system with a selective approach to technological choices.", explanation: "This level is 90% because I can design complex systems with appropriate components and software, but I still lack enough practical experience to achieve full mastery." }, vi: { desc: "Thiết kế một hệ thống với phương pháp chọn lọc các lựa chọn công nghệ.", explanation: "Mức này là 90% vì tôi có thể thiết kế các hệ thống phức tạp với các thành phần và phần mềm phù hợp, nhưng tôi vẫn thiếu kinh nghiệm thực hành để đạt được sự thành thạo hoàn toàn." } }
         }
-      ]
+      ],
+      translations: { en: { name: "Conception", desc: "Carry out partial design with a project approach." }, vi: { name: "Thiết kế", desc: "Tiến hành thiết kế một phần với phương pháp dự án." } }
     },
     { 
       name: "Vérifier", 
@@ -810,20 +1281,27 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           desc: "Effectuer les tests et mesures nécessaires à une vérification d’un système.", 
           percentage: 80, 
           explanation: "Je maîtrise des appareils de mesure standards (tel que l'oscilloscope, le multimètre) validée en TP mais aussi dans tous mes projets. Je les maitrises certes mais pas à 100%, je dois encore m'améliorer sur certains appareil (comme le RIGOL ou l'utilisation plus poussée de l'oscilloscope).", 
-          projectIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "stage-1"] },
+          projectIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "stage-1"],
+          translations: { en: { desc: "Carry out the tests and measurements necessary to verify a system.", explanation: "I master standard measurement devices (such as oscilloscopes and multimeters), validated in labs and projects. I am proficient but not 100%; I still need to improve on some devices like RIGOL or advanced oscilloscope use." }, vi: { desc: "Thực hiện các phép thử và đo lường cần thiết để xác minh một hệ thống.", explanation: "Tôi thành thạo các thiết bị đo tiêu chuẩn (như oscilloscope và đồng hồ vạn năng), được xác thực trong lab và dự án. Tôi giỏi nhưng chưa 100%; tôi vẫn cần cải thiện với một số thiết bị như RIGOL hoặc sử dụng oscilloscope nâng cao." } }
+        },
         
         { id: 2, 
           desc: "Mettre en place un protocole de tests pour valider le fonctionnement d’un système.", 
           percentage: 90, 
           explanation: "Je suis en capacité de mettre en place un protocole de test pour valider le fonctionnement d'un système, mais je dois encore améliorer ma rigueur et ma méthodologie pour atteindre une maîtrise totale.", 
-          projectIds: [1, 2, 4, 3, 4, 5, 6, 7, 8, 9, 10,"stage-1"] },
+          projectIds: [1, 2, 4, 3, 4, 5, 6, 7, 8, 9, 10,"stage-1"],
+          translations: { en: { desc: "Implement a test protocol to validate a system's operation.", explanation: "I can set up a test protocol to validate a system's operation, but I still need to improve my rigor and methodology to reach full mastery." }, vi: { desc: "Triển khai một quy trình kiểm thử để xác minh hoạt động của hệ thống.", explanation: "Tôi có thể thiết lập một quy trình kiểm thử để xác minh hoạt động của hệ thống, nhưng tôi vẫn cần cải thiện sự nghiêm ngặt và phương pháp để đạt thành thạo hoàn toàn." } }
+        },
         
         { id: 3, 
           desc: "Élaborer une procédure intégrant une démarche qualité pour valider le fonctionnement d’un système.", 
           percentage: 90, 
           explanation: "J'ai acquis une solide maîtrise dans la rédaction de protocoles de tests rigoureux. Lors de mes projets, je veille systématiquement à ce que chaque étape de validation respecte les normes de qualité pour garantir la fiabilité du système électronique final.", 
-          projectIds: [4, 7, 9, "stage-1"] }
-      ]
+          projectIds: [4, 7, 9, "stage-1"],
+          translations: { en: { desc: "Develop a procedure integrating a quality approach to validate a system.", explanation: "I have gained strong mastery in writing rigorous test protocols. In my projects, I ensure every validation step follows quality standards to guarantee the reliability of the final electronic system." }, vi: { desc: "Xây dựng một quy trình tích hợp phương pháp chất lượng để xác minh một hệ thống.", explanation: "Tôi đã đạt được sự thành thạo vững chắc trong việc viết các quy trình kiểm thử nghiêm ngặt. Trong các dự án của mình, tôi đảm bảo mỗi bước xác minh tuân thủ tiêu chuẩn chất lượng để đảm bảo độ tin cậy của hệ thống điện tử cuối cùng." } }
+        }
+      ],
+      translations: { en: { name: "Verify", desc: "Perform tests and measurements to verify a system." }, vi: { name: "Xác minh", desc: "Thực hiện kiểm thử và đo lường để xác minh hệ thống." } }
     },
     { 
       name: "Maintenir", 
@@ -833,13 +1311,18 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           desc: "Intervenir sur un système pour effectuer une opération de maintenance.", 
           percentage:80, 
           explanation: "Quand un système tombe en panne, je sais mettre les mains dedans pour trouver d'où vient le problème et le changer. Je suis efficace pour réparer et remettre en service, même si je dois faire l'effort de mieux noter ce que j'ai fait pour que le suivant comprenne mon intervention.", 
-          projectIds: [5, 7, "stage-1"] },
+          projectIds: [5, 7, "stage-1"],
+          translations: { en: { desc: "Intervene on a system to perform maintenance operations.", explanation: "When a system fails, I know how to dig in to identify the issue and fix it. I can repair and restore service effectively, though I should improve documenting my actions so the next person understands the intervention." }, vi: { desc: "Can thiệp vào hệ thống để thực hiện hoạt động bảo trì.", explanation: "Khi hệ thống gặp sự cố, tôi biết cách xử lý để xác định và sửa lỗi. Tôi có thể sửa chữa và khôi phục hoạt động hiệu quả, dù tôi nên cải thiện việc ghi chép lại hành động để người tiếp theo hiểu can thiệp." } }
+        },
         { id: 2, 
           desc: "Mettre en place une stratégie de maintenance pour garantir un fonctionnement optimal.", 
           percentage: 75, 
           explanation: "Je sais identifier les points sensibles de mes systèmes pour prévenir les pannes avant qu'elles n'arrivent. J'applique les bases de la maintenance préventive pour que mes montages restent fiables dans le temps, même si je dois encore m'améliorer sur la rédaction de procédures de dépannage plus détaillées pour faciliter le travail des autres.", 
-          projectIds: [6, 7, 9, "stage-1"] }
-      ]
+          projectIds: [6, 7, 9, "stage-1"],
+          translations: { en: { desc: "Set up a maintenance strategy to ensure optimal operation.", explanation: "I can identify sensitive points in my systems to prevent failures before they occur. I apply preventive maintenance basics to keep my assemblies reliable over time, though I still need to improve writing more detailed troubleshooting procedures for others." }, vi: { desc: "Thiết lập chiến lược bảo trì để đảm bảo hoạt động tối ưu.", explanation: "Tôi có thể xác định các điểm nhạy cảm trong hệ thống để ngăn ngừa sự cố trước khi xảy ra. Tôi áp dụng các nguyên tắc bảo trì phòng ngừa để giữ cho lắp ráp hoạt động ổn định theo thời gian, dù tôi vẫn cần cải thiện việc viết quy trình xử lý chi tiết hơn cho người khác." } }
+        }
+      ],
+      translations: { en: { name: "Maintain", desc: "Perform maintenance operations on systems." }, vi: { name: "Bảo trì", desc: "Thực hiện các hoạt động bảo trì trên hệ thống." } }
     },
     { 
       name: "Implanter", 
@@ -849,13 +1332,18 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           desc: "Réaliser un système en mettant en place une démarche qualité en conformité avec le dossier de fabrication.", 
           percentage: 80, 
           explanation: "Je sais transformer un dossier technique en un prototype réel qui fonctionne. Je suis rigoureux sur le câblage et la soudure pour que ce soit conforme à ce qui est demandé, même si je dois encore gagner en fluidité pour passer plus vite de la théorie à la réalisation pratique.", 
-          projectIds: [1, 2, 3, 4, 7, 8, 9, 10, "stage-1"] },
+          projectIds: [1, 2, 3, 4, 7, 8, 9, 10, "stage-1"],
+          translations: { en: { desc: "Build a system with a quality approach in accordance with the manufacturing dossier.", explanation: "I can turn a technical dossier into a working real prototype. I am rigorous in wiring and soldering to meet requirements, though I still need to improve my fluency to move faster from theory to practical realization." }, vi: { desc: "Thực hiện một hệ thống bằng cách áp dụng phương pháp chất lượng phù hợp với hồ sơ sản xuất.", explanation: "Tôi có thể biến hồ sơ kỹ thuật thành nguyên mẫu thực tế hoạt động. Tôi cẩn trọng về đi dây và hàn để đáp ứng yêu cầu, dù tôi vẫn cần cải thiện để chuyển nhanh hơn từ lý thuyết đến thực tế." } }
+        },
         { id: 2, 
           desc: "Interagir avec les différents acteurs, lors de l’installation et de la mise en service d’un système, dans une démarche qualité.", 
           percentage: 90, 
           explanation: "Même si c'était en TP, j'ai toujours livré des programmes et des modules fonctionnels. Je communique bien avec les profs pour valider mon travail, mais je dois apprendre à mieux anticiper les contraintes du \"monde réel\" au-delà du laboratoire pour que l'installation soit parfaite du premier coup.", 
-          projectIds: [2, 4, 8, 9, "stage-1"] }
-      ]
+          projectIds: [2, 4, 8, 9, "stage-1"],
+          translations: { en: { desc: "Interact with stakeholders during installation and commissioning in a quality approach.", explanation: "Even if it was in labs, I always delivered functional programs and modules. I communicate well with supervisors to validate my work, but I need to better anticipate real-world constraints beyond the lab so the installation is right first time." }, vi: { desc: "Tương tác với các bên liên quan trong quá trình lắp đặt và đưa vào vận hành theo phương pháp chất lượng.", explanation: "Dù là trong phòng thí nghiệm, tôi luôn giao chương trình và module hoạt động. Tôi giao tiếp tốt với giáo viên để xác nhận công việc, nhưng tôi cần dự đoán tốt hơn các hạn chế thực tế ngoài phòng lab để lắp đặt đúng ngay lần đầu." } }
+        }
+      ],
+      translations: { en: { name: "Deploy", desc: "Implement a system with quality conforming to the manufacturing dossier." }, vi: { name: "Triển khai", desc: "Triển khai hệ thống với chất lượng phù hợp hồ sơ sản xuất." } }
     },
   ];
 
@@ -867,8 +1355,8 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
   };
 
   const skillSections = [
-    { title: "Compétences Techniques", skills: skillsList.filter(s => s.category === 'hard') },
-    { title: "Compétences Transversales", skills: skillsList.filter(s => s.category === 'soft') }
+    { title: translations.ui.technicalSkills, skills: skillsList.filter(s => s.category === 'hard') },
+    { title: translations.ui.transversalSkills, skills: skillsList.filter(s => s.category === 'soft') }
   ];
 
   const interestsData = [
@@ -877,28 +1365,44 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
       date: "Passion de toujours",
       description: "Je suis passionné per la cuisine depuis toujours, découvrir et faire de nouveaux plats, c'est sa que j'aime.",
       icon: <IconChefHat size={32} className="text-orange-400" />,
-      level: null
+      level: null,
+      translations: {
+        en: { title: "Cooking", date: "Lifelong passion", description: "I have been passionate about cooking for as long as I can remember; discovering and making new dishes is what I love." },
+        vi: { title: "Nấu ăn", date: "Đam mê từ nhỏ", description: "Tôi đam mê nấu ăn từ khi còn nhỏ; khám phá và làm những món ăn mới là điều tôi thích." }
+      }
     },
     {
       title: "Échecs",
       date: "Depuis 2018",
       description: "Jeu de stratégie pratiqué occasionnellemet pour développer la réflexion tactique.",
       icon: <IconChess size={32} className="text-white" />,
-      level: "Intermédiaire"
+      level: "Intermédiaire",
+      translations: {
+        en: { title: "Chess", date: "Since 2018", description: "A strategic game practiced occasionally to develop tactical thinking." },
+        vi: { title: "Cờ vua", date: "Từ 2018", description: "Trò chơi chiến lược được chơi thỉnh thoảng để phát triển tư duy chiến thuật." }
+      }
     },
     {
       title: "Musculation",
       date: "En 2023",
       description: "Je faisais de la musculation en 2023, mais par manque de temps j'ai arrêté.",
       icon: <IconBarbell size={32} className="text-red-400" />,
-      level: null
+      level: null,
+      translations: {
+        en: { title: "Weight Training", date: "In 2023", description: "I practiced weight training in 2023 but stopped due to lack of time." },
+        vi: { title: "Tập gym", date: "Năm 2023", description: "Tôi đã tập gym năm 2023 nhưng đã dừng lại do thiếu thời gian." }
+      }
     },
     {
       title: "Badminton",
       date: "Loisir occasionnel",
       description: "Un très bon sport qui regroupe le travail d'équipe et la réactivité.",
       icon: <IconActivity size={32} className="text-green-400" />,
-      level: null
+      level: null,
+      translations: {
+        en: { title: "Badminton", date: "Occasional hobby", description: "A great sport combining teamwork and quick reactions." },
+        vi: { title: "Cầu lông", date: "Sở thích thỉnh thoảng", description: "Một môn thể thao tuyệt vời kết hợp làm việc nhóm và phản xạ nhanh." }
+      }
     }
   ];
 
@@ -912,7 +1416,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
           <button 
             onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
             className="p-2 bg-neutral-800/80 backdrop-blur-sm border border-neutral-700 rounded-full text-white hover:bg-neutral-700 transition-colors"
-            title="Changer de langue"
+            title={translations.ui.changeLanguage}
           >
             <IconLanguage size={24} />
           </button>
@@ -950,7 +1454,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                   transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
                 >
                   <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-2">Ly Minh-Quan</h1>
-                  <p className="text-lg md:text-xl lg:text-2xl text-blue-400 font-medium">Étudiant en Génie Électrique et Informatique Industrielle (GEII)</p>
+                  <p className="text-lg md:text-xl lg:text-2xl text-blue-400 font-medium">{translations.ui.studentTitle}</p>
                 </motion.div>
 
                 <motion.div 
@@ -960,7 +1464,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                   className="max-w-3xl mt-4 bg-neutral-800/50 border border-neutral-700 rounded-xl p-6 backdrop-blur-sm"
                 >
                   <p className="text-neutral-300 text-left md:text-center text-base md:text-lg">
-                    Passionné par la robotique depuis mon très jeune âge, je suis actuellement étudiant en BUT GEII spécialisé en Electroniques et Systèmes Embarqués (ESE), où je développe mes compétences en électronique, informatique et automatique. Curieux et rigoureux, je suis constamment à la recherche de nouveaux défis pour transformer des idées innovantes en solutions concrètes.
+                    {translations.ui.intro}
                   </p>
                 </motion.div>
 
@@ -970,8 +1474,8 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                   transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
                   className="flex flex-wrap justify-center gap-4 mt-6"
                 >
-                  <a href="#experiences" className="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg flex items-center gap-2"><IconBrandTabler size={20} /> Découvrir mes projets</a>
-                  <a href="assets/pdf/CV Ly Minh-Quan.pdf" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-neutral-700 text-white font-semibold rounded-lg hover:bg-neutral-600 transition-colors shadow-md flex items-center gap-2" title="Ouvrir le CV dans un nouvel onglet"><IconFileTypePdf size={20} /> Voir mon CV</a>
+                  <a href="#experiences" className="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-lg flex items-center gap-2"><IconBrandTabler size={20} /> {translations.ui.discoverProjects}</a>
+                  <a href="assets/pdf/CV Ly Minh-Quan.pdf" target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-neutral-700 text-white font-semibold rounded-lg hover:bg-neutral-600 transition-colors shadow-md flex items-center gap-2" title={translations.ui.openCVTitle}><IconFileTypePdf size={20} /> {translations.ui.viewCV}</a>
                 </motion.div>
               </div>
             </section>
@@ -988,7 +1492,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
             {/* Section Stages */}
             {internships.length > 0 && (
               <div className="mb-10">
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">Mes Stages</h3>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">{translations.ui.myInternships}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-10">
                   {internships.map((item) => (
                     <motion.div
@@ -1001,9 +1505,9 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                       whileHover={{ scale: 1.05, y: -5 }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
-                      <img src={item.images[0]} alt={item.title} className="w-full h-40 object-cover" />
+                      <img src={item.images[0]} alt={getText(item,'title',language)} className="w-full h-40 object-cover" />
                       <div className="p-4">
-                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                        <h3 className="text-xl font-bold mb-2">{getText(item,'title',language)}</h3>
                         <div className="flex justify-between text-sm text-neutral-400">
                           <span>{item.year}</span>
                           <span>{item.duration}</span>
@@ -1018,7 +1522,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
             {/* Section Projets */}
             {academicProjects.length > 0 && (
               <div className="mb-10">
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">Mes Projets</h3>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">{translations.ui.myProjects}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pb-10">
                   {academicProjects.map((item) => (
                     <motion.div
@@ -1031,9 +1535,9 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                       whileHover={{ scale: 1.05, y: -5 }}
                       transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
-                      <img src={item.images[0]} alt={item.title} className="w-full h-40 object-cover" />
+                      <img src={item.images[0]} alt={getText(item,'title',language)} className="w-full h-40 object-cover" />
                       <div className="p-4">
-                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                        <h3 className="text-xl font-bold mb-2">{getText(item,'title',language)}</h3>
                         <div className="flex justify-between text-sm text-neutral-400">
                           <span>{item.year}</span>
                           <span>{item.duration}</span>
@@ -1056,7 +1560,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
             </div>
             {/* Section spéciale Compétences GEII */}
             <div className="mb-10">
-              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">Compétences du Référentiel GEII</h3>
+              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-neutral-200">{translations.ui.geiiHeading}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {geiiSkills.map((skill, idx) => (
                   <motion.div
@@ -1071,7 +1575,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                     }}
                     whileHover={{ scale: 1.02 }}
                   >
-                    <h4 className={`text-2xl font-bold ${colorClasses[skill.color].text}`}>{skill.name}</h4>
+                    <h4 className={`text-2xl font-bold ${colorClasses[skill.color].text}`}>{getText(skill,'name',language)}</h4>
                   </motion.div>
                 ))}
               </div>
@@ -1101,7 +1605,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                           whileHover={{ scale: 1.02 }}
                         >
                           <div className="flex justify-between items-start">
-                            <h3 className="text-xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">{skill.name}</h3>
+                            <h3 className="text-xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">{getText(skill,'name',language)}</h3>
                             {skill.level && (
                             <span className={`text-xs font-medium px-2 py-1 rounded border ${
                               skill.level === "Avancée" 
@@ -1114,13 +1618,13 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                             </span>
                             )}
                           </div>
-                          <p className="text-sm text-neutral-300 flex-1 group-hover:text-neutral-200 transition-colors">{skill.desc}</p>
+                          <p className="text-sm text-neutral-300 flex-1 group-hover:text-neutral-200 transition-colors">{getText(skill,'desc',language)}</p>
                           
                           {/* Indicateur de projets */}
                           {relatedProjects.length > 0 && (
                             <div className="mt-auto pt-3 border-t border-neutral-700/50 flex items-center gap-2 text-xs text-neutral-500">
                               <IconBrandTabler size={14} />
-                              <span>{relatedProjects.length} projet{relatedProjects.length > 1 ? 's' : ''} associé{relatedProjects.length > 1 ? 's' : ''}</span>
+                              <span>{translations.ui.projectsAssociated(relatedProjects.length)}</span>
                             </div>
                           )}
                         </motion.div>
@@ -1156,13 +1660,13 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                       {item.icon}
                     </div>
                     <span className="text-xs font-mono text-neutral-400 bg-neutral-900/50 px-2 py-1 rounded border border-neutral-700/50">
-                      {item.date}
+                      {getText(item,'date',language) || item.date}
                     </span>
                   </div>
                   
                   <div>
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-bold text-neutral-200 group-hover:text-blue-400 transition-colors">{item.title}</h3>
+                      <h3 className="text-xl font-bold text-neutral-200 group-hover:text-blue-400 transition-colors">{getText(item,'title',language)}</h3>
                       {item.level && (
                         <span className="text-xs font-medium px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
                           {item.level}
@@ -1170,7 +1674,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                       )}
                     </div>
                     <p className="text-neutral-400 text-sm leading-relaxed">
-                      {item.description}
+                      {getText(item,'description',language)}
                     </p>
                   </div>
                 </motion.div>
@@ -1290,8 +1794,24 @@ const variants = {
   }),
 };
 
+// Helper pour récupérer le texte selon la langue (fallback à la valeur par défaut)
+function getText(item, field, language) {
+  if (!item) return '';
+  // supporter les champs directement sur l'objet translations
+  if (item.translations && item.translations[language]) {
+    const val = item.translations[language][field];
+    if (val !== undefined) return val;
+  }
+  // support nested translations for objects like feedback
+  if (item[field + '_translations'] && item[field + '_translations'][language]) {
+    return item[field + '_translations'][language];
+  }
+  return item[field] !== undefined ? item[field] : '';
+}
+
 // Composant pour la modale de projet
 const ProjectModal = ({ project, onClose, language, translations, skillsList, onSkillClick }) => {
+  if (!project) return null;
   const modalRef = useRef(null);
   const videoRef = useRef(null);
   const [showPdfPreview, setShowPdfPreview] = useState(false);
@@ -1305,13 +1825,18 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
   const [isCarouselVideoPlaying, setIsCarouselVideoPlaying] = useState(true);
 
   // Détection du mode "Story" (pour le stage) si des descriptions multiples existent
-  // On vérifie si la première description contient un tableau d'images
-  const isStoryMode = project.descriptions && Array.isArray(project.descriptions) && project.descriptions[0].images;
+  // On vérifie de façon défensive si au moins une description contient des images
+  const isStoryMode = Array.isArray(project.descriptions) && project.descriptions.some(d => Array.isArray(d.images) && d.images.length > 0);
 
   // Préparation des images pour le carrousel
-  const modalImages = isStoryMode 
-    ? project.descriptions.flatMap(d => d.images) 
+  let modalImages = isStoryMode
+    ? (project.descriptions || []).flatMap(d => d.images || [])
     : (project.images || []);
+
+  // Fallback si aucune image/vidéo n'est disponible
+  if (!Array.isArray(modalImages) || modalImages.length === 0) {
+    modalImages = [photo_profil];
+  }
 
   const imageIndex = modalImages.length > 0 
     ? (page % modalImages.length + modalImages.length) % modalImages.length 
@@ -1321,11 +1846,16 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
   const isVideo = typeof currentMedia === 'string' && (currentMedia.endsWith('.mp4') || currentMedia.endsWith('.webm') || currentMedia.endsWith('.ogg'));
 
   // Détermination de la description à afficher (soit globale, soit par étape)
-  let currentDescription = project.description;
+  // attempt to use translated description when available
+  let currentDescription = getText(project,'description',language) || project.description;
   if (isStoryMode) {
     let cumulative = 0;
-    for (const desc of project.descriptions) {
-      cumulative += desc.images.length;
+    // support translated step descriptions array; ensure descs est un tableau
+    const descs = (project.translations && project.translations[language] && Array.isArray(project.translations[language].descriptions))
+      ? project.translations[language].descriptions
+      : (Array.isArray(project.descriptions) ? project.descriptions : []);
+    for (const desc of descs) {
+      cumulative += (Array.isArray(desc.images) ? desc.images.length : 0);
       if (imageIndex < cumulative) {
         currentDescription = desc;
         break;
@@ -1404,7 +1934,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
               onMouseLeave={() => setIsHovering(false)}
             >
               <AnimatePresence initial={false} custom={direction}>
-                {isVideo ? (
+                    {isVideo ? (
                   <div className="absolute w-full h-full cursor-pointer" onClick={toggleCarouselVideo}>
                     <motion.video
                       ref={videoRef}
@@ -1455,7 +1985,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                       x: { type: "spring", stiffness: 300, damping: 30 },
                       opacity: { duration: 0.2 },
                     }}
-                    alt={`${project.title} - Image ${imageIndex + 1}`}
+                    alt={`${getText(project,'title',language)} - Image ${imageIndex + 1}`}
                     className="absolute w-full h-full object-contain cursor-zoom-in"
                     onClick={() => setShowLightbox(true)}
                   />
@@ -1497,7 +2027,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 
           {/* Informations en bas */}
           <div className="w-full flex flex-col">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 pr-8">{project.title}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 pr-8">{getText(project,'title',language)}</h2>
 
             {/* Texte */}
             <div className="mb-4 md:mb-6">
@@ -1506,7 +2036,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                   {currentDescription.map((section, idx) => (
                     <div key={idx} className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-5 shadow-sm">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2 border-b border-neutral-700/50 pb-2">
-                        <h4 className="text-xl font-bold text-blue-400">{section.title}</h4>
+                        <h4 className="text-xl font-bold text-blue-400">{getText(section,'title',language) || section.title}</h4>
                         {section.period && (
                           <span className="text-xs font-mono bg-neutral-700 px-2 py-1 rounded text-neutral-300 whitespace-nowrap">
                             {section.period}
@@ -1514,24 +2044,24 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                         )}
                       </div>
                       <p className="text-sm md:text-base text-neutral-300 whitespace-pre-wrap leading-relaxed">
-                        {section.text}
-                      </p>
+                          {getText(section,'text',language) || section.text}
+                        </p>
                     </div>
                   ))}
                 </div>
               ) : typeof currentDescription === 'object' && currentDescription !== null ? (
                 <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-5 shadow-sm">
                   <div className="mb-3 border-b border-neutral-700/50 pb-2">
-                    <h4 className="text-xl font-bold text-blue-400">{currentDescription.title}</h4>
+                    <h4 className="text-xl font-bold text-blue-400">{getText(currentDescription,'title',language) || currentDescription.title}</h4>
                   </div>
                   <p className="text-sm md:text-base text-neutral-300 whitespace-pre-wrap leading-relaxed">
-                    {currentDescription.text}
+                    {getText(currentDescription,'text',language) || currentDescription.text}
                   </p>
                 </div>
               ) : (
                 <div className="bg-neutral-800/30 p-4 rounded-lg border border-neutral-700/50">
                   <p className="text-sm md:text-base text-neutral-300 whitespace-pre-wrap">
-                    {Array.isArray(currentDescription) ? currentDescription.join("") : currentDescription}
+                    {Array.isArray(currentDescription) ? currentDescription.join("") : (getText({text: currentDescription},'text',language) || currentDescription)}
                   </p>
                 </div>
               )}
@@ -1542,22 +2072,22 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
               <div className="mb-6">
                 <h3 className="text-lg font-semibold mb-3 text-white">{translations.modal.projectFeedback}</h3>
                 <div className="flex flex-col gap-4">
-                  {project.feedback.difficulties && (
+                  {getProjectFeedbackText(project,'difficulties',language) && (
                     <div className="bg-neutral-800/50 p-4 rounded-lg border border-neutral-700/50">
                       <h4 className="text-md font-semibold mb-2 text-red-400">{translations.modal.difficulties}</h4>
-                      <p className="text-sm text-neutral-300 whitespace-pre-wrap">{project.feedback.difficulties}</p>
+                      <p className="text-sm text-neutral-300 whitespace-pre-wrap">{getProjectFeedbackText(project,'difficulties',language)}</p>
                     </div>
                   )}
-                  {project.feedback.takeaways && (
+                  {getProjectFeedbackText(project,'takeaways',language) && (
                     <div className="bg-neutral-800/50 p-4 rounded-lg border border-neutral-700/50">
                       <h4 className="text-md font-semibold mb-2 text-green-400">{translations.modal.takeaways}</h4>
-                      <p className="text-sm text-neutral-300 whitespace-pre-wrap">{project.feedback.takeaways}</p>
+                      <p className="text-sm text-neutral-300 whitespace-pre-wrap">{getProjectFeedbackText(project,'takeaways',language)}</p>
                     </div>
                   )}
-                  {project.feedback.extensions && (
+                  {getProjectFeedbackText(project,'extensions',language) && (
                     <div className="bg-neutral-800/50 p-4 rounded-lg border border-neutral-700/50">
                       <h4 className="text-md font-semibold mb-2 text-blue-400">{translations.modal.extensions}</h4>
-                      <p className="text-sm text-neutral-300 whitespace-pre-wrap">{project.feedback.extensions}</p>
+                      <p className="text-sm text-neutral-300 whitespace-pre-wrap">{getProjectFeedbackText(project,'extensions',language)}</p>
                     </div>
                   )}
                 </div>
@@ -1586,7 +2116,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
               <div className="flex flex-col gap-4">
                 {hardSkills.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-neutral-400 mb-2 uppercase tracking-wider">Compétences Techniques</h4>
+                    <h4 className="text-sm font-medium text-neutral-400 mb-2 uppercase tracking-wider">{translations.ui.technicalSkills}</h4>
                     <div className="flex flex-wrap gap-2">
                       {hardSkills.map((skillName, index) => (
                         <button key={index} onClick={() => onSkillClick(skillsList.find(s => s.name === skillName))} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-blue-500/40 transition-colors cursor-pointer">
@@ -1599,7 +2129,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 
                 {softSkills.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-neutral-400 mb-2 uppercase tracking-wider">Compétences Transversales</h4>
+                    <h4 className="text-sm font-medium text-neutral-400 mb-2 uppercase tracking-wider">{translations.ui.transversalSkills}</h4>
                     <div className="flex flex-wrap gap-2">
                       {softSkills.map((skillName, index) => (
                         <button key={index} onClick={() => onSkillClick(skillsList.find(s => s.name === skillName))} className="bg-neutral-500/20 text-neutral-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-neutral-500/40 transition-colors cursor-pointer">
@@ -1722,7 +2252,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
               className="bg-neutral-900 w-full h-full max-w-6xl rounded-xl border border-neutral-700 flex flex-col overflow-hidden shadow-2xl"
             >
               <div className="flex justify-between items-center p-4 bg-neutral-800 border-b border-neutral-700">
-                <h3 className="text-white font-bold text-lg truncate pr-4">{project.title} - Document</h3>
+                <h3 className="text-white font-bold text-lg truncate pr-4">{getText(project,'title',language)} - Document</h3>
                 <div className="flex items-center gap-3">
                   <a 
                     href={project.pdf} 
@@ -1731,7 +2261,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                     onClick={(e) => e.stopPropagation()}
                   >
                     <IconFileTypePdf size={20} />
-                    <span className="hidden sm:inline">Télécharger</span>
+                    <span className="hidden sm:inline">{translations.ui.download}</span>
                   </a>
                   <button 
                     onClick={() => setShowPdfPreview(false)}
@@ -1757,7 +2287,8 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 };
 
 // Composant pour la modale de compétence
-const SkillModal = ({ skill, projects, onClose, onProjectClick }) => {
+const SkillModal = ({ skill, projects, onClose, onProjectClick, language, translations }) => {
+  if (!skill) return null;
   const modalRef = useRef(null);
   useOutsideClick(modalRef, onClose);
   const [selectedLevel, setSelectedLevel] = useState(null);
@@ -1804,19 +2335,19 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick }) => {
                 >
                   <IconArrowLeft size={20} />
                 </button>
-                <h2 className="text-2xl font-bold text-white">Niveau {selectedLevel.id} - Détails</h2>
+                <h2 className="text-2xl font-bold text-white">{translations.skillModal.levelDetails} {selectedLevel.id}</h2>
               </div>
 
               <div className="bg-neutral-800/50 p-6 rounded-xl border border-neutral-700">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-xl font-bold text-blue-400">Maîtrise : {selectedLevel.percentage}%</h3>
+                  <h3 className="text-xl font-bold text-blue-400">{translations.skillModal.mastery} : {selectedLevel.percentage}%</h3>
                 </div>
-                <p className="text-neutral-300 mb-6 text-lg">{selectedLevel.desc}</p>
+                <p className="text-neutral-300 mb-6 text-lg">{getText(selectedLevel,'desc',language) || selectedLevel.desc}</p>
                 
                 {selectedLevel.explanation && (
                   <div className="p-4 bg-neutral-900/50 rounded-lg border-l-4 border-blue-500 mb-2">
-                      <h4 className="text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">Pourquoi ce niveau ?</h4>
-                      <p className="text-neutral-200 italic">"{selectedLevel.explanation}"</p>
+                      <h4 className="text-sm font-bold text-neutral-400 mb-2 uppercase tracking-wider">{translations.skillModal.whyLevel}</h4>
+                      <p className="text-neutral-200 italic">"{getText(selectedLevel,'explanation',language) || selectedLevel.explanation}"</p>
                   </div>
                 )}
               </div>
@@ -1824,7 +2355,7 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick }) => {
               <div>
                 <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                   <IconBrandTabler size={24} className="text-neutral-400" />
-                  Projets associés au niveau {selectedLevel.id}
+                  {translations.skillModal.associatedProjects.replace('{level}', selectedLevel.id)}
                 </h3>
                 {levelProjects.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1836,7 +2367,7 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick }) => {
                       >
                         <img 
                           src={project.images[0]} 
-                          alt={project.title} 
+                          alt={getText(project,'title',language)} 
                           className="w-12 h-12 rounded object-cover bg-neutral-900"
                         />
                         <div className="flex-1 min-w-0">
@@ -1850,7 +2381,7 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick }) => {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-neutral-500 italic">Aucun projet spécifique associé à ce niveau.</p>
+                  <p className="text-neutral-500 italic">{translations.skillModal.noAssociatedProjects}</p>
                 )}
               </div>
             </motion.div>
@@ -1866,7 +2397,7 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick }) => {
             {/* En-tête */}
             <div>
               <div className="flex items-center gap-4 mb-4 pr-12">
-                <h2 className="text-3xl font-bold text-blue-400">{skill.name}</h2>
+                <h2 className="text-3xl font-bold text-blue-400">{getText(skill,'name',language)}</h2>
                 {/* Affichage du badge de niveau uniquement pour les compétences standards */}
                 {skill.level && typeof skill.level === 'string' && (
                   <span className={`text-sm font-medium px-3 py-1 rounded-full border ${
@@ -1895,7 +2426,7 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick }) => {
                         <h4 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">Niveau {lvl.id}</h4>
                         <span className="text-sm font-mono text-neutral-400">{lvl.percentage}%</span>
                       </div>
-                      <p className="text-neutral-300 text-sm mb-3">{lvl.desc}</p>
+                      <p className="text-neutral-300 text-sm mb-3">{getText(lvl,'desc',language) || lvl.desc}</p>
 
                       <div className="w-full bg-neutral-700 rounded-full h-2.5 mb-4">
                         <div 
@@ -1938,12 +2469,12 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick }) => {
                     >
                       <img 
                         src={project.images[0]} 
-                        alt={project.title} 
+                        alt={getText(project,'title',language)} 
                         className="w-12 h-12 rounded object-cover bg-neutral-900"
                       />
                       <div className="flex-1 min-w-0">
                         <h4 className="text-sm font-medium text-neutral-200 group-hover:text-blue-400 truncate transition-colors">
-                          {project.title}
+                          {getText(project,'title',language)}
                         </h4>
                         <p className="text-xs text-neutral-500">{project.year}</p>
                       </div>
