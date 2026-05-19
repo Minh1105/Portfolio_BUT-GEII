@@ -166,17 +166,12 @@ export const SidebarLink = ({
   return (
     <a
       href={link.href}
-      className={cn("flex w-full items-center justify-start gap-2 group/sidebar py-2", className)}
+      className={cn("flex w-full items-center justify-start gap-4 group/sidebar py-4", className)}
       {...props}>
-      {link.icon}
-      <motion.span
-        animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        className="text-white text-xl group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
+      {link.icon && <div className="w-12 h-1 flex items-center justify-center flex-shrink-0">{link.icon}</div>}
+      <span className="text-white text-2xl font-semibold group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
         {link.label}
-      </motion.span>
+      </span>
     </a>
   );
 };

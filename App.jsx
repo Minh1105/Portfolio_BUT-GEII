@@ -129,7 +129,10 @@ function App() {
         mastery: "Maîtrise",
         whyLevel: "Pourquoi ce niveau ?",
         associatedProjects: "Projets associés au niveau {level}",
-        noAssociatedProjects: "Aucun projet spécifique associé à ce niveau."
+        noAssociatedProjects: "Aucun projet spécifique associé à ce niveau.",
+        skillAssociatedProjects: "Projets associés",
+        noSkillProjects: "Aucun projet listé pour cette compétence.",
+        seeDetails: "Voir les détails et projets associés"
       },
       ui: {
         portfolio: "Portfolio",
@@ -172,7 +175,10 @@ function App() {
         mastery: "Mastery",
         whyLevel: "Why this level?",
         associatedProjects: "Projects associated with level {level}",
-        noAssociatedProjects: "No specific projects associated with this level."
+        noAssociatedProjects: "No specific projects associated with this level.",
+        skillAssociatedProjects: "Associated Projects",
+        noSkillProjects: "No projects listed for this skill.",
+        seeDetails: "See details and associated projects"
       },
       ui: {
         portfolio: "Portfolio",
@@ -215,7 +221,10 @@ function App() {
         mastery: "Mức độ thành thạo",
         whyLevel: "Tại sao ở cấp độ này?",
         associatedProjects: "Dự án liên quan đến cấp độ {level}",
-        noAssociatedProjects: "Không có dự án cụ thể nào liên quan đến cấp độ này."
+        noAssociatedProjects: "Không có dự án cụ thể nào liên quan đến cấp độ này.",
+        skillAssociatedProjects: "Các dự án liên quan",
+        noSkillProjects: "Không có dự án nào được liệt kê cho kỹ năng này.",
+        seeDetails: "Xem chi tiết và các dự án liên quan"
       },
       ui: {
         portfolio: "Portfolio",
@@ -242,35 +251,35 @@ function App() {
       label: translations.sidebar.home,
       href: "#accueil",
       icon: (
-        <IconHome className="text-white h-9 w-9 flex-shrink-0" />
+        <IconHome className="text-white h-12 w-12 flex-shrink-0" />
       ),
     },
     {
       label: translations.sidebar.experiences,
       href: "#experiences",
       icon: (
-        <IconBrandTabler className="text-white h-9 w-9 flex-shrink-0" />
+        <IconBrandTabler className="text-white h-12 w-12 flex-shrink-0" />
       ),
     },
     {
       label: translations.sidebar.skills,
       href: "#competences",
       icon: (
-        <IconSettings className="text-white h-9 w-9 flex-shrink-0" />
+        <IconSettings className="text-white h-12 w-12 flex-shrink-0" />
       ),
     },
     {
       label: translations.sidebar.interests,
       href: "#interets",
       icon: (
-        <IconHeart className="text-white h-9 w-9 flex-shrink-0" />
+        <IconHeart className="text-white h-12 w-12 flex-shrink-0" />
       ),
     },
     {
       label: translations.sidebar.contact,
       href: "#contacts",
       icon: (
-        <IconAddressBook className="text-white h-9 w-9 flex-shrink-0" />
+        <IconAddressBook className="text-white h-12 w-12 flex-shrink-0" />
       ),
     },
   ];
@@ -287,7 +296,7 @@ function App() {
         SmatLightInfographie
       ], 
       description: "Le projet SmartLight consiste à créer une lampe intelligente et polyvalente pilotée par une carte Arduino. Le système permet de régler l'ambiance lumineuse de plusieurs façons : on peut faire varier l'intensité d'une lampe principale, changer les couleurs d'une LED RGB ou utiliser des petites LEDs de signalisation. Pour interagir avec la lampe, l'utilisateur dispose de deux boutons-poussoirs physiques et d'une télécommande infrarouge pour un contrôle à distance. La lampe est également autonome grâce à différents capteurs qui mesurent la lumière ambiante pour adapter l'éclairage automatiquement. Enfin, l'ensemble du programme est conçu pour gérer toutes ces fonctions en même temps, assurant une réponse fluide aux commandes tout en surveillant la luminosité de la pièce.",
-      skills: ["Arduino IDE", "C++", "Lecture de datasheets", "Electronique", "Rédaction de rapports", "Microsoft Office", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Analyse", "Autonomie", "Communication"],
+      skills: ["Arduino IDE", "C/C++", "Datasheets", "Electronique", "Rédaction de rapports", "Microsoft Office", "Rapports & CR", "Tests & Vérif.", "Analyse", "Autonomie", "Communication"],
       //pdf: "/path/to/rapport_projet1.pdf",
       feedback: {
         difficulties: "",
@@ -673,7 +682,7 @@ function App() {
         }
         
       ],
-      skills: ["Python", "CodeSys", "MQTT", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
+      skills: ["Python", "CoDeSys", "MQTT", "LaTeX / Overleaf", "Rapports & CR", "Tests & Vérif.", "Datasheets", "Travail d'équipe", "Analyse", "Autonomie", "Communication"],
       pdf: "/assets/pdf/Rapport_Optiplant_vf_Partiel.pdf",
       feedback: {
         difficulties: "Le choix du protocole de communication entre la base de données et l'interface homme machine (MQTT, MySQL, et Modbus). Le travail d'équipe (9 personnes) est aussi une difficulté car il faut gérer son temps pour ne pas retarder les autres parties / groupe.",
@@ -926,6 +935,7 @@ function App() {
     },
     { 
       name: "C/C++", 
+      aliases: ["C++"],
       level: "Avancée",
       desc: "Développement système performant et bas niveau.",
       category: "hard",
@@ -947,6 +957,7 @@ function App() {
     },
     { 
       name: "Datasheets", 
+      aliases: ["Lecture de datasheets"],
       level: "Avancée",
       desc: "Lecture et analyse de spécifications techniques.",
       category: "hard",
@@ -1068,6 +1079,7 @@ function App() {
     },
     { 
       name: "CoDeSys", 
+      aliases: ["CodeSys"],
       level: "Notions",
       desc: "Environnement de développement pour automates programmables.",
       category: "hard",
@@ -1131,18 +1143,18 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "flex items-center justify-start gap-2  group/sidebar py-2"
+                  "flex items-center justify-start gap-2 group/sidebar py-2"
                 )}
               >
                 <img
                   src={photo_profil} // 2. Utilisez l'image importée
-                  className={cn("flex-shrink-0 rounded-full transition-all", open ? "h-12 w-12" : "h-10 w-10")}
+                  className={cn("flex-shrink-0 rounded-full transition-all", open ? "h-16 w-16" : "h-12 w-12")}
                   width={50}
                   height={50}
                   alt="Avatar"
                 />
                 {open && (
-                  <span className="text-white text-xl group-hover/sidebar:translate-x-1 transition-transform duration-150 whitespace-pre inline-block">Ly Minh-Quan</span>
+                  <span className="text-white text-lg font-semibold group-hover/sidebar:translate-x-1 transition-transform duration-150 whitespace-pre inline-block">Ly Minh-Quan</span>
                 )}
               </a>
             </div>
@@ -1379,13 +1391,13 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
     },
     {
       title: "Musculation",
-      date: "En 2023",
-      description: "Je faisais de la musculation en 2023, mais par manque de temps j'ai arrêté.",
+      date: "Actuellement",
+      description: "J'ai fais de la musculation en 2023 mais j'ai arrêté par manque de temps. Puis j'ai repris en 2026 pour me remettre en forme après une période de sédentarité.",
       icon: <IconBarbell size={32} className="text-red-400" />,
       level: null,
       translations: {
-        en: { title: "Weight Training", date: "In 2023", description: "I practiced weight training in 2023 but stopped due to lack of time." },
-        vi: { title: "Tập gym", date: "Năm 2023", description: "Tôi đã tập gym năm 2023 nhưng đã dừng lại do thiếu thời gian." }
+        en: { title: "Weight Training", date: "Actually", description: "I did weight training in 2023 but stopped due to lack of time. Then I started again in 2026 to get back in shape after a period of inactivity." },
+        vi: { title: "Tập gym", date: "Hiện nay", description: "Tôi từng tập tạ vào năm 2023 nhưng đã dừng lại vì thiếu thời gian. Sau đó, tôi bắt đầu lại vào năm 2026 để lấy lại vóc dáng sau một thời gian không hoạt động." }
       }
     },
     {
@@ -1917,17 +1929,23 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
     return () => clearInterval(autoplay);
   }, [isHovering, paginate, modalImages.length, isStoryMode, isVideo]);
 
+  const normalizeSkillKey = (value) => String(value || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+  const findSkillByName = (skillName) => {
+    const normalized = normalizeSkillKey(skillName);
+    return skillsList.find(skill =>
+      normalizeSkillKey(skill.name) === normalized ||
+      (skill.aliases || []).some(alias => normalizeSkillKey(alias) === normalized) ||
+      (skill.translations && Object.values(skill.translations).some(translation => normalizeSkillKey(translation.name) === normalized))
+    ) || null;
+  };
+
   const currentSkills = project.skills || [];
-
-  const hardSkills = currentSkills.filter(skillName => {
-    const s = skillsList.find(sk => sk.name === skillName);
-    return s && s.category === 'hard';
-  });
-
-  const softSkills = currentSkills.filter(skillName => {
-    const s = skillsList.find(sk => sk.name === skillName);
-    return s && s.category === 'soft';
-  });
+  const hardSkills = currentSkills
+    .map(findSkillByName)
+    .filter(skill => skill && skill.category === 'hard');
+  const softSkills = currentSkills
+    .map(findSkillByName)
+    .filter(skill => skill && skill.category === 'soft');
 
   return (
     <motion.div
@@ -2145,9 +2163,9 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                   <div>
                     <h4 className="text-xs font-semibold text-neutral-400 mb-2 uppercase tracking-[0.22em]">{translations.ui.technicalSkills}</h4>
                     <div className="flex flex-wrap gap-2">
-                      {hardSkills.map((skillName, index) => (
-                        <button key={index} onClick={() => onSkillClick(skillsList.find(s => s.name === skillName))} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-blue-500/40 transition-colors cursor-pointer border border-blue-500/20">
-                          {skillName}
+                      {hardSkills.map((skill, index) => (
+                        <button key={index} onClick={() => onSkillClick(skill)} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-blue-500/40 transition-colors cursor-pointer border border-blue-500/20">
+                          {getText(skill, 'name', language) || skill.name}
                         </button>
                       ))}
                     </div>
@@ -2158,9 +2176,9 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                   <div>
                     <h4 className="text-xs font-semibold text-neutral-400 mb-2 uppercase tracking-[0.22em]">{translations.ui.transversalSkills}</h4>
                     <div className="flex flex-wrap gap-2">
-                      {softSkills.map((skillName, index) => (
-                        <button key={index} onClick={() => onSkillClick(skillsList.find(s => s.name === skillName))} className="bg-neutral-500/20 text-neutral-200 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-neutral-500/30 transition-colors cursor-pointer border border-neutral-500/20">
-                          {skillName}
+                      {softSkills.map((skill, index) => (
+                        <button key={index} onClick={() => onSkillClick(skill)} className="bg-neutral-500/20 text-neutral-200 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-neutral-500/30 transition-colors cursor-pointer border border-neutral-500/20">
+                          {getText(skill, 'name', language) || skill.name}
                         </button>
                       ))}
                     </div>
@@ -2468,13 +2486,13 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick, language, transl
                       </div>
                       
                       <div className="text-xs text-blue-400 font-medium flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        Voir les détails et projets associés <IconChevronRight size={14} />
+                        {translations.skillModal.seeDetails} <IconChevronRight size={14} />
                       </div>
                     </div>
                   )})}
                 </div>
               ) : (
-                <p className="text-neutral-300 text-lg">{skill.desc}</p>
+                <p className="text-neutral-300 text-lg">{getText(skill, 'desc', language) || skill.desc}</p>
               )}
             </div>
 
@@ -2483,7 +2501,7 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick, language, transl
             <div>
               <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                 <IconBrandTabler size={24} className="text-neutral-400" />
-                Projets associés
+                {translations.skillModal.skillAssociatedProjects}
               </h3>
               
               {relatedProjects.length > 0 ? (
@@ -2510,7 +2528,7 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick, language, transl
                   ))}
                 </div>
               ) : (
-                <p className="text-neutral-500 italic">Aucun projet listé pour cette compétence.</p>
+                <p className="text-neutral-500 italic">{translations.skillModal.noSkillProjects}</p>
               )}
             </div>
             )}
