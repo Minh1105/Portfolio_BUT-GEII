@@ -88,23 +88,20 @@ import photo_profil from './assets/images/photo_profil.png'; // 1. Importez votr
 
 function App() {
   const [language, setLanguage] = useState('fr');
-  const [activeTab, setActiveTab] = useState('accueil');
+  const validTabs = ['accueil', 'experiences', 'competences', 'interets', 'contacts'];
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window === 'undefined') return 'accueil';
+    const hash = window.location.hash.replace('#', '');
+    return validTabs.includes(hash) ? hash : 'accueil';
+  });
 
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
-      if (hash) setActiveTab(hash);
+      setActiveTab(validTabs.includes(hash) ? hash : 'accueil');
     };
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  // Ensure the site always opens on the accueil section by default
-  useEffect(() => {
-    if (window.location.hash.replace('#', '') !== 'accueil') {
-      window.location.hash = '#accueil';
-      setActiveTab('accueil');
-    }
   }, []);
 
   const translationsAll = {
@@ -239,11 +236,6 @@ function App() {
     }
   };
   const translations = translationsAll[language] || translationsAll.fr;
-
-  function getProjectFeedbackText(project, field, language) {
-    if (!project || !project.feedback) return '';
-    return project.translations?.[language]?.[field] ?? project.feedback[field] ?? '';
-  }
 
   const links = [
     {
@@ -1116,14 +1108,17 @@ function App() {
 
   return (
     // Ajout du style pour le défilement fluide
-    <div ref={appRef} className="flex flex-col md:flex-row w-full h-screen overflow-hidden bg-neutral-900" style={{ scrollBehavior: "smooth" }}>
+    <div ref={appRef} className="flex flex-col md:flex-row w-full min-h-screen overflow-auto md:overflow-hidden bg-neutral-900" style={{ scrollBehavior: "smooth" }}>
       <Sidebar open={open} setOpen={setOpen}>
-          <SidebarBody className="justify-between gap-10">
+          <SidebarBody className="justify-between gap-4 md:gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto">
             <div className="flex flex-col gap-2 pt-4">
               {links.map((link, idx) => (
                 <div key={idx} onClick={() => setOpen(false)}>
-                  <SidebarLink link={link} />
+                  <SidebarLink
+                    link={link}
+                    onClick={() => setActiveTab(link.href.replace('#', ''))}
+                  />
                 </div>
               ))}
             </div>
@@ -1408,7 +1403,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
   return (
     // On ajoute un fond en dégradé directement ici.
-    <div className="flex-1 h-full relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800 overflow-hidden">
+    <div className="flex-1 min-h-screen relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800 overflow-auto md:overflow-hidden">
       
       {/* Bouton de changement de langue */}
       <div className="absolute top-4 right-4 z-50">
@@ -1432,10 +1427,10 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
       </div>
 
       {/* Le contenu du dashboard est par-dessus. La classe 'no-scrollbar' a été retirée. */}
-      <div className="w-full h-full overflow-hidden">
+      <div className="w-full min-h-screen overflow-auto">
           {/* Section Accueil */}
           {activeTab === 'accueil' && (
-            <section id="accueil" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white flex flex-col justify-center items-center text-center">
+            <section id="accueil" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white flex flex-col justify-center items-center text-center">
               <div className="flex flex-col items-center gap-6 max-w-4xl mx-auto">
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }} 
@@ -1483,7 +1478,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
           {/* Section Expériences */}
           {activeTab === 'experiences' && (
-          <section id="experiences" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white pt-20 md:pt-5">
+          <section id="experiences" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white pt-20 md:pt-5">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">{translations.sections.experiences.title}</h2>
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mb-6 md:mb-8 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.experiences.desc}</p>
@@ -1510,7 +1505,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                         <h3 className="text-xl font-bold mb-2">{getText(item,'title',language)}</h3>
                         <div className="flex justify-between text-sm text-neutral-400">
                           <span>{item.year}</span>
-                          <span>{item.duration}</span>
+                          <span>{translateDuration(getText(item, 'duration', language) || item.duration, language)}</span>
                         </div>
                       </div>
                     </motion.div>
@@ -1540,7 +1535,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                         <h3 className="text-xl font-bold mb-2">{getText(item,'title',language)}</h3>
                         <div className="flex justify-between text-sm text-neutral-400">
                           <span>{item.year}</span>
-                          <span>{item.duration}</span>
+                          <span>{translateDuration(getText(item, 'duration', language) || item.duration, language)}</span>
                         </div>
                       </div>
                     </motion.div>
@@ -1553,7 +1548,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
           {/* Section Compétences */}
           {activeTab === 'competences' && (
-          <section id="competences" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white pt-20 md:pt-5">
+          <section id="competences" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white pt-20 md:pt-5">
             <h2 className="text-2xl md:text-3xl font-bold">{translations.sections.skills.title}</h2>
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 mb-8 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.skills.desc}</p>
@@ -1639,7 +1634,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
           {/* Section Centres d'intérêts */}
           {activeTab === 'interets' && (
-          <section id="interets" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white pt-20 md:pt-5">
+          <section id="interets" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white pt-20 md:pt-5">
             <h2 className="text-2xl md:text-3xl font-bold">{translations.sections.interests.title}</h2>
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 mb-8 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.interests.desc}</p>
@@ -1685,7 +1680,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
           {/* Section Contacts */}
           {activeTab === 'contacts' && (
-          <section id="contacts" className="w-full h-full overflow-y-auto p-4 md:p-8 text-white pt-20 md:pt-5">
+          <section id="contacts" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white pt-20 md:pt-5">
             <h2 className="text-2xl md:text-3xl font-bold">{translations.sections.contact.title}</h2>
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.contact.desc}</p>
@@ -1794,6 +1789,11 @@ const variants = {
   }),
 };
 
+function getProjectFeedbackText(project, field, language) {
+  if (!project || !project.feedback) return '';
+  return project.translations?.[language]?.[field] ?? project.feedback[field] ?? '';
+}
+
 // Helper pour récupérer le texte selon la langue (fallback à la valeur par défaut)
 function getText(item, field, language) {
   if (!item) return '';
@@ -1807,6 +1807,33 @@ function getText(item, field, language) {
     return item[field + '_translations'][language];
   }
   return item[field] !== undefined ? item[field] : '';
+}
+
+function translateDuration(duration, language) {
+  if (!duration) return '';
+  const input = String(duration).trim();
+
+  if (language === 'fr') return input;
+
+  const translations = {
+    en: {
+      heures: 'hours',
+      heure: 'hour',
+      semaines: 'weeks',
+      semaine: 'week'
+    },
+    vi: {
+      heures: 'giờ',
+      heure: 'giờ',
+      semaines: 'tuần',
+      semaine: 'tuần'
+    }
+  };
+
+  const mapping = translations[language] || translations.en;
+  return input
+    .replace(/(\+?\s*\d+)\s*heures?\b/gi, (match, amount) => `${amount} ${mapping.heures}`)
+    .replace(/(\+?\s*\d+)\s*semaines?\b/gi, (match, amount) => `${amount} ${mapping.semaines}`);
 }
 
 // Composant pour la modale de projet
@@ -2104,7 +2131,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                     </div>
                     <div className="flex flex-col">
                         <span className="text-neutral-400 text-sm">{translations.modal.duration}</span>
-                        <span className="text-neutral-200 font-medium">{project.duration}</span>
+                        <span className="text-neutral-200 font-medium">{translateDuration(getText(project, 'duration', language) || project.duration, language)}</span>
                     </div>
                 </div>
             </div>

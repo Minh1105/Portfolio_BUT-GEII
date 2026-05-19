@@ -95,13 +95,19 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100/50 dark:bg-neutral-800/50 backdrop-blur-sm w-full z-10"
+          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100/50 dark:bg-neutral-800/50 backdrop-blur-sm w-full z-10",
+          className
         )}
         {...props}>
-        <div className="flex justify-end z-20 w-full">
-          <IconMenu2
-            className="text-neutral-800 dark:text-neutral-200"
-            onClick={() => setOpen(!open)} />
+        <div className="flex justify-between items-center w-full gap-3">
+          <button
+            className="p-2 rounded-md bg-neutral-900/80 text-white hover:bg-neutral-800 transition-colors"
+            onClick={() => setOpen(!open)}
+            aria-label="Menu mobile"
+          >
+            <IconMenu2 className="text-neutral-100" />
+          </button>
+          <span className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">Menu</span>
         </div>
         <AnimatePresence>
           {open && (
@@ -114,15 +120,22 @@ export const MobileSidebar = ({
                 ease: "easeInOut",
               }}
               className={cn(
-                "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between",
+                "fixed inset-0 h-full w-full bg-white dark:bg-neutral-900 p-4 sm:p-6 z-[100] flex flex-col justify-between overflow-y-auto",
                 className
               )}>
-              <div
-                className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200"
-                onClick={() => setOpen(!open)}>
-                <IconX />
+              <div className="flex items-center justify-between mb-6">
+                <span className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Navigation</span>
+                <button
+                  className="p-2 rounded-md bg-neutral-900/80 text-white hover:bg-neutral-800 transition-colors"
+                  onClick={() => setOpen(false)}
+                  aria-label="Fermer le menu mobile"
+                >
+                  <IconX />
+                </button>
               </div>
-              {children}
+              <div className="flex-1 overflow-y-auto">
+                {children}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -140,7 +153,7 @@ export const SidebarLink = ({
   return (
     <a
       href={link.href}
-      className={cn("flex items-center justify-start gap-2  group/sidebar py-2", className)}
+      className={cn("flex w-full items-center justify-start gap-2 group/sidebar py-2", className)}
       {...props}>
       {link.icon}
       <motion.span
