@@ -242,35 +242,35 @@ function App() {
       label: translations.sidebar.home,
       href: "#accueil",
       icon: (
-        <IconHome className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
+        <IconHome className="text-white h-9 w-9 flex-shrink-0" />
       ),
     },
     {
       label: translations.sidebar.experiences,
       href: "#experiences",
       icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
+        <IconBrandTabler className="text-white h-9 w-9 flex-shrink-0" />
       ),
     },
     {
       label: translations.sidebar.skills,
       href: "#competences",
       icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
+        <IconSettings className="text-white h-9 w-9 flex-shrink-0" />
       ),
     },
     {
       label: translations.sidebar.interests,
       href: "#interets",
       icon: (
-        <IconHeart className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
+        <IconHeart className="text-white h-9 w-9 flex-shrink-0" />
       ),
     },
     {
       label: translations.sidebar.contact,
       href: "#contacts",
       icon: (
-        <IconAddressBook className="text-neutral-700 dark:text-neutral-200 h-9 w-9 flex-shrink-0" />
+        <IconAddressBook className="text-white h-9 w-9 flex-shrink-0" />
       ),
     },
   ];
@@ -1142,7 +1142,7 @@ function App() {
                   alt="Avatar"
                 />
                 {open && (
-                  <span className="text-neutral-700 dark:text-neutral-200 text-xl group-hover/sidebar:translate-x-1 transition-transform duration-150 whitespace-pre inline-block">Ly Minh-Quan</span>
+                  <span className="text-white text-xl group-hover/sidebar:translate-x-1 transition-transform duration-150 whitespace-pre inline-block">Ly Minh-Quan</span>
                 )}
               </a>
             </div>
@@ -1427,7 +1427,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
       </div>
 
       {/* Le contenu du dashboard est par-dessus. La classe 'no-scrollbar' a été retirée. */}
-      <div className="w-full min-h-screen overflow-auto">
+      <div className="w-full min-h-screen overflow-auto pt-16 md:pt-0">
           {/* Section Accueil */}
           {activeTab === 'accueil' && (
             <section id="accueil" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white flex flex-col justify-center items-center text-center">
@@ -1691,7 +1691,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
               
               {/* LinkedIn */}
               <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="bg-white p-2 rounded-lg flex-shrink-0">
+                <div className="bg-neutral-900 p-2 rounded-lg flex-shrink-0 border border-neutral-700">
                   <img 
                     src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent("https://www.linkedin.com/in/minh-quan-ly-1111m2005a")}`} 
                     alt="LinkedIn QR Code" 
@@ -1718,7 +1718,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
               {/* GitHub */}
               <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="bg-white p-2 rounded-lg flex-shrink-0">
+                <div className="bg-neutral-900 p-2 rounded-lg flex-shrink-0 border border-neutral-700">
                   <img 
                     src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent("https://github.com/Minh1105")}`} 
                     alt="GitHub QR Code" 
@@ -1745,7 +1745,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
               {/* Email */}
               <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="bg-white p-2 rounded-lg flex-shrink-0">
+                <div className="bg-neutral-900 p-2 rounded-lg flex-shrink-0 border border-neutral-700">
                   <img 
                     src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent("mailto:minhquan.ly.pro@outlook.com")}`} 
                     alt="Email QR Code" 
@@ -1945,7 +1945,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
         className="bg-neutral-900/80 border border-neutral-700 rounded-xl w-full max-w-7xl h-[90vh] md:h-[80vh] relative flex flex-col overflow-hidden"
       >
         {/* Bouton de fermeture */}
-        <button onClick={onClose} className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors z-20 p-1 rounded-full hover:bg-neutral-800">
+        <button onClick={onClose} className="absolute top-4 right-4 text-white bg-neutral-900/80 hover:bg-neutral-800 transition-colors z-20 p-1 rounded-full">
           <IconX size={24} />
         </button>
 
@@ -2043,7 +2043,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                       setPage([page + (idx - imageIndex), direction]);
                     }}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      idx === imageIndex ? "w-8 bg-white" : "w-2 bg-neutral-600 hover:bg-neutral-500"
+                      idx === imageIndex ? "w-8 bg-neutral-400" : "w-2 bg-neutral-700 hover:bg-neutral-600"
                     }`}
                     aria-label={`Voir l'image ${idx + 1}`}
                   />
@@ -2054,7 +2054,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 
           {/* Informations en bas */}
           <div className="w-full flex flex-col">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 pr-8">{getText(project,'title',language)}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 pr-8 text-white">{getText(project,'title',language)}</h2>
 
             {/* Texte */}
             <div className="mb-4 md:mb-6">
@@ -2138,15 +2138,15 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 
             {/* Pins de compétences */}
             <div>
-              <h3 className="text-lg font-semibold mb-3">{translations.modal.skills}</h3>
+              <h3 className="text-lg md:text-xl font-semibold mb-3 text-white">{translations.modal.skills}</h3>
               
               <div className="flex flex-col gap-4">
                 {hardSkills.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-neutral-400 mb-2 uppercase tracking-wider">{translations.ui.technicalSkills}</h4>
+                    <h4 className="text-xs font-semibold text-neutral-400 mb-2 uppercase tracking-[0.22em]">{translations.ui.technicalSkills}</h4>
                     <div className="flex flex-wrap gap-2">
                       {hardSkills.map((skillName, index) => (
-                        <button key={index} onClick={() => onSkillClick(skillsList.find(s => s.name === skillName))} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-blue-500/40 transition-colors cursor-pointer">
+                        <button key={index} onClick={() => onSkillClick(skillsList.find(s => s.name === skillName))} className="bg-blue-500/20 text-blue-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-blue-500/40 transition-colors cursor-pointer border border-blue-500/20">
                           {skillName}
                         </button>
                       ))}
@@ -2156,10 +2156,10 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
 
                 {softSkills.length > 0 && (
                   <div>
-                    <h4 className="text-sm font-medium text-neutral-400 mb-2 uppercase tracking-wider">{translations.ui.transversalSkills}</h4>
+                    <h4 className="text-xs font-semibold text-neutral-400 mb-2 uppercase tracking-[0.22em]">{translations.ui.transversalSkills}</h4>
                     <div className="flex flex-wrap gap-2">
                       {softSkills.map((skillName, index) => (
-                        <button key={index} onClick={() => onSkillClick(skillsList.find(s => s.name === skillName))} className="bg-neutral-500/20 text-neutral-300 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-neutral-500/40 transition-colors cursor-pointer">
+                        <button key={index} onClick={() => onSkillClick(skillsList.find(s => s.name === skillName))} className="bg-neutral-500/20 text-neutral-200 text-xs font-medium px-2.5 py-1 rounded-full hover:bg-neutral-500/30 transition-colors cursor-pointer border border-neutral-500/20">
                           {skillName}
                         </button>
                       ))}
@@ -2205,7 +2205,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
           >
             {/* Bouton fermer */}
             <button 
-              className="absolute top-4 right-4 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors z-50"
+              className="absolute top-4 right-4 text-white bg-neutral-900/80 hover:bg-neutral-800 p-2 rounded-full transition-colors z-50"
               onClick={() => setShowLightbox(false)}
             >
               <IconX size={32} />
@@ -2245,13 +2245,13 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
               <>
                 <button
                   onClick={(e) => { e.stopPropagation(); paginate(-1); }}
-                  className="absolute left-4 text-white/70 hover:text-white p-3 rounded-full hover:bg-white/10 transition-colors z-50"
+                  className="absolute left-4 text-white bg-neutral-900/80 hover:bg-neutral-800 p-3 rounded-full transition-colors z-50"
                 >
                   <IconChevronLeft size={40} />
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); paginate(1); }}
-                  className="absolute right-4 text-white/70 hover:text-white p-3 rounded-full hover:bg-white/10 transition-colors z-50"
+                  className="absolute right-4 text-white bg-neutral-900/80 hover:bg-neutral-800 p-3 rounded-full transition-colors z-50"
                 >
                   <IconChevronRight size={40} />
                 </button>
@@ -2284,7 +2284,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                   <a 
                     href={project.pdf} 
                     download
-                    className="px-4 py-2 bg-neutral-200 hover:bg-white text-neutral-900 rounded-lg text-sm font-bold transition-colors flex items-center gap-2"
+                    className="px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-white rounded-lg text-sm font-bold transition-colors flex items-center gap-2"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <IconFileTypePdf size={20} />
@@ -2292,7 +2292,7 @@ const ProjectModal = ({ project, onClose, language, translations, skillsList, on
                   </a>
                   <button 
                     onClick={() => setShowPdfPreview(false)}
-                    className="p-2 hover:bg-neutral-700 rounded-full text-neutral-400 hover:text-white transition-colors"
+                    className="p-2 bg-neutral-900/80 hover:bg-neutral-800 rounded-full text-white transition-colors"
                   >
                     <IconX size={24} />
                   </button>
@@ -2340,7 +2340,7 @@ const SkillModal = ({ skill, projects, onClose, onProjectClick, language, transl
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="bg-neutral-900/90 border border-neutral-700 rounded-xl w-full max-w-5xl max-h-[85vh] relative flex flex-col overflow-hidden shadow-2xl"
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors z-20 p-1 rounded-full hover:bg-neutral-800">
+        <button onClick={onClose} className="absolute top-4 right-4 text-white bg-neutral-900/80 hover:bg-neutral-800 transition-colors z-20 p-1 rounded-full">
           <IconX size={24} />
         </button>
 

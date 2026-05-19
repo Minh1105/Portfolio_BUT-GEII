@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "../../lib/utils";
-import React, { useState, createContext, useContext, ReactNode } from "react";
+import React, { useState, useEffect, createContext, useContext, ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 
@@ -51,11 +51,11 @@ export const Sidebar = ({
   );
 };
 
-export const SidebarBody = (props: { children: ReactNode; className?: string; }) => {
+export const SidebarBody = ({ className, children }: { children: ReactNode; className?: string; }) => {
   return (
     <>
-      <DesktopSidebar {...props} />
-      <MobileSidebar {...(props)} />
+      <DesktopSidebar className={className}>{children}</DesktopSidebar>
+      <MobileSidebar>{children}</MobileSidebar>
     </>
   );
 };
@@ -70,7 +70,7 @@ export const DesktopSidebar = ({
     <>
       <motion.div
         className={cn(
-          "h-full px-4 py-4 hidden md:flex md:flex-col bg-neutral-100/50 dark:bg-neutral-800/50 backdrop-blur-sm w-[300px] shrink-0 z-10",
+          "h-full px-4 py-4 hidden md:flex md:flex-col bg-neutral-950/95 backdrop-blur-sm w-[300px] shrink-0 z-10",
           className
         )}
         animate={{
@@ -86,45 +86,58 @@ export const DesktopSidebar = ({
 };
 
 export const MobileSidebar = ({
-  className,
   children,
-  ...props
-}: { className?: string; children: ReactNode; }) => {
+}: { children: ReactNode; }) => {
   const { open, setOpen } = useSidebar();
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <>
       <div
-        className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100/50 dark:bg-neutral-800/50 backdrop-blur-sm w-full z-10",
-          className
-        )}
-        {...props}>
-        <div className="flex justify-between items-center w-full gap-3">
-          <button
-            className="p-2 rounded-md bg-neutral-900/80 text-white hover:bg-neutral-800 transition-colors"
-            onClick={() => setOpen(!open)}
-            aria-label="Menu mobile"
-          >
-            <IconMenu2 className="text-neutral-100" />
-          </button>
-          <span className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">Menu</span>
-        </div>
-        <AnimatePresence>
-          {open && (
+        className="fixed top-0 left-0 right-0 h-14 px-4 py-3 flex items-center justify-between bg-neutral-950/90 backdrop-blur-sm w-full z-50 shadow-md md:hidden"
+      >
+        <button
+          className="p-2 rounded-md bg-neutral-900/80 text-white hover:bg-neutral-800 transition-colors"
+          onClick={() => setOpen(!open)}
+          aria-label="Menu mobile"
+        >
+          <IconMenu2 className="text-neutral-100" />
+        </button>
+        <span className="text-sm font-semibold text-white">Menu</span>
+      </div>
+
+      <AnimatePresence>
+        {open && (
+          <>
             <motion.div
+              key="sidebar-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/40 z-[95] md:hidden"
+              onClick={() => setOpen(false)}
+            />
+            <motion.div
+              key="sidebar-panel"
               initial={{ x: "-100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: "-100%", opacity: 0 }}
-              transition={{
-                duration: 0.3,
-                ease: "easeInOut",
-              }}
-              className={cn(
-                "fixed inset-0 h-full w-full bg-white dark:bg-neutral-900 p-4 sm:p-6 z-[100] flex flex-col justify-between overflow-y-auto",
-                className
-              )}>
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="fixed top-0 left-0 bottom-0 w-[min(90vw,320px)] bg-neutral-950 p-4 pt-5 z-[100] shadow-2xl overflow-y-auto md:hidden"
+            >
               <div className="flex items-center justify-between mb-6">
-                <span className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Navigation</span>
+                <span className="text-lg font-semibold text-white">Navigation</span>
                 <button
                   className="p-2 rounded-md bg-neutral-900/80 text-white hover:bg-neutral-800 transition-colors"
                   onClick={() => setOpen(false)}
@@ -133,13 +146,13 @@ export const MobileSidebar = ({
                   <IconX />
                 </button>
               </div>
-              <div className="flex-1 overflow-y-auto">
+              <div className="flex flex-col gap-4">
                 {children}
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 };
@@ -161,7 +174,7 @@ export const SidebarLink = ({
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="text-neutral-700 dark:text-neutral-200 text-xl group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
+        className="text-white text-xl group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
         {link.label}
       </motion.span>
     </a>
