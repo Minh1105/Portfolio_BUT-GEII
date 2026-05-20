@@ -1120,7 +1120,7 @@ function App() {
 
   return (
     // Ajout du style pour le défilement fluide
-    <div ref={appRef} className="flex flex-col md:flex-row w-full min-h-screen overflow-auto md:overflow-hidden bg-neutral-900" style={{ scrollBehavior: "smooth" }}>
+    <div ref={appRef} className="flex flex-col md:flex-row w-full h-screen overflow-hidden bg-neutral-900" style={{ scrollBehavior: "smooth" }}>
       <Sidebar open={open} setOpen={setOpen}>
           <SidebarBody className="justify-between gap-4 md:gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto">
@@ -1415,7 +1415,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
   return (
     // On ajoute un fond en dégradé directement ici.
-    <div className="flex-1 min-h-screen relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800 overflow-auto md:overflow-hidden">
+    <div className="flex-1 h-full relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-800 overflow-hidden">
       
       {/* Bouton de changement de langue */}
       <div className="absolute top-4 right-4 z-50">
@@ -1439,10 +1439,10 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
       </div>
 
       {/* Le contenu du dashboard est par-dessus. La classe 'no-scrollbar' a été retirée. */}
-      <div className="w-full min-h-screen overflow-auto pt-16 md:pt-0">
+      <div className="w-full h-full overflow-auto pt-16 md:pt-0">
           {/* Section Accueil */}
           {activeTab === 'accueil' && (
-            <section id="accueil" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white flex flex-col justify-center items-center text-center">
+            <section id="accueil" className="w-full min-h-screen p-4 md:p-8 text-white flex flex-col justify-center items-center text-center">
               <div className="flex flex-col items-center gap-6 max-w-4xl mx-auto">
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }} 
@@ -1490,7 +1490,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
           {/* Section Expériences */}
           {activeTab === 'experiences' && (
-          <section id="experiences" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white pt-20 md:pt-5">
+          <section id="experiences" className="w-full min-h-screen p-4 md:p-8 text-white pt-20 md:pt-5">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">{translations.sections.experiences.title}</h2>
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mb-6 md:mb-8 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.experiences.desc}</p>
@@ -1509,8 +1509,17 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                         if (isModalOpen) return;
                         onProjectClick(item);
                       }}
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      whileHover={{ 
+                        scale: 1.02, 
+                        y: -5, 
+                        boxShadow: "0px 0px 15px rgba(59, 130, 246, 0.3)" // Léger glow bleu
+                      }}
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 300, 
+                        damping: 20,
+                        boxShadow: { duration: 0.2 } // Transition plus rapide pour le boxShadow
+                      }}
                     >
                       <img src={item.images[0]} alt={getText(item,'title',language)} className="w-full h-40 object-cover" />
                       <div className="p-4">
@@ -1539,8 +1548,17 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                         if (isModalOpen) return;
                         onProjectClick(item);
                       }}
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      whileHover={{ 
+                        scale: 1.02, 
+                        y: -5, 
+                        boxShadow: "0px 0px 15px rgba(59, 130, 246, 0.3)" // Léger glow bleu
+                      }}
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 300, 
+                        damping: 20,
+                        boxShadow: { duration: 0.2 } // Transition plus rapide pour le boxShadow
+                      }}
                     >
                       <img src={item.images[0]} alt={getText(item,'title',language)} className="w-full h-40 object-cover" />
                       <div className="p-4">
@@ -1560,7 +1578,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
           {/* Section Compétences */}
           {activeTab === 'competences' && (
-          <section id="competences" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white pt-20 md:pt-5">
+          <section id="competences" className="w-full min-h-screen p-4 md:p-8 text-white pt-20 md:pt-5">
             <h2 className="text-2xl md:text-3xl font-bold">{translations.sections.skills.title}</h2>
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 mb-8 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.skills.desc}</p>
@@ -1580,7 +1598,10 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                       if (isModalOpen) return;
                       onSkillClick(skill);
                     }}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ 
+                      scale: 1.02, 
+                      boxShadow: "0px 0px 15px rgba(59, 130, 246, 0.3)" // Léger glow bleu
+                    }}
                   >
                     <h4 className={`text-2xl font-bold ${colorClasses[skill.color].text}`}>{getText(skill,'name',language)}</h4>
                   </motion.div>
@@ -1609,7 +1630,10 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
                             if (isModalOpen) return;
                             onSkillClick(skill);
                           }}
-                          whileHover={{ scale: 1.02 }}
+                          whileHover={{ 
+                            scale: 1.02, 
+                            boxShadow: "0px 0px 15px rgba(59, 130, 246, 0.3)" // Léger glow bleu
+                          }}
                         >
                           <div className="flex justify-between items-start">
                             <h3 className="text-xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">{getText(skill,'name',language)}</h3>
@@ -1646,7 +1670,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
           {/* Section Centres d'intérêts */}
           {activeTab === 'interets' && (
-          <section id="interets" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white pt-20 md:pt-5">
+          <section id="interets" className="w-full min-h-screen p-4 md:p-8 text-white pt-20 md:pt-5">
             <h2 className="text-2xl md:text-3xl font-bold">{translations.sections.interests.title}</h2>
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 mb-8 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.interests.desc}</p>
@@ -1692,7 +1716,7 @@ const Dashboard = ({ projects, internship, onProjectClick, onSkillClick, isModal
 
           {/* Section Contacts */}
           {activeTab === 'contacts' && (
-          <section id="contacts" className="w-full min-h-screen overflow-auto p-4 md:p-8 text-white pt-20 md:pt-5">
+          <section id="contacts" className="w-full min-h-screen p-4 md:p-8 text-white pt-20 md:pt-5">
             <h2 className="text-2xl md:text-3xl font-bold">{translations.sections.contact.title}</h2>
             <div className="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 md:p-6 mt-4 max-w-3xl backdrop-blur-sm">
               <p className="text-sm md:text-base text-neutral-300">{translations.sections.contact.desc}</p>
